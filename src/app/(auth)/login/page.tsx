@@ -19,27 +19,27 @@ export default function LoginPage() {
         router.push('/dashboard');
         router.refresh();
       } else {
-        setError(result.error || 'خطایی رخ داد');
+        setError(result.error || 'اطلاعات ورود نامعتبر است');
       }
     });
   }
 
   return (
     <>
-      <div className="text-center mb-6">
-        <h1 className="text-xl font-bold text-text-primary">ورود به حساب</h1>
-        <p className="mt-2 text-sm text-text-secondary">به زروی خوش آمدید</p>
+      <div className="text-center mb-8">
+        <span className="text-xs tracking-brand text-text-muted block mb-2">خوش‌آمدید</span>
+        <h1 className="text-2xl font-semibold text-text-primary tracking-tight">ورود به حساب کاربری</h1>
       </div>
 
-      <form action={onSubmit} className="space-y-4">
+      <form action={onSubmit} className="space-y-5">
         {error && (
-          <div className="p-3 text-sm text-danger bg-danger-light rounded-lg text-center">
+          <div className="p-3.5 text-xs text-danger bg-danger-light border border-danger/20 text-center">
             {error}
           </div>
         )}
 
         <div>
-          <label className="block text-sm font-medium text-text-primary mb-1.5">
+          <label className="block text-xs tracking-brand text-text-muted mb-2">
             شماره موبایل
           </label>
           <input
@@ -48,19 +48,19 @@ export default function LoginPage() {
             dir="ltr"
             placeholder="09123456789"
             required
-            className="w-full rounded-lg border border-border bg-surface px-4 py-3 text-sm font-num placeholder:text-text-muted focus:border-gold-500 focus:ring-1 focus:ring-gold-500 outline-none transition-colors"
+            className="w-full border border-border bg-surface px-4 py-3 text-sm font-num placeholder:text-text-muted focus:border-text-primary outline-none transition-colors"
             maxLength={11}
           />
         </div>
 
         <div>
-          <div className="flex items-center justify-between mb-1.5">
-            <label className="block text-sm font-medium text-text-primary">
+          <div className="flex items-center justify-between mb-2">
+            <label className="block text-xs tracking-brand text-text-muted">
               رمز عبور
             </label>
             <Link
               href="/forgot-password"
-              className="text-xs text-gold-600 hover:text-gold-700"
+              className="text-xs text-text-secondary hover:text-text-primary transition-colors"
             >
               فراموشی رمز عبور
             </Link>
@@ -70,24 +70,27 @@ export default function LoginPage() {
             name="password"
             dir="ltr"
             required
-            placeholder="رمز عبور خود را وارد کنید"
-            className="w-full rounded-lg border border-border bg-surface px-4 py-3 text-sm placeholder:text-text-muted focus:border-gold-500 focus:ring-1 focus:ring-gold-500 outline-none transition-colors"
+            placeholder="••••••••"
+            className="w-full border border-border bg-surface px-4 py-3 text-sm placeholder:text-text-muted focus:border-text-primary outline-none transition-colors"
           />
         </div>
 
-        <Button
-          type="submit"
-          isLoading={isPending}
-          className="w-full"
-        >
-          ورود
-        </Button>
+        <div className="pt-2">
+          <Button
+            type="submit"
+            isLoading={isPending}
+            className="w-full"
+            size="lg"
+          >
+            ورود به حساب
+          </Button>
+        </div>
       </form>
 
-      <p className="mt-6 text-center text-sm text-text-secondary">
-        حساب ندارید؟{' '}
-        <Link href="/register" className="font-medium text-gold-600 hover:text-gold-700">
-          ثبت‌نام
+      <p className="mt-8 text-center text-xs text-text-secondary border-t border-border pt-6">
+        حساب کاربری ندارید؟{' '}
+        <Link href="/register" className="font-semibold text-text-primary hover:text-gold-600 transition-colors">
+          ثبت‌نام و افتتاح حساب
         </Link>
       </p>
     </>
