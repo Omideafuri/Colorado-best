@@ -54,7 +54,7 @@ export default function HomePage() {
               <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center lg:justify-start">
                 <Link
                   href="/register"
-                  className="inline-flex items-center justify-center rounded-lg bg-gold-500 px-8 py-3.5 text-base font-semibold text-white hover:bg-gold-600 transition-colors shadow-sm"
+                  className="inline-flex items-center justify-center rounded-lg bg-gold-500 px-8 py-3.5 text-base font-semibold text-surface-secondary hover:bg-gold-600 transition-colors shadow-sm"
                 >
                   شروع سرمایه‌گذاری
                 </Link>
@@ -120,7 +120,7 @@ export default function HomePage() {
 
                 <Link
                   href="/buy"
-                  className="block w-full text-center rounded-lg bg-gold-500 px-4 py-3 text-sm font-semibold text-white hover:bg-gold-600 transition-colors"
+                  className="block w-full text-center rounded-lg bg-gold-500 px-4 py-3 text-sm font-semibold text-surface-secondary hover:bg-gold-600 transition-colors"
                 >
                   همین الان طلا بخرید
                 </Link>
@@ -165,7 +165,7 @@ export default function HomePage() {
             ].map((item) => (
               <div key={item.step} className="card-surface p-6 text-center relative">
                 <div className="flex items-center justify-center mb-4">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gold-100 text-gold-700">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gold-500\/10 text-gold-500">
                     <item.icon className="h-6 w-6" />
                   </div>
                 </div>
@@ -227,7 +227,7 @@ export default function HomePage() {
               },
             ].map((feature) => (
               <div key={feature.title} className="flex gap-4 p-5 rounded-xl hover:bg-surface-secondary transition-colors">
-                <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-gold-100 text-gold-700">
+                <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-gold-500\/10 text-gold-500">
                   <feature.icon className="h-5 w-5" />
                 </div>
                 <div>
@@ -327,7 +327,7 @@ export default function HomePage() {
             </p>
             <Link
               href="/register"
-              className="inline-flex items-center justify-center rounded-lg bg-gold-500 px-8 py-3 text-sm font-semibold text-white hover:bg-gold-600 transition-colors"
+              className="inline-flex items-center justify-center rounded-lg bg-gold-500 px-8 py-3 text-sm font-semibold text-surface-secondary hover:bg-gold-600 transition-colors"
             >
               شروع پس‌انداز طلا
             </Link>
@@ -394,7 +394,7 @@ export default function HomePage() {
           </p>
           <Link
             href="/register"
-            className="inline-flex items-center justify-center rounded-lg bg-gold-500 px-10 py-4 text-base font-semibold text-white hover:bg-gold-600 transition-colors shadow-sm"
+            className="inline-flex items-center justify-center rounded-lg bg-gold-500 px-10 py-4 text-base font-semibold text-surface-secondary hover:bg-gold-600 transition-colors shadow-sm"
           >
             ساخت حساب رایگان
           </Link>

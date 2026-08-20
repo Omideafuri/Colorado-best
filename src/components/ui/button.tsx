@@ -40,9 +40,9 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     // Dot colors for the hover effect
     const dotColors = {
       primary: "bg-primary",
-      secondary: "bg-slate-700",
-      outline: "bg-slate-800",
-      ghost: "bg-slate-800",
+      secondary: "bg-surface-hover",
+      outline: "bg-surface-hover",
+      ghost: "bg-surface-hover",
       danger: "bg-danger",
       icon: "bg-primary",
     }[variant];
@@ -50,9 +50,9 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     // Inner text colors when hovered (since dot expands)
     const hoverTextColors = {
       primary: "text-primary-foreground",
-      secondary: "text-white",
-      outline: "text-white",
-      ghost: "text-white",
+      secondary: "text-text-primary",
+      outline: "text-text-primary",
+      ghost: "text-text-primary",
       danger: "text-white",
       icon: "text-white",
     }[variant];

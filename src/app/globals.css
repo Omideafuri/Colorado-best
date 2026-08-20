@@ -1,42 +1,42 @@
 @import "tailwindcss";
 
 @theme {
-  /* Brand Colors - Zaravi Gold */
-  --color-gold-50: #fdf8ed;
-  --color-gold-100: #f9edcc;
-  --color-gold-200: #f3d994;
-  --color-gold-300: #ecc05c;
-  --color-gold-400: #e6a832;
-  --color-gold-500: #d4911e;
-  --color-gold-600: #b87116;
-  --color-gold-700: #965316;
-  --color-gold-800: #7a4218;
-  --color-gold-900: #66371a;
-  --color-gold-950: #3b1b0a;
+  /* Brand Colors - Glowing Gold */
+  --color-gold-50: #fff9ed;
+  --color-gold-100: #fff2c4;
+  --color-gold-200: #ffe187;
+  --color-gold-300: #ffcc45;
+  --color-gold-400: #ffb815;
+  --color-gold-500: #eaaa00; /* Main Gold */
+  --color-gold-600: #cc8900;
+  --color-gold-700: #a56100;
+  --color-gold-800: #854b08;
+  --color-gold-900: #713e0f;
+  --color-gold-950: #422003;
 
-  /* Surface colors */
-  --color-surface: #ffffff;
-  --color-surface-secondary: #f8f7f5;
-  --color-surface-hover: #f3f2ef;
+  /* Surface colors (Deep Obsidian) */
+  --color-surface: #131720;
+  --color-surface-secondary: #0A0D14;
+  --color-surface-hover: #1E2433;
 
   /* Text */
-  --color-text-primary: #1a1a1a;
-  --color-text-secondary: #6b6b6b;
-  --color-text-muted: #9ca3af;
+  --color-text-primary: #F8FAFC;
+  --color-text-secondary: #94A3B8;
+  --color-text-muted: #475569;
 
   /* Semantic */
-  --color-success: #10b981;
-  --color-success-light: #d1fae5;
-  --color-danger: #f43f5e;
-  --color-danger-light: #ffe4e6;
-  --color-warning: #f59e0b;
-  --color-warning-light: #fef3c7;
-  --color-info: #0ea5e9;
-  --color-info-light: #e0f2fe;
+  --color-success: #10B981;
+  --color-success-light: rgba(16, 185, 129, 0.15);
+  --color-danger: #F43F5E;
+  --color-danger-light: rgba(244, 63, 94, 0.15);
+  --color-warning: #F59E0B;
+  --color-warning-light: rgba(245, 158, 11, 0.15);
+  --color-info: #38BDF8;
+  --color-info-light: rgba(56, 189, 248, 0.15);
 
   /* Border */
-  --color-border: #e5e5e5;
-  --color-border-light: #f0f0f0;
+  --color-border: rgba(255, 255, 255, 0.1);
+  --color-border-light: rgba(255, 255, 255, 0.05);
 
   /* Typography */
   --font-display: "Vazirmatn", system-ui, sans-serif;
@@ -44,15 +44,18 @@
   --font-mono: "Vazirmatn FD", ui-monospace, monospace;
 
   /* Radius */
-  --radius-sm: 6px;
-  --radius-md: 8px;
-  --radius-lg: 12px;
-  --radius-xl: 16px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
 
-  /* Shadows */
-  --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
-  --shadow-elevated: 0 4px 12px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.04);
-  --shadow-modal: 0 8px 30px rgba(0, 0, 0, 0.12), 0 4px 8px rgba(0, 0, 0, 0.06);
+  /* Shadows (Glows for dark mode) */
+  --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.4);
+  --shadow-elevated: 0 8px 32px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.05);
+  --shadow-modal: 0 20px 40px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255,255,255,0.1);
+  
+  /* Custom Gradients */
+  --backgroundImage-gold-gradient: linear-gradient(135deg, var(--color-gold-400), var(--color-gold-600));
 }
 
 /* === Base Styles === */
@@ -73,6 +76,9 @@
     background-color: var(--color-surface-secondary);
     color: var(--color-text-primary);
     line-height: 1.7;
+    background-image: 
+      radial-gradient(circle at 15% 50%, rgba(234, 170, 0, 0.03), transparent 25%),
+      radial-gradient(circle at 85% 30%, rgba(56, 189, 248, 0.03), transparent 25%);
   }
 
   /* Persian number styling for financial displays */
@@ -108,9 +114,16 @@
   /* Card surface */
   .card-surface {
     background-color: var(--color-surface);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     border: 1px solid var(--color-border-light);
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-card);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  .card-surface:hover {
+    box-shadow: var(--shadow-elevated);
   }
 
   /* Gold accent border */

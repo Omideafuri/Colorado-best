@@ -87,12 +87,12 @@ export default async function StorePage() {
           
           return (
             <div key={product.id} className="card-surface flex flex-col overflow-hidden">
-              <div className="aspect-video bg-gold-50 flex items-center justify-center border-b border-border p-6 relative">
-                <Coins className="h-16 w-16 text-gold-400 opacity-50" />
-                <span className="absolute top-3 right-3 bg-white text-xs font-bold text-gold-700 px-2 py-1 rounded-full shadow-sm">
+              <div className="aspect-video bg-gold-500/10 flex items-center justify-center border-b border-border p-6 relative">
+                <Coins className="h-16 w-16 text-gold-500 opacity-50" />
+                <span className="absolute top-3 right-3 bg-surface text-xs font-bold text-gold-500 px-2 py-1 rounded-full shadow-sm">
                   {toPersianDigits(weightGrams.toString())} گرم
                 </span>
-                <span className="absolute top-3 left-3 bg-white text-xs font-bold text-gray-700 px-2 py-1 rounded-full shadow-sm">
+                <span className="absolute top-3 left-3 bg-surface text-xs font-bold text-text-secondary px-2 py-1 rounded-full shadow-sm">
                   موجودی: {quantityAvailable > 0 ? toPersianDigits(quantityAvailable.toString()) : 'ناموجود'}
                 </span>
               </div>
