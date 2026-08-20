@@ -1,0 +1,630 @@
+datasource db {
+  provider = "postgresql"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// ---------------------------------------------------------
+// Enums
+// ---------------------------------------------------------
+
+enum Role {
+  USER
+  SUPPORT
+  FINANCE
+  ADMIN
+  SUPER_ADMIN
+}
+
+enum UserStatus {
+  ACTIVE
+  SUSPENDED
+  DEACTIVATED
+}
+
+enum KycStatus {
+  PENDING
+  UNDER_REVIEW
+  VERIFIED
+  REJECTED
+}
+
+enum WalletType {
+  CASH
+  GOLD
+}
+
+enum LedgerEntryType {
+  DEPOSIT
+  WITHDRAWAL
+  BUY_DEBIT
+  BUY_CREDIT
+  SELL_DEBIT
+  SELL_CREDIT
+  TRANSFER_IN
+  TRANSFER_OUT
+  FEE
+  DELIVERY_DEBIT
+  REFUND
+  ADJUSTMENT
+}
+
+enum LedgerDirection {
+  CREDIT
+  DEBIT
+}
+
+enum OrderType {
+  BUY
+  SELL
+}
+
+enum OrderStatus {
+  PENDING
+  PROCESSING
+  COMPLETED
+  FAILED
+  CANCELLED
+  REVERSED
+}
+
+enum InputMode {
+  BY_AMOUNT
+  BY_WEIGHT
+}
+
+enum TradeType {
+  BUY
+  SELL
+}
+
+enum TransactionStatus {
+  PENDING
+  PROCESSING
+  COMPLETED
+  FAILED
+  CANCELLED
+}
+
+enum GoldTransferStatus {
+  PENDING
+  COMPLETED
+  FAILED
+  CANCELLED
+}
+
+enum TransferMethod {
+  MOBILE
+  USER_ID
+  QR_CODE
+}
+
+enum SavingsPlanFrequency {
+  DAILY
+  WEEKLY
+  MONTHLY
+}
+
+enum SavingsPlanStatus {
+  ACTIVE
+  PAUSED
+  COMPLETED
+  CANCELLED
+}
+
+enum AlertConditionType {
+  ABOVE
+  BELOW
+  PCT_CHANGE
+}
+
+enum ProductCategory {
+  BAR
+  COIN
+  PLAQUE
+  JEWELRY
+}
+
+enum DeliveryStatus {
+  REQUESTED
+  VERIFIED
+  PROCESSING
+  PACKAGED
+  SHIPPED
+  DELIVERED
+  CANCELLED
+}
+
+enum OtpPurpose {
+  LOGIN
+  REGISTER
+  VERIFY
+  RESET
+}
+
+enum NotificationType {
+  TRADE
+  DEPOSIT
+  WITHDRAWAL
+  ALERT
+  SYSTEM
+  KYC
+}
+
+enum NotificationChannel {
+  IN_APP
+  SMS
+  EMAIL
+  PUSH
+}
+
+// ---------------------------------------------------------
+// Models
+// ---------------------------------------------------------
+
+model User {
+  id                      String           @id @default(cuid())
+  mobile                  String           @unique
+  email                   String?          @unique
+  passwordHash            String
+  role                    Role             @default(USER)
+  status                  UserStatus       @default(ACTIVE)
+  mobileVerified          Boolean          @default(false)
+  emailVerified           Boolean          @default(false)
+  createdAt               DateTime         @default(now())
+  updatedAt               DateTime         @updatedAt
+
+  // Relations
+  profile                 Profile?
+  kycApplications         KycApplication[] @relation("UserKycApplications")
+  reviewedKycApplications KycApplication[] @relation("KycReviewedBy")
+  bankAccounts            BankAccount[]
+  cashWallet              CashWallet?
+  goldWallet              GoldWallet?
+  ledgerEntries           LedgerEntry[]
+  orders                  Order[]
+  trades                  Trade[]
+  deposits                Deposit[]
+  withdrawals             Withdrawal[]
+  approvedWithdrawals     Withdrawal[]     @relation("WithdrawalApprovedBy")
+  sentTransfers           GoldTransfer[]   @relation("SentGoldTransfers")
+  receivedTransfers       GoldTransfer[]   @relation("ReceivedGoldTransfers")
+  savingsPlans            SavingsPlan[]
+  priceAlerts             PriceAlert[]
+  deliveryOrders          DeliveryOrder[]
+  sessions                Session[]
+  notifications           Notification[]
+  auditLogs               AuditLog[]
+  priceConfigsUpdated     PriceConfig[]    @relation("PriceConfigUpdatedBy")
+
+  @@index([mobile])
+  @@index([email])
+  @@index([role])
+  @@index([status])
+}
+
+model Profile {
+  id          String    @id @default(cuid())
+  userId      String    @unique
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  firstName   String?
+  lastName    String?
+  nationalId  String?   @unique
+  dateOfBirth DateTime?
+  address     String?
+  city        String?
+  province    String?
+  postalCode  String?
+  avatarUrl   String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@index([nationalId])
+}
+
+model KycApplication {
+  id                 String     @id @default(cuid())
+  userId             String
+  user               User       @relation("UserKycApplications", fields: [userId], references: [id], onDelete: Cascade)
+  status             KycStatus  @default(PENDING)
+  nationalIdFrontUrl String?
+  nationalIdBackUrl  String?
+  selfieUrl          String?
+  rejectionReason    String?
+  reviewedById       String?
+  reviewedBy         User?      @relation("KycReviewedBy", fields: [reviewedById], references: [id], onDelete: SetNull)
+  reviewedAt         DateTime?
+  submittedAt        DateTime   @default(now())
+  createdAt          DateTime   @default(now())
+  updatedAt          DateTime   @updatedAt
+
+  @@index([userId])
+  @@index([status])
+  @@index([reviewedById])
+}
+
+model BankAccount {
+  id            String       @id @default(cuid())
+  userId        String
+  user          User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  bankName      String
+  accountNumber String?
+  cardNumber    String?
+  sheba         String
+  isVerified    Boolean      @default(false)
+  isPrimary     Boolean      @default(false)
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+
+  deposits      Deposit[]
+  withdrawals   Withdrawal[]
+
+  @@index([userId])
+  @@index([sheba])
+  @@index([cardNumber])
+}
+
+model CashWallet {
+  id          String   @id @default(cuid())
+  userId      String   @unique
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  balanceRial BigInt   @default(0)
+  version     Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([userId])
+}
+
+model GoldWallet {
+  id        String   @id @default(cuid())
+  userId    String   @unique
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  balanceNg BigInt   @default(0)
+  version   Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+}
+
+model LedgerEntry {
+  id             String          @id @default(cuid())
+  userId         String
+  user           User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  walletType     WalletType
+  entryType      LedgerEntryType
+  amount         BigInt
+  direction      LedgerDirection
+  balanceAfter   BigInt
+  referenceType  String
+  referenceId    String
+  description    String?
+  metadata       Json?
+  idempotencyKey String?         @unique
+  createdAt      DateTime        @default(now())
+
+  @@index([userId])
+  @@index([walletType])
+  @@index([entryType])
+  @@index([referenceType, referenceId])
+  @@index([createdAt])
+}
+
+model PriceSnapshot {
+  id                 String   @id @default(cuid())
+  goldType           String   @default("18K")
+  referencePriceRial BigInt
+  buyPriceRial       BigInt
+  sellPriceRial      BigInt
+  buySpreadBp        Int
+  sellSpreadBp       Int
+  source             String   @default("MOCK")
+  isMarketOpen       Boolean  @default(true)
+  capturedAt         DateTime @default(now())
+
+  orders             Order[]
+
+  @@index([goldType])
+  @@index([capturedAt])
+}
+
+model PriceConfig {
+  id           String   @id @default(cuid())
+  goldType     String   @default("18K")
+  buySpreadBp  Int      @default(150)
+  sellSpreadBp Int      @default(150)
+  feeBp        Int      @default(50)
+  minBuyRial   BigInt
+  maxBuyRial   BigInt
+  minSellNg    BigInt
+  isActive     Boolean  @default(true)
+  updatedById  String?
+  updatedBy    User?    @relation("PriceConfigUpdatedBy", fields: [updatedById], references: [id], onDelete: SetNull)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([goldType])
+  @@index([isActive])
+  @@index([updatedById])
+}
+
+model Order {
+  id                 String        @id @default(cuid())
+  userId             String
+  user               User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  orderType          OrderType
+  status             OrderStatus   @default(PENDING)
+  goldType           String        @default("18K")
+  inputMode          InputMode
+  requestedAmountRial BigInt?
+  requestedWeightNg  BigInt?
+  executedAmountRial BigInt?
+  executedWeightNg   BigInt?
+  pricePerGramRial   BigInt
+  feeRial            BigInt        @default(0)
+  priceSnapshotId    String
+  priceSnapshot      PriceSnapshot @relation(fields: [priceSnapshotId], references: [id], onDelete: Restrict)
+  priceLockedAt      DateTime
+  priceExpiresAt     DateTime
+  idempotencyKey     String?       @unique
+  executedAt         DateTime?
+  createdAt          DateTime      @default(now())
+  updatedAt          DateTime      @updatedAt
+
+  trade              Trade?
+
+  @@index([userId])
+  @@index([status])
+  @@index([orderType])
+  @@index([priceSnapshotId])
+  @@index([createdAt])
+}
+
+model Trade {
+  id               String    @id @default(cuid())
+  orderId          String    @unique
+  order            Order     @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  userId           String
+  user             User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tradeType        TradeType
+  goldType         String    @default("18K")
+  weightNg         BigInt
+  pricePerGramRial BigInt
+  totalRial        BigInt
+  feeRial          BigInt
+  netRial          BigInt
+  executedAt       DateTime  @default(now())
+
+  @@index([userId])
+  @@index([orderId])
+  @@index([tradeType])
+  @@index([executedAt])
+}
+
+model Deposit {
+  id             String            @id @default(cuid())
+  userId         String
+  user           User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  amountRial     BigInt
+  status         TransactionStatus @default(PENDING)
+  paymentMethod  String            @default("BANK_TRANSFER")
+  paymentRef     String?
+  bankAccountId  String?
+  bankAccount    BankAccount?      @relation(fields: [bankAccountId], references: [id], onDelete: SetNull)
+  idempotencyKey String?           @unique
+  completedAt    DateTime?
+  createdAt      DateTime          @default(now())
+  updatedAt      DateTime          @updatedAt
+
+  @@index([userId])
+  @@index([status])
+  @@index([bankAccountId])
+  @@index([createdAt])
+}
+
+model Withdrawal {
+  id             String            @id @default(cuid())
+  userId         String
+  user           User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  amountRial     BigInt
+  status         TransactionStatus @default(PENDING)
+  bankAccountId  String
+  bankAccount    BankAccount       @relation(fields: [bankAccountId], references: [id], onDelete: Restrict)
+  paymentRef     String?
+  approvedById   String?
+  approvedBy     User?             @relation("WithdrawalApprovedBy", fields: [approvedById], references: [id], onDelete: SetNull)
+  idempotencyKey String?           @unique
+  completedAt    DateTime?
+  createdAt      DateTime          @default(now())
+  updatedAt      DateTime          @updatedAt
+
+  @@index([userId])
+  @@index([status])
+  @@index([bankAccountId])
+  @@index([approvedById])
+  @@index([createdAt])
+}
+
+model GoldTransfer {
+  id             String             @id @default(cuid())
+  senderId       String
+  sender         User               @relation("SentGoldTransfers", fields: [senderId], references: [id], onDelete: Cascade)
+  receiverId     String
+  receiver       User               @relation("ReceivedGoldTransfers", fields: [receiverId], references: [id], onDelete: Cascade)
+  weightNg       BigInt
+  status         GoldTransferStatus @default(PENDING)
+  transferMethod TransferMethod
+  feeRial        BigInt             @default(0)
+  idempotencyKey String?            @unique
+  completedAt    DateTime?
+  createdAt      DateTime           @default(now())
+
+  @@index([senderId])
+  @@index([receiverId])
+  @@index([status])
+  @@index([createdAt])
+}
+
+model SavingsPlan {
+  id            String               @id @default(cuid())
+  userId        String
+  user          User                 @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name          String
+  frequency     SavingsPlanFrequency
+  amountRial    BigInt
+  maxBudgetRial BigInt?
+  totalSpentRial BigInt              @default(0)
+  status        SavingsPlanStatus    @default(ACTIVE)
+  startDate     DateTime             @default(now())
+  endDate       DateTime?
+  nextExecution DateTime
+  lastExecuted  DateTime?
+  createdAt     DateTime             @default(now())
+  updatedAt     DateTime             @updatedAt
+
+  @@index([userId])
+  @@index([status])
+  @@index([nextExecution])
+}
+
+model PriceAlert {
+  id              String             @id @default(cuid())
+  userId          String
+  user            User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  goldType        String             @default("18K")
+  conditionType   AlertConditionType
+  targetPriceRial BigInt?
+  targetPct       Float?
+  isTriggered     Boolean            @default(false)
+  isActive        Boolean            @default(true)
+  triggeredAt     DateTime?
+  createdAt       DateTime           @default(now())
+  updatedAt       DateTime           @updatedAt
+
+  @@index([userId])
+  @@index([isActive, isTriggered])
+  @@index([goldType])
+}
+
+model Product {
+  id               String          @id @default(cuid())
+  sku              String          @unique @default(cuid())
+  nameFa           String
+  nameEn           String?
+  descriptionFa    String?
+  category         ProductCategory
+  goldType         String          @default("18K")
+  weightNg         BigInt
+  premiumBp        Int             @default(0)
+  makingChargeRial BigInt          @default(0)
+  imageUrl         String?
+  isAvailable      Boolean         @default(true)
+  quantityAvailable Int            @default(0)
+  quantityReserved  Int            @default(0)
+  createdAt        DateTime        @default(now())
+  updatedAt        DateTime        @updatedAt
+
+  deliveryOrders DeliveryOrder[]
+
+  @@index([category])
+  @@index([isAvailable])
+  @@index([sku])
+}
+
+model DeliveryOrder {
+  id              String         @id @default(cuid())
+  userId          String
+  user            User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  productId       String?
+  product         Product?       @relation(fields: [productId], references: [id], onDelete: SetNull)
+  weightNg        BigInt
+  status          DeliveryStatus @default(REQUESTED)
+  deliveryAddress String
+  city            String
+  province        String
+  postalCode      String
+  recipientName   String
+  recipientMobile String
+  shippingFeeRial BigInt         @default(0)
+  insuranceFeeRial BigInt        @default(0)
+  idempotencyKey  String?        @unique
+  trackingCode    String?
+  shippedAt       DateTime?
+  deliveredAt     DateTime?
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+
+  @@index([userId])
+  @@index([productId])
+  @@index([status])
+  @@index([createdAt])
+}
+
+model Session {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tokenHash String   @unique
+  ipAddress String?
+  userAgent String?
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+  @@index([tokenHash])
+  @@index([expiresAt])
+}
+
+model OtpCode {
+  id          String     @id @default(cuid())
+  mobile      String
+  codeHash    String
+  purpose     OtpPurpose
+  attempts    Int        @default(0)
+  maxAttempts Int        @default(3)
+  expiresAt   DateTime
+  usedAt      DateTime?
+  createdAt   DateTime   @default(now())
+
+  @@index([mobile, purpose])
+  @@index([expiresAt])
+}
+
+model Notification {
+  id        String              @id @default(cuid())
+  userId    String
+  user      User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+  type      NotificationType
+  titleFa   String
+  bodyFa    String
+  channel   NotificationChannel @default(IN_APP)
+  isRead    Boolean             @default(false)
+  metadata  Json?
+  createdAt DateTime            @default(now())
+
+  @@index([userId])
+  @@index([userId, isRead])
+  @@index([createdAt])
+}
+
+model AuditLog {
+  id         String   @id @default(cuid())
+  actorId    String?
+  actor      User?    @relation(fields: [actorId], references: [id], onDelete: SetNull)
+  actorRole  String?
+  action     String
+  targetType String
+  targetId   String?
+  ipAddress  String?
+  userAgent  String?
+  metadata   Json?
+  createdAt  DateTime @default(now())
+
+  @@index([actorId])
+  @@index([action])
+  @@index([targetType, targetId])
+  @@index([createdAt])
+}
