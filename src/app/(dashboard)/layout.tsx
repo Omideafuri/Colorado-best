@@ -9,8 +9,8 @@ export default function DashboardLayout({
   return (
     <div className="min-h-screen bg-surface-secondary">
       <DashboardSidebar />
-      <main className="md:mr-64 pb-20 md:pb-0">
-        <div className="mx-auto max-w-6xl px-4 py-6 sm:px-6 lg:px-8">
+      <main className="md:mr-60 pb-20 md:pb-0">
+        <div className="mx-auto max-w-6xl px-6 py-8 md:px-10 md:py-12">
           {children}
         </div>
       </main>

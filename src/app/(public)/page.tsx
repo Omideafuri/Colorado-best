@@ -1,405 +1,310 @@
 import Link from 'next/link';
 import type { Metadata } from 'next';
-import {
-  Shield,
-  TrendingUp,
-  Wallet,
-  ArrowLeftRight,
-  Clock,
-  Lock,
-  Smartphone,
-  BarChart3,
-  ChevronDown,
-  Package,
-  Zap,
-  BadgeCheck,
-} from 'lucide-react';
 import { toPersianDigits, formatNumber } from '@/lib/utils/format';
+import { Button } from '@/components/ui/button';
 
 export const metadata: Metadata = {
-  title: 'زروی — خرید و فروش طلای دیجیتال',
-  description:
-    'با زروی طلا بخرید، نگه دارید و سرمایه‌تان را رشد دهید. پلتفرم امن خرید و فروش طلای دیجیتال.',
+  title: 'زروی — طلا، جواهر، اشیاء',
+  description: 'پلتفرم مدرن خرید، فروش و مدیریت طلای فیزیکی.',
 };
 
-// Mock price data — in production this comes from the pricing API
 const mockPrice = {
-  referenceToman: 3_500_000,
-  buyToman: 3_552_500,
-  sellToman: 3_447_500,
-  changeToman: 25_000,
-  changePct: 0.72,
+  referenceToman: 3500000,
+  buyToman: 3552500,
+  sellToman: 3447500,
+  changePercent: 0.72,
 };
 
 export default function HomePage() {
   return (
-    <>
-      {/* ===== HERO ===== */}
-      <section className="relative overflow-hidden bg-surface">
-        <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-24 lg:px-8 lg:py-28">
-          <div className="grid gap-12 lg:grid-cols-2 lg:gap-16 items-center">
-            {/* Text */}
-            <div className="text-center lg:text-right">
-              <h1 className="text-3xl font-extrabold leading-tight tracking-tight text-text-primary sm:text-4xl lg:text-5xl text-balance">
-                طلا را ساده بخرید.
-                <br />
-                <span className="text-gold-600">امن نگه دارید.</span>
-                <br />
-                سرمایه‌تان را رشد دهید.
-              </h1>
-              <p className="mt-6 text-base sm:text-lg text-text-secondary leading-relaxed max-w-xl mx-auto lg:mx-0">
-                با زروی، از هر مبلغی طلا بخرید و سرمایه‌گذاری مطمئنی داشته
-                باشید. بدون نیاز به مراجعه حضوری، بدون دغدغه نگهداری.
-              </p>
-              <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center lg:justify-start">
-                <Link
-                  href="/register"
-                  className="inline-flex items-center justify-center rounded-lg bg-gold-500 px-8 py-3.5 text-base font-semibold text-surface-secondary hover:bg-gold-600 transition-colors shadow-sm"
-                >
+    <div className="flex flex-col min-h-screen selection:bg-gold-200">
+
+      {/* ━━━ 01. CINEMATIC HERO ━━━ */}
+      <section className="relative min-h-screen flex flex-col justify-end bg-surface-dark text-white overflow-hidden">
+        {/* Abstract gold visual composition */}
+        <div className="absolute inset-0">
+          <div className="absolute inset-0 bg-gradient-to-b from-surface-dark via-surface-dark/95 to-surface-dark" />
+          <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gold-500/8 rounded-full blur-[120px]" />
+          <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-gold-700/6 rounded-full blur-[100px]" />
+        </div>
+
+        <div className="relative z-10 mx-auto max-w-[1400px] w-full px-6 md:px-10 pb-16 md:pb-24">
+          {/* Top — Brand Mark */}
+          <div className="absolute top-32 left-1/2 -translate-x-1/2 flex flex-col items-center">
+            <span className="diamond-motif !w-3 !h-3 !bg-gold-500 mb-6" />
+            <span className="text-xs tracking-brand text-text-muted">جواهر · طلا · اشیاء</span>
+          </div>
+
+          {/* Headline */}
+          <div className="pt-[50vh] md:pt-[45vh]">
+            <h1 className="text-[clamp(2.5rem,8vw,7rem)] font-bold text-white leading-[0.95] tracking-tight mb-8">
+              طلا فقط<br />
+              پوشیده نمی‌شود.<br />
+              <span className="text-gold-400">به یاد سپرده</span><br />
+              می‌شود.
+            </h1>
+
+            <div className="flex flex-col sm:flex-row items-start gap-4 mt-12">
+              <Link href="/register">
+                <Button variant="secondary" size="lg" className="border-white/20 text-white hover:bg-white hover:text-surface-dark hover:border-white">
                   شروع سرمایه‌گذاری
-                </Link>
-                <Link
-                  href="/prices"
-                  className="inline-flex items-center justify-center rounded-lg border border-border px-8 py-3.5 text-base font-medium text-text-primary hover:bg-surface-hover transition-colors"
-                >
-                  مشاهده قیمت طلا
-                </Link>
-              </div>
-            </div>
-
-            {/* Live Price Card */}
-            <div className="flex justify-center lg:justify-start">
-              <div className="w-full max-w-sm card-surface p-6 sm:p-7">
-                <div className="flex items-center justify-between mb-5">
-                  <div className="flex items-center gap-2">
-                    <div className="h-2.5 w-2.5 rounded-full bg-gold-500" />
-                    <span className="text-sm font-semibold">
-                      قیمت لحظه‌ای طلای ۱۸ عیار
-                    </span>
-                  </div>
-                  <span className="text-xs text-success font-medium bg-success-light px-2 py-0.5 rounded-full">
-                    بازار باز
-                  </span>
-                </div>
-
-                <p className="text-3xl font-bold font-num text-text-primary mb-1">
-                  {formatNumber(mockPrice.referenceToman)}
-                  <span className="text-sm font-normal text-text-muted mr-1">
-                    تومان/گرم
-                  </span>
-                </p>
-
-                <div
-                  className={`flex items-center gap-1 text-sm font-medium mb-6 ${
-                    mockPrice.changeToman >= 0 ? 'text-success' : 'text-danger'
-                  }`}
-                >
-                  <TrendingUp className="h-4 w-4" />
-                  <span className="font-num">
-                    +{formatNumber(mockPrice.changeToman)}
-                  </span>
-                  <span className="font-num text-xs">
-                    (+{toPersianDigits(mockPrice.changePct.toFixed(2))}٪)
-                  </span>
-                </div>
-
-                <div className="grid grid-cols-2 gap-3 mb-5">
-                  <div className="rounded-lg bg-success-light/40 p-3">
-                    <p className="text-xs text-text-muted mb-1">خرید زروی</p>
-                    <p className="text-sm font-bold font-num text-success">
-                      {formatNumber(mockPrice.buyToman)}
-                    </p>
-                  </div>
-                  <div className="rounded-lg bg-danger-light/40 p-3">
-                    <p className="text-xs text-text-muted mb-1">فروش زروی</p>
-                    <p className="text-sm font-bold font-num text-danger">
-                      {formatNumber(mockPrice.sellToman)}
-                    </p>
-                  </div>
-                </div>
-
-                <Link
-                  href="/buy"
-                  className="block w-full text-center rounded-lg bg-gold-500 px-4 py-3 text-sm font-semibold text-surface-secondary hover:bg-gold-600 transition-colors"
-                >
-                  همین الان طلا بخرید
-                </Link>
-              </div>
+                </Button>
+              </Link>
+              <Link href="/about">
+                <Button variant="ghost" size="lg" className="text-text-muted hover:text-white hover:bg-transparent">
+                  کاوش در زروی
+                </Button>
+              </Link>
             </div>
           </div>
         </div>
+
+        {/* Scroll indicator */}
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-text-muted animate-reveal-fade" style={{ animationDelay: '1.5s' }}>
+          <div className="w-px h-10 bg-gradient-to-b from-transparent to-gold-500/40" />
+        </div>
       </section>
 
-      {/* ===== HOW IT WORKS ===== */}
-      <section className="bg-surface-secondary py-16 sm:py-20">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-2xl font-bold text-text-primary sm:text-3xl">
-              سرمایه‌گذاری طلا در سه قدم
+      {/* ━━━ 02. BRAND STATEMENT ━━━ */}
+      <section className="section-editorial px-6 md:px-10 bg-surface-secondary">
+        <div className="max-w-[1400px] mx-auto">
+          <div className="flex items-center gap-4 mb-12">
+            <span className="diamond-motif" />
+            <span className="text-xs tracking-brand text-text-muted">درباره زروی</span>
+          </div>
+
+          <div className="max-w-4xl">
+            <h2 className="text-[clamp(1.8rem,4vw,3.5rem)] font-semibold text-text-primary leading-[1.3] tracking-tight">
+              زروی یک پلتفرم مدیریت ثروت مبتنی بر طلای فیزیکی است.
+              ما به شما اجازه می‌دهیم طلا را به شکل دیجیتال بخرید،
+              نگهداری کنید و هر زمان اراده کردید به صورت فیزیکی تحویل بگیرید.
             </h2>
-            <p className="mt-3 text-text-secondary">
-              با زروی، خرید طلا ساده‌تر از همیشه است
-            </p>
           </div>
 
-          <div className="grid gap-8 sm:grid-cols-3">
-            {[
-              {
-                step: '۱',
-                icon: Smartphone,
-                title: 'ثبت‌نام و احراز هویت',
-                desc: 'با شماره موبایل ثبت‌نام کنید و هویت خود را تأیید کنید.',
-              },
-              {
-                step: '۲',
-                icon: Wallet,
-                title: 'شارژ کیف پول',
-                desc: 'کیف پول خود را از طریق درگاه بانکی شارژ کنید.',
-              },
-              {
-                step: '۳',
-                icon: TrendingUp,
-                title: 'خرید طلا',
-                desc: 'با هر مبلغی طلا بخرید و به صورت لحظه‌ای مالک شوید.',
-              },
-            ].map((item) => (
-              <div key={item.step} className="card-surface p-6 text-center relative">
-                <div className="flex items-center justify-center mb-4">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gold-500\/10 text-gold-500">
-                    <item.icon className="h-6 w-6" />
-                  </div>
-                </div>
-                <h3 className="text-base font-semibold text-text-primary mb-2">
-                  {item.title}
-                </h3>
-                <p className="text-sm text-text-secondary leading-relaxed">
-                  {item.desc}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ===== FEATURES ===== */}
-      <section className="bg-surface py-16 sm:py-20">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-2xl font-bold text-text-primary sm:text-3xl">
-              چرا زروی؟
-            </h2>
-            <p className="mt-3 text-text-secondary max-w-2xl mx-auto">
-              زروی یک پلتفرم مالی حرفه‌ای است، نه یک فروشگاه آنلاین معمولی
-            </p>
-          </div>
-
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {[
-              {
-                icon: Shield,
-                title: 'امنیت سرمایه',
-                desc: 'تمام تراکنش‌ها رمزنگاری شده و سیستم دفتر کل تضمین‌کننده دارایی شماست.',
-              },
-              {
-                icon: Zap,
-                title: 'معامله سریع',
-                desc: 'خرید و فروش طلا در کسری از ثانیه با قیمت لحظه‌ای بازار.',
-              },
-              {
-                icon: BarChart3,
-                title: 'پس‌انداز هوشمند',
-                desc: 'با خرید خودکار طلا به صورت روزانه، هفتگی یا ماهانه پس‌انداز کنید.',
-              },
-              {
-                icon: ArrowLeftRight,
-                title: 'انتقال آسان',
-                desc: 'طلای خود را به دوستان و آشنایان با شماره موبایل منتقل کنید.',
-              },
-              {
-                icon: Package,
-                title: 'تحویل فیزیکی',
-                desc: 'هر زمان خواستید طلای خود را به صورت فیزیکی تحویل بگیرید.',
-              },
-              {
-                icon: BadgeCheck,
-                title: 'قیمت‌گذاری شفاف',
-                desc: 'اسپرد و کارمزد مشخص. بدون هزینه پنهان.',
-              },
-            ].map((feature) => (
-              <div key={feature.title} className="flex gap-4 p-5 rounded-xl hover:bg-surface-secondary transition-colors">
-                <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-gold-500\/10 text-gold-500">
-                  <feature.icon className="h-5 w-5" />
-                </div>
-                <div>
-                  <h3 className="text-sm font-semibold text-text-primary mb-1">
-                    {feature.title}
-                  </h3>
-                  <p className="text-sm text-text-secondary leading-relaxed">
-                    {feature.desc}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ===== TRUST / SECURITY ===== */}
-      <section className="bg-surface-secondary py-16 sm:py-20">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid gap-12 lg:grid-cols-2 items-center">
-            <div>
-              <h2 className="text-2xl font-bold text-text-primary sm:text-3xl mb-6">
-                سرمایه شما در امان است
-              </h2>
-              <div className="space-y-5">
-                {[
-                  {
-                    icon: Lock,
-                    title: 'پشتوانه طلا',
-                    desc: 'تمام طلای دیجیتال شما دارای پشتوانه فیزیکی واقعی است.',
-                    
-                  },
-                  {
-                    icon: Shield,
-                    title: 'رمزنگاری پیشرفته',
-                    desc: 'ارتباطات و داده‌های شما با استانداردهای امنیتی سطح بالا محافظت می‌شوند.',
-                  },
-                  {
-                    icon: BarChart3,
-                    title: 'دفتر کل تغییرناپذیر',
-                    desc: 'هر تراکنش در دفتر کل مالی ثبت شده و قابل ردیابی است.',
-                  },
-                  {
-                    icon: Clock,
-                    title: 'دسترسی همیشگی',
-                    desc: 'به موجودی طلای خود در هر لحظه از شبانه‌روز دسترسی دارید.',
-                  },
-                ].map((item) => (
-                  <div key={item.title} className="flex gap-4">
-                    <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-surface text-gold-600 border border-border-light">
-                      <item.icon className="h-5 w-5" />
-                    </div>
-                    <div>
-                      <h3 className="text-sm font-semibold text-text-primary mb-0.5">
-                        {item.title}
-                        
-                      </h3>
-                      <p className="text-sm text-text-secondary">{item.desc}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Stats */}
-            <div className="grid grid-cols-2 gap-4">
-              {[
-                { label: 'کاربران فعال', value: '—', note: 'به‌زودی' },
-                { label: 'طلای نگهداری شده', value: '—', note: 'به‌زودی' },
-                { label: 'تراکنش موفق', value: '—', note: 'به‌زودی' },
-                { label: 'رضایت کاربران', value: '—', note: 'به‌زودی' },
-              ].map((stat) => (
-                <div key={stat.label} className="card-surface p-5 text-center">
-                  <p className="text-2xl font-bold font-num text-gold-600 mb-1">
-                    {stat.value}
-                  </p>
-                  <p className="text-xs text-text-secondary">{stat.label}</p>
-                  <p className="text-[10px] text-text-muted mt-1">{stat.note}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ===== SAVINGS CTA ===== */}
-      <section className="bg-surface py-16 sm:py-20">
-        <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 text-center">
-          <div className="card-surface p-8 sm:p-12 border-gold-200">
-            <BarChart3 className="h-10 w-10 text-gold-500 mx-auto mb-4" />
-            <h2 className="text-2xl font-bold text-text-primary sm:text-3xl mb-3">
-              پس‌انداز هوشمند زروی
-            </h2>
-            <p className="text-text-secondary max-w-xl mx-auto mb-6">
-              با تعیین مبلغ و بازه زمانی دلخواه، به صورت خودکار طلا بخرید و
-              بدون فکر کردن به نوسانات بازار، سرمایه‌تان را رشد دهید.
-            </p>
-            <Link
-              href="/register"
-              className="inline-flex items-center justify-center rounded-lg bg-gold-500 px-8 py-3 text-sm font-semibold text-surface-secondary hover:bg-gold-600 transition-colors"
-            >
-              شروع پس‌انداز طلا
+          <div className="mt-16">
+            <Link href="/about">
+              <Button variant="outline">بیشتر بدانید</Button>
             </Link>
           </div>
         </div>
       </section>
 
-      {/* ===== FAQ ===== */}
-      <section className="bg-surface-secondary py-16 sm:py-20">
-        <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-          <h2 className="text-2xl font-bold text-text-primary text-center mb-10 sm:text-3xl">
-            سوالات متداول
-          </h2>
+      {/* ━━━ 03. FEATURED PIECES — Editorial Layout ━━━ */}
+      <section className="section-editorial px-6 md:px-10">
+        <div className="max-w-[1400px] mx-auto">
+          <div className="flex items-center gap-4 mb-16">
+            <span className="diamond-motif" />
+            <span className="text-xs tracking-brand text-text-muted">خدمات اصلی</span>
+          </div>
 
-          <div className="space-y-3">
+          <div className="grid md:grid-cols-2 gap-px bg-border">
+            {/* Buy Gold */}
+            <Link href="/buy" className="group bg-surface-secondary p-10 md:p-16 flex flex-col justify-between min-h-[500px] hover:bg-surface transition-colors duration-700">
+              <div>
+                <span className="text-xs tracking-brand text-text-muted block mb-4">۰۱</span>
+                <h3 className="text-3xl md:text-4xl font-semibold text-text-primary tracking-tight">خرید طلا</h3>
+              </div>
+              <p className="text-text-secondary max-w-sm leading-relaxed mt-auto">
+                خرید آنی طلای ۱۸ عیار با پشتوانه فیزیکی. با کمترین اسپرد در بازار ایران و قیمت‌گذاری شفاف و لحظه‌ای.
+              </p>
+            </Link>
+
+            {/* Sell Gold */}
+            <Link href="/sell" className="group bg-surface-secondary p-10 md:p-16 flex flex-col justify-between min-h-[500px] hover:bg-surface transition-colors duration-700">
+              <div>
+                <span className="text-xs tracking-brand text-text-muted block mb-4">۰۲</span>
+                <h3 className="text-3xl md:text-4xl font-semibold text-text-primary tracking-tight">فروش طلا</h3>
+              </div>
+              <p className="text-text-secondary max-w-sm leading-relaxed mt-auto">
+                فروش فوری موجودی طلای دیجیتال و واریز وجه به حساب بانکی شما. بدون تأخیر و بدون کارمزد مخفی.
+              </p>
+            </Link>
+
+            {/* Save */}
+            <Link href="/savings" className="group bg-surface-secondary p-10 md:p-16 flex flex-col justify-between min-h-[500px] hover:bg-surface transition-colors duration-700">
+              <div>
+                <span className="text-xs tracking-brand text-text-muted block mb-4">۰۳</span>
+                <h3 className="text-3xl md:text-4xl font-semibold text-text-primary tracking-tight">پس‌انداز خودکار</h3>
+              </div>
+              <p className="text-text-secondary max-w-sm leading-relaxed mt-auto">
+                برنامه خرید خودکار طلا. روزانه، هفتگی یا ماهانه مقدار دلخواه طلا بخرید و ثروت خود را تدریجی بسازید.
+              </p>
+            </Link>
+
+            {/* Deliver */}
+            <Link href="/delivery" className="group bg-surface-secondary p-10 md:p-16 flex flex-col justify-between min-h-[500px] hover:bg-surface transition-colors duration-700">
+              <div>
+                <span className="text-xs tracking-brand text-text-muted block mb-4">۰۴</span>
+                <h3 className="text-3xl md:text-4xl font-semibold text-text-primary tracking-tight">تحویل فیزیکی</h3>
+              </div>
+              <p className="text-text-secondary max-w-sm leading-relaxed mt-auto">
+                معادل موجودی دیجیتال خود را به صورت شمش، سکه یا جواهرات استاندارد در آدرس خود دریافت کنید.
+              </p>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* ━━━ 04. CRAFTSMANSHIP ━━━ */}
+      <section className="section-editorial px-6 md:px-10 bg-surface-dark text-white overflow-hidden">
+        <div className="max-w-[1400px] mx-auto">
+          <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+            <div>
+              <div className="flex items-center gap-4 mb-12">
+                <span className="diamond-motif" />
+                <span className="text-xs tracking-brand text-text-muted">هنر ساخت</span>
+              </div>
+
+              <h2 className="text-[clamp(2rem,4vw,3.5rem)] font-semibold leading-[1.2] tracking-tight mb-8">
+                هر گرم طلا<br />
+                داستانی از صبر<br />
+                و <span className="text-gold-400">دقت</span> دارد.
+              </h2>
+
+              <p className="text-lg text-text-muted leading-relaxed max-w-lg mb-10">
+                از استخراج تا ذوب، از عیارسنجی تا شمش‌ریزی — هر مرحله با استانداردهای بین‌المللی و زیر نظر کارشناسان مجرب انجام می‌شود. سیستم دفتر کل دوگانه ما تمام تراکنش‌ها را شفاف ثبت می‌کند.
+              </p>
+
+              <Link href="/about">
+                <Button variant="outline" className="border-white/20 text-white hover:bg-white hover:text-surface-dark hover:border-white">
+                  مشاهده فرآیند
+                </Button>
+              </Link>
+            </div>
+
+            {/* Abstract visual — macro gold texture simulation */}
+            <div className="relative aspect-[4/5] lg:aspect-square">
+              <div className="absolute inset-0 bg-gradient-to-br from-gold-800/30 via-gold-600/20 to-transparent" />
+              <div className="absolute top-1/4 right-1/4 w-3/4 h-3/4 bg-gold-500/10 blur-[80px] rounded-full" />
+              <div className="absolute bottom-1/4 left-1/4 w-1/2 h-1/2 border border-gold-500/20 transform rotate-45" />
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 border border-gold-400/30 transform rotate-45" />
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-gold-500/20 transform rotate-45" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ━━━ 05. COLLECTIONS ━━━ */}
+      <section className="section-editorial px-6 md:px-10">
+        <div className="max-w-[1400px] mx-auto">
+          <div className="flex items-center gap-4 mb-16">
+            <span className="diamond-motif" />
+            <span className="text-xs tracking-brand text-text-muted">مجموعه‌ها</span>
+          </div>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-px bg-border">
             {[
-              {
-                q: 'حداقل مبلغ خرید طلا چقدر است؟',
-                a: 'شما می‌توانید از ۱۰۰,۰۰۰ تومان به بالا طلا خریداری کنید.',
-              },
-              {
-                q: 'آیا امکان تحویل فیزیکی طلا وجود دارد؟',
-                a: 'بله، شما می‌توانید طلای دیجیتال خود را به صورت شمش، سکه یا پلاک طلا تحویل بگیرید. هزینه ساخت و ارسال جداگانه محاسبه می‌شود.',
-              },
-              {
-                q: 'کارمزد معاملات چقدر است؟',
-                a: 'کارمزد هر معامله به صورت شفاف قبل از تأیید نمایش داده می‌شود. جزئیات در صفحه قوانین و مقررات موجود است.',
-              },
-              {
-                q: 'آیا طلای من پشتوانه فیزیکی دارد؟',
-                a: 'جزئیات پشتوانه و نگهداری طلا پس از تکمیل زیرساخت اعلام خواهد شد.',
-              },
-              {
-                q: 'انتقال طلا به دیگران چگونه انجام می‌شود؟',
-                a: 'با وارد کردن شماره موبایل یا شناسه کاربری گیرنده، می‌توانید طلای خود را منتقل کنید.',
-              },
-            ].map((faq, i) => (
-              <details
-                key={i}
-                className="group card-surface overflow-hidden"
+              { name: 'شمش', en: 'BARS', desc: 'شمش‌های ۱ تا ۱۰ گرمی' },
+              { name: 'سکه', en: 'COINS', desc: 'سکه‌های بانکی و یادبود' },
+              { name: 'پلاک', en: 'PLAQUES', desc: 'پلاک‌های پارسیان' },
+              { name: 'هدیه', en: 'GIFTS', desc: 'بسته‌های هدیه طلا' },
+            ].map((collection) => (
+              <Link
+                key={collection.en}
+                href="/store"
+                className="group bg-surface-secondary p-8 md:p-10 flex flex-col justify-between min-h-[350px] hover:bg-surface transition-colors duration-700"
               >
-                <summary className="flex cursor-pointer items-center justify-between px-5 py-4 text-sm font-medium text-text-primary hover:bg-surface-hover transition-colors [&::-webkit-details-marker]:hidden list-none">
-                  {faq.q}
-                  <ChevronDown className="h-4 w-4 text-text-muted transition-transform group-open:rotate-180 flex-shrink-0 mr-2" />
-                </summary>
-                <div className="px-5 pb-4 text-sm text-text-secondary leading-relaxed">
-                  {faq.a}
+                <span className="text-xs tracking-brand text-text-muted">{collection.en}</span>
+                <div>
+                  <h3 className="text-2xl font-semibold text-text-primary mb-2 group-hover:text-gold-600 transition-colors duration-500">{collection.name}</h3>
+                  <p className="text-sm text-text-secondary">{collection.desc}</p>
                 </div>
-              </details>
+              </Link>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ===== FINAL CTA ===== */}
-      <section className="bg-surface py-16 sm:py-20">
-        <div className="mx-auto max-w-3xl px-4 text-center">
-          <h2 className="text-2xl font-bold text-text-primary sm:text-3xl mb-4">
-            همین حالا سرمایه‌گذاری در طلا را شروع کنید
+      {/* ━━━ 06. LIVE GOLD PRICE ━━━ */}
+      <section className="section-editorial px-6 md:px-10 bg-surface">
+        <div className="max-w-[1400px] mx-auto">
+          <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-start">
+            <div>
+              <div className="flex items-center gap-4 mb-12">
+                <span className="diamond-motif" />
+                <span className="text-xs tracking-brand text-text-muted">قیمت لحظه‌ای</span>
+              </div>
+
+              <h2 className="text-[clamp(2rem,4vw,3rem)] font-semibold text-text-primary leading-[1.2] tracking-tight mb-6">
+                قیمت‌گذاری شفاف
+              </h2>
+
+              <p className="text-lg text-text-secondary leading-relaxed max-w-lg mb-10">
+                متصل به بازار جهانی و اتحادیه طلای تهران. قیمت‌ها لحظه‌ای و بدون تأخیر. اسپرد و کارمزد ما همیشه قابل مشاهده است.
+              </p>
+
+              <Link href="/prices">
+                <Button>مشاهده تابلوی قیمت</Button>
+              </Link>
+            </div>
+
+            {/* Price Terminal — Clean & Editorial */}
+            <div className="border border-border p-8 md:p-12">
+              <div className="flex justify-between items-start border-b border-border pb-8 mb-8">
+                <div>
+                  <span className="text-xs tracking-brand text-text-muted block mb-2">ZARAVI INDEX</span>
+                  <span className="text-sm text-text-muted">Gold 18K / IRR</span>
+                </div>
+                <div className="text-left">
+                  <p className="text-3xl md:text-4xl font-semibold font-num text-text-primary tracking-tight">
+                    {toPersianDigits(formatNumber(mockPrice.referenceToman))}
+                  </p>
+                  <p className="text-success text-sm font-medium font-num mt-1">
+                    +{toPersianDigits(mockPrice.changePercent.toString())}%
+                  </p>
+                </div>
+              </div>
+
+              <div className="space-y-6">
+                <div className="flex justify-between items-center">
+                  <span className="text-sm text-text-secondary">قیمت خرید</span>
+                  <span className="text-lg font-num font-medium text-text-primary">{toPersianDigits(formatNumber(mockPrice.buyToman))}</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-sm text-text-secondary">قیمت فروش</span>
+                  <span className="text-lg font-num font-medium text-text-primary">{toPersianDigits(formatNumber(mockPrice.sellToman))}</span>
+                </div>
+                <div className="flex justify-between items-center pt-6 border-t border-border">
+                  <span className="text-sm text-text-secondary">اسپرد</span>
+                  <span className="text-lg font-num font-medium text-gold-600">{toPersianDigits(formatNumber(mockPrice.buyToman - mockPrice.sellToman))}</span>
+                </div>
+              </div>
+
+              <div className="mt-10 flex gap-3">
+                <Link href="/buy" className="flex-1">
+                  <Button className="w-full">خرید</Button>
+                </Link>
+                <Link href="/sell" className="flex-1">
+                  <Button variant="outline" className="w-full">فروش</Button>
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ━━━ 07. FINAL CTA ━━━ */}
+      <section className="section-editorial px-6 md:px-10 bg-surface-dark text-white text-center">
+        <div className="max-w-3xl mx-auto">
+          <span className="diamond-motif !bg-gold-500 !w-4 !h-4 mx-auto mb-12 block" />
+
+          <h2 className="text-[clamp(2rem,5vw,3.5rem)] font-semibold leading-[1.2] tracking-tight mb-8">
+            ثروت شما<br />
+            شایسته ماندگاری است.
           </h2>
-          <p className="text-text-secondary mb-8 max-w-xl mx-auto">
-            ثبت‌نام رایگان. بدون نیاز به حداقل موجودی. خرید طلا از ۱۰۰ هزار
-            تومان.
+
+          <p className="text-lg text-text-muted mb-12 max-w-lg mx-auto">
+            همین امروز به هزاران کاربری بپیوندید که مدیریت دارایی‌های طلای خود را به زروی سپرده‌اند.
           </p>
-          <Link
-            href="/register"
-            className="inline-flex items-center justify-center rounded-lg bg-gold-500 px-10 py-4 text-base font-semibold text-surface-secondary hover:bg-gold-600 transition-colors shadow-sm"
-          >
-            ساخت حساب رایگان
+
+          <Link href="/register">
+            <Button variant="secondary" size="lg" className="border-white/20 text-white hover:bg-white hover:text-surface-dark hover:border-white">
+              شروع در زروی
+            </Button>
           </Link>
         </div>
       </section>
-    </>
+
+    </div>
   );
 }

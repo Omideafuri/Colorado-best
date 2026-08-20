@@ -1,61 +1,72 @@
 @import "tailwindcss";
 
 @theme {
-  /* Brand Colors - Glowing Gold */
-  --color-gold-50: #fff9ed;
-  --color-gold-100: #fff2c4;
-  --color-gold-200: #ffe187;
-  --color-gold-300: #ffcc45;
-  --color-gold-400: #ffb815;
-  --color-gold-500: #eaaa00; /* Main Gold */
-  --color-gold-600: #cc8900;
-  --color-gold-700: #a56100;
-  --color-gold-800: #854b08;
-  --color-gold-900: #713e0f;
-  --color-gold-950: #422003;
+  /* Brand Colors — Muted Champagne Gold */
+  --color-gold-50: #FAF7F2;
+  --color-gold-100: #F0EBE0;
+  --color-gold-200: #E2D9C8;
+  --color-gold-300: #CFBFA4;
+  --color-gold-400: #C2AB88;
+  --color-gold-500: #B5976A; /* Main Accent — Restrained champagne */
+  --color-gold-600: #9A7E56;
+  --color-gold-700: #7D6544;
+  --color-gold-800: #614D35;
+  --color-gold-900: #4A3A28;
+  --color-gold-950: #2D2318;
 
-  /* Surface colors (Deep Obsidian) */
-  --color-surface: #131720;
-  --color-surface-secondary: #0A0D14;
-  --color-surface-hover: #1E2433;
+  /* Surface — Warm Ivory & Near-Black */
+  --color-surface: #FFFFFF;
+  --color-surface-secondary: #FAF8F5;
+  --color-surface-hover: #F5F2ED;
+  --color-surface-dark: #141210;
+  --color-surface-dark-hover: #1E1C19;
 
   /* Text */
-  --color-text-primary: #F8FAFC;
-  --color-text-secondary: #94A3B8;
-  --color-text-muted: #475569;
+  --color-text-primary: #141210;
+  --color-text-secondary: #6B665E;
+  --color-text-muted: #A9A49C;
+  --color-text-inverse: #FAF8F5;
 
-  /* Semantic */
-  --color-success: #10B981;
-  --color-success-light: rgba(16, 185, 129, 0.15);
-  --color-danger: #F43F5E;
-  --color-danger-light: rgba(244, 63, 94, 0.15);
-  --color-warning: #F59E0B;
-  --color-warning-light: rgba(245, 158, 11, 0.15);
-  --color-info: #38BDF8;
-  --color-info-light: rgba(56, 189, 248, 0.15);
+  /* Semantic — Muted, sophisticated */
+  --color-success: #4A6B52;
+  --color-success-light: #EDF2EE;
+  --color-danger: #8B4049;
+  --color-danger-light: #F5EDEE;
+  --color-warning: #8B7340;
+  --color-warning-light: #F5F1EB;
+  --color-info: #4A5A6B;
+  --color-info-light: #EDF0F2;
 
   /* Border */
-  --color-border: rgba(255, 255, 255, 0.1);
-  --color-border-light: rgba(255, 255, 255, 0.05);
+  --color-border: #E5E0D8;
+  --color-border-light: #F0EBE4;
 
   /* Typography */
   --font-display: "Vazirmatn", system-ui, sans-serif;
   --font-body: "Vazirmatn", system-ui, sans-serif;
   --font-mono: "Vazirmatn FD", ui-monospace, monospace;
 
-  /* Radius */
-  --radius-sm: 8px;
-  --radius-md: 12px;
-  --radius-lg: 16px;
-  --radius-xl: 24px;
+  /* Radius — Sharp editorial + subtle softness */
+  --radius-sm: 0px;
+  --radius-md: 2px;
+  --radius-lg: 4px;
+  --radius-xl: 8px;
+  --radius-2xl: 9999px;
 
-  /* Shadows (Glows for dark mode) */
-  --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.4);
-  --shadow-elevated: 0 8px 32px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.05);
-  --shadow-modal: 0 20px 40px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255,255,255,0.1);
-  
-  /* Custom Gradients */
-  --backgroundImage-gold-gradient: linear-gradient(135deg, var(--color-gold-400), var(--color-gold-600));
+  /* Shadows — Almost none. Clean, editorial. */
+  --shadow-card: none;
+  --shadow-elevated: 0 8px 40px rgba(20, 18, 16, 0.06);
+  --shadow-modal: 0 20px 60px rgba(20, 18, 16, 0.12);
+
+  /* Gradients */
+  --backgroundImage-gold-gradient: linear-gradient(135deg, var(--color-gold-300), var(--color-gold-500));
+
+  /* Animation — Cinematic timing */
+  --ease-editorial: cubic-bezier(0.25, 0.1, 0.25, 1);
+  --ease-smooth: cubic-bezier(0.65, 0, 0.35, 1);
+  --duration-slow: 0.8s;
+  --duration-medium: 0.5s;
+  --duration-fast: 0.3s;
 }
 
 /* === Base Styles === */
@@ -70,15 +81,14 @@
     font-family: var(--font-body);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    scroll-behavior: smooth;
   }
 
   body {
     background-color: var(--color-surface-secondary);
     color: var(--color-text-primary);
     line-height: 1.7;
-    background-image: 
-      radial-gradient(circle at 15% 50%, rgba(234, 170, 0, 0.03), transparent 25%),
-      radial-gradient(circle at 85% 30%, rgba(56, 189, 248, 0.03), transparent 25%);
+    letter-spacing: 0.01em;
   }
 
   /* Persian number styling for financial displays */
@@ -88,7 +98,7 @@
     letter-spacing: -0.02em;
   }
 
-  /* Selection color */
+  /* Selection */
   ::selection {
     background-color: var(--color-gold-200);
     color: var(--color-gold-900);
@@ -102,7 +112,7 @@
     text-wrap: balance;
   }
 
-  /* Price positive/negative states */
+  /* Price states */
   .price-up {
     color: var(--color-success);
   }
@@ -111,19 +121,15 @@
     color: var(--color-danger);
   }
 
-  /* Card surface */
+  /* Card surface — Editorial: borderless, flat */
   .card-surface {
     background-color: var(--color-surface);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
     border: 1px solid var(--color-border-light);
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-card);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    transition: all 0.4s var(--ease-editorial);
   }
-  
+
   .card-surface:hover {
-    box-shadow: var(--shadow-elevated);
+    border-color: var(--color-border);
   }
 
   /* Gold accent border */
@@ -131,7 +137,7 @@
     border-color: var(--color-gold-400);
   }
 
-  /* Hide scrollbar utility */
+  /* Hide scrollbar */
   .scrollbar-hide {
     -ms-overflow-style: none;
     scrollbar-width: none;
@@ -140,50 +146,77 @@
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
   }
+
+  /* Diamond motif ◇ */
+  .diamond-motif {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background-color: var(--color-gold-500);
+    transform: rotate(45deg);
+  }
+
+  /* Editorial section spacing */
+  .section-editorial {
+    padding-top: clamp(4rem, 10vw, 10rem);
+    padding-bottom: clamp(4rem, 10vw, 10rem);
+  }
+
+  /* Spaced uppercase tracking — for brand elements */
+  .tracking-brand {
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
 }
 
-/* === Animations === */
+/* === Cinematic Animations === */
+
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes reveal-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
 
 @keyframes price-flash-up {
-  0%,
-  100% {
-    background-color: transparent;
-  }
-  50% {
-    background-color: var(--color-success-light);
-  }
+  0%, 100% { background-color: transparent; }
+  50% { background-color: var(--color-success-light); }
 }
 
 @keyframes price-flash-down {
-  0%,
-  100% {
-    background-color: transparent;
-  }
-  50% {
-    background-color: var(--color-danger-light);
-  }
+  0%, 100% { background-color: transparent; }
+  50% { background-color: var(--color-danger-light); }
 }
 
-@keyframes fade-in {
-  from {
-    opacity: 0;
-    transform: translateY(4px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+@keyframes diamond-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 
-@keyframes slide-up {
-  from {
-    opacity: 0;
-    transform: translateY(16px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+@keyframes line-reveal {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+.animate-reveal-up {
+  animation: reveal-up 0.8s cubic-bezier(0.25, 0.1, 0.25, 1) both;
+}
+
+.animate-reveal-fade {
+  animation: reveal-fade 0.6s ease-out both;
 }
 
 .animate-price-up {
@@ -195,9 +228,34 @@
 }
 
 .animate-fade-in {
-  animation: fade-in 0.3s ease-out;
+  animation: reveal-fade 0.3s ease-out;
 }
 
 .animate-slide-up {
-  animation: slide-up 0.4s ease-out;
+  animation: reveal-up 0.4s ease-out;
+}
+
+/* Stagger children — add to parent */
+.stagger-children > * {
+  opacity: 0;
+  animation: reveal-up 0.7s cubic-bezier(0.25, 0.1, 0.25, 1) both;
+}
+.stagger-children > *:nth-child(1) { animation-delay: 0s; }
+.stagger-children > *:nth-child(2) { animation-delay: 0.1s; }
+.stagger-children > *:nth-child(3) { animation-delay: 0.2s; }
+.stagger-children > *:nth-child(4) { animation-delay: 0.3s; }
+.stagger-children > *:nth-child(5) { animation-delay: 0.4s; }
+.stagger-children > *:nth-child(6) { animation-delay: 0.5s; }
+.stagger-children > *:nth-child(7) { animation-delay: 0.6s; }
+.stagger-children > *:nth-child(8) { animation-delay: 0.7s; }
+
+/* Image hover scale — for editorial product images */
+.image-hover-scale {
+  overflow: hidden;
+}
+.image-hover-scale > * {
+  transition: transform 0.6s var(--ease-editorial);
+}
+.image-hover-scale:hover > * {
+  transform: scale(1.04);
 }

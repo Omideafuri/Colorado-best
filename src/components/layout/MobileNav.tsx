@@ -8,18 +8,18 @@ export function MobileNav() {
   const pathname = usePathname();
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-50 border-t border-border bg-surface/95 backdrop-blur-sm md:hidden">
-      <div className="flex items-center justify-around py-2 px-1">
+    <nav className="fixed bottom-0 left-0 right-0 z-50 border-t border-border bg-surface/95 backdrop-blur-lg md:hidden">
+      <div className="flex items-center justify-around py-2.5 px-1">
         {mobileNavItems.map((item) => {
           const isActive = pathname === item.href;
           return (
             <Link
               key={item.href}
               href={item.href}
-              className={`flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-lg transition-colors min-w-0 ${
+              className={`flex flex-col items-center gap-1 px-3 py-1.5 transition-colors duration-300 min-w-0 ${
                 isActive
-                  ? 'text-gold-600'
-                  : 'text-text-muted hover:text-text-secondary'
+                  ? 'text-text-primary'
+                  : 'text-text-muted'
               }`}
             >
               <item.icon className="h-5 w-5" />

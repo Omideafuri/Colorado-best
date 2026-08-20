@@ -1,11 +1,10 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Menu, X, LogIn, LayoutDashboard, LogOut } from 'lucide-react';
 import { publicNavItems } from '@/config/navigation';
 import { logoutAction } from '@/app/(auth)/actions';
-import { Button } from '@/components/ui/button';
 
 type UserType = {
   id: string;
@@ -13,160 +12,187 @@ type UserType = {
   profile?: { firstName: string | null; lastName: string | null } | null;
 } | null;
 
+const editorialNavItems = [
+  { label: 'فروشگاه', href: '/store' },
+  { label: 'قیمت طلا', href: '/prices' },
+  { label: 'هنر ساخت', href: '/about' },
+  { label: 'داستان ما', href: '/about' },
+  { label: 'سوالات', href: '/faq' },
+];
+
 export function Header({ user }: { user?: UserType }) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => setIsScrolled(window.scrollY > 40);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Prevent body scroll when mobile menu is open
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => { document.body.style.overflow = ''; };
+  }, [isMobileMenuOpen]);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-border-light bg-surface/95 backdrop-blur-sm">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex h-16 items-center justify-between">
-          {/* Logo */}
-          <Link href="/" className="flex items-center gap-2">
-            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-gold-500 text-white font-bold text-lg">
-              ز
-            </div>
-            <span className="text-lg font-bold text-text-primary">
-              زروی
-            </span>
-          </Link>
+    <>
+      <header
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 ease-[cubic-bezier(0.25,0.1,0.25,1)] ${
+          isScrolled
+            ? 'bg-surface/90 backdrop-blur-lg border-b border-border'
+            : 'bg-transparent border-b border-transparent'
+        }`}
+      >
+        <div className="mx-auto max-w-[1400px] px-6 md:px-10">
+          <div className="flex h-20 items-center justify-between">
+            {/* Logo */}
+            <Link href="/" className="relative z-10">
+              <span className="text-lg tracking-brand font-semibold text-text-primary">
+                ZARAVI
+              </span>
+            </Link>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-1">
-            {publicNavItems.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="px-4 py-2 text-sm font-medium text-text-secondary hover:text-text-primary hover:bg-surface-hover rounded-lg transition-colors"
-              >
-                {item.titleFa}
-              </Link>
-            ))}
-          </nav>
-
-          {/* Desktop Actions */}
-          <div className="hidden md:flex items-center gap-3">
-            {user ? (
-              <div className="flex items-center gap-3">
-                <span className="text-sm font-medium text-text-secondary hidden lg:block">
-                  {user.profile?.firstName} عزیز، خوش آمدید
-                </span>
+            {/* Desktop Navigation — Center */}
+            <nav className="hidden lg:flex items-center gap-10">
+              {editorialNavItems.map((item) => (
                 <Link
-                  href="/dashboard"
-                  className="inline-flex items-center gap-2 rounded-lg bg-surface-secondary border border-border px-4 py-2 text-sm font-medium text-text-primary hover:bg-surface-hover transition-colors"
-                >
-                  <LayoutDashboard className="h-4 w-4" />
-                  داشبورد
-                </Link>
-                <form action={logoutAction}>
-                  <Button
-                    type="submit"
-                    variant="icon"
-                    size="icon"
-                    title="خروج"
-                  >
-                    <LogOut className="h-4 w-4" />
-                  </Button>
-                </form>
-              </div>
-            ) : (
-              <>
-                <Link
-                  href="/login"
-                  className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-text-secondary hover:text-text-primary transition-colors"
-                >
-                  <LogIn className="h-4 w-4" />
-                  ورود
-                </Link>
-                <Link
-                  href="/register"
-                  className="inline-flex items-center gap-2 rounded-lg bg-gold-500 px-5 py-2 text-sm font-semibold text-white hover:bg-gold-600 transition-colors shadow-sm"
-                >
-                  ثبت‌نام
-                </Link>
-              </>
-            )}
-          </div>
-
-          {/* Mobile Menu Button */}
-          <Button
-            variant="icon"
-            size="icon"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden"
-            aria-label={isMobileMenuOpen ? 'بستن منو' : 'باز کردن منو'}
-          >
-            {isMobileMenuOpen ? (
-              <X className="h-5 w-5" />
-            ) : (
-              <Menu className="h-5 w-5" />
-            )}
-          </Button>
-        </div>
-
-        {/* Mobile Menu */}
-        {isMobileMenuOpen && (
-          <div className="md:hidden border-t border-border-light py-4 animate-fade-in">
-            <nav className="flex flex-col gap-1">
-              {publicNavItems.map((item) => (
-                <Link
-                  key={item.href}
+                  key={item.label}
                   href={item.href}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="flex items-center gap-3 px-3 py-3 text-sm font-medium text-text-secondary hover:text-text-primary hover:bg-surface-hover rounded-lg transition-colors"
+                  className="text-sm text-text-secondary hover:text-text-primary transition-colors duration-300"
                 >
-                  <item.icon className="h-5 w-5" />
-                  {item.titleFa}
+                  {item.label}
                 </Link>
               ))}
             </nav>
-            <div className="mt-4 flex flex-col gap-3 px-3 border-t border-border-light pt-4">
+
+            {/* Desktop Actions — Left */}
+            <div className="hidden lg:flex items-center gap-6">
               {user ? (
-                <>
-                  <div className="text-sm font-medium text-text-primary px-3 mb-2">
-                    {user.profile?.firstName} {user.profile?.lastName}
-                  </div>
+                <div className="flex items-center gap-4">
                   <Link
                     href="/dashboard"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className="flex items-center gap-2 w-full text-center rounded-lg border border-border px-4 py-2.5 text-sm font-medium text-text-primary hover:bg-surface-hover transition-colors"
+                    className="text-sm text-text-secondary hover:text-text-primary transition-colors duration-300"
                   >
-                    <LayoutDashboard className="h-4 w-4" />
-                    ورود به داشبورد
+                    داشبورد
                   </Link>
-                  <form action={logoutAction} className="w-full">
-                    <Button
+                  <form action={logoutAction}>
+                    <button
                       type="submit"
-                      variant="danger"
-                      size="sm"
-                      icon={<LogOut className="h-4 w-4" />}
-                      className="w-full"
+                      className="text-sm text-text-muted hover:text-text-primary transition-colors duration-300"
                     >
-                      خروج از حساب
-                    </Button>
+                      خروج
+                    </button>
                   </form>
-                </>
+                </div>
               ) : (
-                <div className="flex gap-3">
+                <>
                   <Link
                     href="/login"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className="flex-1 text-center rounded-lg border border-border px-4 py-2.5 text-sm font-medium text-text-primary hover:bg-surface-hover transition-colors"
+                    className="text-sm text-text-secondary hover:text-text-primary transition-colors duration-300"
                   >
                     ورود
                   </Link>
                   <Link
                     href="/register"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className="flex-1 text-center rounded-lg bg-gold-500 px-4 py-2.5 text-sm font-semibold text-white hover:bg-gold-600 transition-colors"
+                    className="text-sm bg-surface-dark text-white px-6 py-2.5 hover:bg-black transition-colors duration-300"
                   >
-                    ثبت‌نام
+                    حساب کاربری
                   </Link>
-                </div>
+                </>
               )}
             </div>
+
+            {/* Mobile Menu Button */}
+            <button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="lg:hidden relative z-10 w-10 h-10 flex items-center justify-center text-text-primary"
+              aria-label={isMobileMenuOpen ? 'بستن منو' : 'باز کردن منو'}
+            >
+              {isMobileMenuOpen ? (
+                <X className="h-5 w-5" />
+              ) : (
+                <Menu className="h-5 w-5" />
+              )}
+            </button>
           </div>
-        )}
+        </div>
+      </header>
+
+      {/* Full-Screen Immersive Mobile Menu */}
+      <div
+        className={`fixed inset-0 z-40 bg-surface-secondary transition-all duration-500 ease-[cubic-bezier(0.65,0,0.35,1)] lg:hidden ${
+          isMobileMenuOpen
+            ? 'opacity-100 pointer-events-auto'
+            : 'opacity-0 pointer-events-none'
+        }`}
+      >
+        <div className="flex flex-col justify-center items-center min-h-screen px-8">
+          <nav className="flex flex-col items-center gap-8 stagger-children">
+            {editorialNavItems.map((item) => (
+              <Link
+                key={item.label}
+                href={item.href}
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="text-3xl font-semibold text-text-primary hover:text-gold-500 transition-colors duration-300"
+              >
+                {item.label}
+              </Link>
+            ))}
+          </nav>
+
+          <div className="mt-16 flex flex-col items-center gap-4 w-full max-w-xs">
+            {user ? (
+              <>
+                <Link
+                  href="/dashboard"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="w-full text-center bg-surface-dark text-white py-4 text-sm font-medium hover:bg-black transition-colors"
+                >
+                  ورود به داشبورد
+                </Link>
+                <form action={logoutAction} className="w-full">
+                  <button
+                    type="submit"
+                    className="w-full text-center border border-border text-text-secondary py-4 text-sm hover:text-text-primary hover:border-text-primary transition-colors"
+                  >
+                    خروج از حساب
+                  </button>
+                </form>
+              </>
+            ) : (
+              <>
+                <Link
+                  href="/register"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="w-full text-center bg-surface-dark text-white py-4 text-sm font-medium hover:bg-black transition-colors"
+                >
+                  ساخت حساب
+                </Link>
+                <Link
+                  href="/login"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="w-full text-center border border-border text-text-primary py-4 text-sm hover:bg-surface-hover transition-colors"
+                >
+                  ورود
+                </Link>
+              </>
+            )}
+          </div>
+
+          {/* Diamond Motif */}
+          <div className="mt-16 flex items-center gap-4">
+            <div className="w-px h-8 bg-border" />
+            <span className="diamond-motif" />
+            <div className="w-px h-8 bg-border" />
+          </div>
+        </div>
       </div>
-    </header>
+    </>
   );
 }

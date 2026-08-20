@@ -1,12 +1,11 @@
 import Link from 'next/link';
-import { Shield, Phone, Mail,  } from 'lucide-react';
 
 const footerLinks = {
   services: [
     { label: 'خرید طلا', href: '/buy' },
     { label: 'فروش طلا', href: '/sell' },
-    { label: 'قیمت لحظهای طلا', href: '/prices' },
-    { label: 'پسانداز طلا', href: '/savings' },
+    { label: 'قیمت لحظه‌ای', href: '/prices' },
+    { label: 'پس‌انداز', href: '/savings' },
     { label: 'تحویل فیزیکی', href: '/delivery' },
   ],
   company: [
@@ -25,46 +24,34 @@ const footerLinks = {
 
 export function Footer() {
   return (
-    <footer className="border-t border-border bg-surface">
-      <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
+    <footer className="border-t border-border bg-surface-secondary">
+      <div className="mx-auto max-w-[1400px] px-6 md:px-10">
+        {/* Main Footer */}
+        <div className="py-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-16">
           {/* Brand */}
-          <div className="sm:col-span-2 lg:col-span-1">
-            <div className="flex items-center gap-2 mb-4">
-              <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-gold-500 text-white font-bold text-lg">
-                ز
-              </div>
-              <span className="text-lg font-bold text-text-primary">
-                زروی
+          <div className="lg:col-span-1">
+            <Link href="/" className="inline-block mb-6">
+              <span className="text-lg tracking-brand font-semibold text-text-primary">
+                ZARAVI
               </span>
-            </div>
-            <p className="text-sm text-text-secondary leading-relaxed mb-4">
-              پلتفرم خرید، فروش و سرمایهگذاری طلای دیجیتال.
-              با زروی، طلا را ساده بخرید، امن نگه دارید و سرمایهتان را رشد دهید.
+            </Link>
+            <p className="text-sm text-text-secondary leading-relaxed max-w-xs">
+              پلتفرم خرید، فروش و سرمایه‌گذاری طلای دیجیتال.
+              طلا را ساده بخرید، امن نگه دارید و سرمایه‌تان را رشد دهید.
             </p>
-            <div className="flex flex-col gap-2 text-sm text-text-secondary">
-              <div className="flex items-center gap-2">
-                <Phone className="h-4 w-4 text-text-muted" />
-                <span className="font-num">۰۲۱-XXXXXXXX</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Mail className="h-4 w-4 text-text-muted" />
-                <span>info@zaravi.gold</span>
-              </div>
-            </div>
           </div>
 
           {/* Services */}
           <div>
-            <h3 className="text-sm font-semibold text-text-primary mb-4">
+            <h3 className="text-xs tracking-brand text-text-muted mb-6">
               خدمات
             </h3>
-            <ul className="space-y-2.5">
+            <ul className="space-y-3">
               {footerLinks.services.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-sm text-text-secondary hover:text-gold-600 transition-colors"
+                    className="text-sm text-text-secondary hover:text-text-primary transition-colors duration-300"
                   >
                     {link.label}
                   </Link>
@@ -75,15 +62,15 @@ export function Footer() {
 
           {/* Company */}
           <div>
-            <h3 className="text-sm font-semibold text-text-primary mb-4">
+            <h3 className="text-xs tracking-brand text-text-muted mb-6">
               زروی
             </h3>
-            <ul className="space-y-2.5">
+            <ul className="space-y-3">
               {footerLinks.company.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-sm text-text-secondary hover:text-gold-600 transition-colors"
+                    className="text-sm text-text-secondary hover:text-text-primary transition-colors duration-300"
                   >
                     {link.label}
                   </Link>
@@ -94,15 +81,15 @@ export function Footer() {
 
           {/* Legal */}
           <div>
-            <h3 className="text-sm font-semibold text-text-primary mb-4">
+            <h3 className="text-xs tracking-brand text-text-muted mb-6">
               قوانین
             </h3>
-            <ul className="space-y-2.5">
+            <ul className="space-y-3">
               {footerLinks.legal.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-sm text-text-secondary hover:text-gold-600 transition-colors"
+                    className="text-sm text-text-secondary hover:text-text-primary transition-colors duration-300"
                   >
                     {link.label}
                   </Link>
@@ -112,14 +99,15 @@ export function Footer() {
           </div>
         </div>
 
-        {/* Bottom */}
-        <div className="mt-10 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-border pt-8">
+        {/* Bottom Bar */}
+        <div className="border-t border-border py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-xs text-text-muted">
             © تمامی حقوق برای زروی محفوظ است.
           </p>
-          <div className="flex items-center gap-2 text-xs text-text-muted">
-            <Shield className="h-4 w-4" />
-            <span>تمام تراکنشها رمزنگاری شدهاند</span>
+          <div className="flex items-center gap-3 text-text-muted">
+            <div className="w-px h-3 bg-border" />
+            <span className="diamond-motif" />
+            <div className="w-px h-3 bg-border" />
           </div>
         </div>
       </div>

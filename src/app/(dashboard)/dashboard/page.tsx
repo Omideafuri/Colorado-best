@@ -1,14 +1,9 @@
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import {
-  TrendingUp,
-  TrendingDown,
-  ShoppingCart,
-  ArrowLeftRight,
   Wallet,
-  Package,
-  Plus,
-  Minus,
+  ArrowUpRight,
+  ArrowDownRight,
 } from 'lucide-react';
 import { db } from '@/lib/db';
 import { getCurrentUser } from '@/lib/auth/session';
@@ -31,123 +26,134 @@ export default async function DashboardPage() {
 
   const cashBalanceRial = cashWallet?.balanceRial || BigInt(0);
   const goldBalanceNg = goldWallet?.balanceNg || BigInt(0);
-  
+
   const goldGrams = Number(goldBalanceNg) / 1_000_000_000;
   const goldValueToman = Number((goldBalanceNg * snapshot.buyPriceRial) / BigInt(10_000_000_000));
   const cashBalanceToman = Number(cashBalanceRial / BigInt(10));
-  
-  // Placeholder values for metrics that require history
+
   const isProfit = true;
-  const profitToman = 0;
   const profitPct = 0;
 
   return (
-    <div className="space-y-6">
-      <div>
-        <h1 className="text-xl font-bold text-text-primary">داشبورد</h1>
-        <p className="text-sm text-text-secondary mt-1">خلاصه وضعیت حساب شما</p>
+    <div className="max-w-6xl mx-auto space-y-12 pb-16">
+
+      {/* Greeting */}
+      <div className="pt-4">
+        <div className="flex items-center gap-3 mb-2">
+          <span className="diamond-motif" />
+          <span className="text-xs tracking-brand text-text-muted">پورتفوی شما</span>
+        </div>
+        <h1 className="text-3xl md:text-4xl font-semibold text-text-primary tracking-tight">
+          صبح بخیر، {user.profile?.firstName || 'کاربر'} عزیز
+        </h1>
       </div>
 
-      {/* Portfolio Summary */}
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <div className="card-surface p-5">
-          <p className="text-xs text-text-muted mb-1">موجودی طلا</p>
-          <p className="text-xl font-bold font-num text-text-primary">
-            {toPersianDigits(goldGrams.toFixed(4))}
-            <span className="text-sm font-normal text-text-muted mr-1">گرم</span>
-          </p>
-        </div>
-        <div className="card-surface p-5">
-          <p className="text-xs text-text-muted mb-1">ارزش فعلی</p>
-          <p className="text-xl font-bold font-num text-text-primary">
-            {formatNumber(goldValueToman)}
-            <span className="text-sm font-normal text-text-muted mr-1">تومان</span>
-          </p>
-        </div>
-        <div className="card-surface p-5">
-          <p className="text-xs text-text-muted mb-1">سود/زیان</p>
-          <div className={`flex items-center gap-1 ${isProfit ? 'text-success' : 'text-danger'}`}>
-            {isProfit ? <TrendingUp className="h-4 w-4" /> : <TrendingDown className="h-4 w-4" />}
-            <p className="text-xl font-bold font-num">
-              {isProfit ? '+' : ''}{formatNumber(profitToman)}
-            </p>
+      {/* Portfolio Value — Clean, Editorial */}
+      <div className="border border-border p-8 md:p-12 bg-surface">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-8">
+          <div>
+            <p className="text-xs tracking-brand text-text-muted mb-4">مجموع دارایی‌ها</p>
+            <div className="flex items-baseline gap-3">
+              <h2 className="text-5xl md:text-6xl font-semibold font-num text-text-primary tracking-tight">
+                {formatNumber(goldValueToman + cashBalanceToman)}
+              </h2>
+              <span className="text-lg text-text-muted">تومان</span>
+            </div>
+            <div className={`mt-3 inline-flex items-center gap-1.5 text-sm font-medium font-num ${isProfit ? 'text-success' : 'text-danger'}`}>
+              {isProfit ? <ArrowUpRight className="h-4 w-4" /> : <ArrowDownRight className="h-4 w-4" />}
+              {isProfit ? '+' : ''}{toPersianDigits(profitPct.toFixed(2))}%
+            </div>
           </div>
-          <p className={`text-xs font-num mt-0.5 ${isProfit ? 'text-success' : 'text-danger'}`}>
-            ({isProfit ? '+' : ''}{toPersianDigits(profitPct.toFixed(2))}٪)
-          </p>
-        </div>
-        <div className="card-surface p-5">
-          <p className="text-xs text-text-muted mb-1">موجودی نقدی</p>
-          <p className="text-xl font-bold font-num text-text-primary">
-            {formatNumber(cashBalanceToman)}
-            <span className="text-sm font-normal text-text-muted mr-1">تومان</span>
-          </p>
+
+          <div className="flex gap-3">
+            <Link href="/buy">
+              <Button>خرید طلا</Button>
+            </Link>
+            <Link href="/sell">
+              <Button variant="outline">فروش</Button>
+            </Link>
+          </div>
         </div>
       </div>
 
-      {/* Quick Actions */}
-      <div className="card-surface p-5">
-        <h2 className="text-sm font-semibold text-text-primary mb-4">عملیات سریع</h2>
-        <div className="grid grid-cols-3 sm:grid-cols-6 gap-3">
+      {/* Balance Cards */}
+      <div className="grid md:grid-cols-2 gap-px bg-border">
+        <div className="bg-surface-secondary p-8 md:p-10">
+          <div className="flex items-center gap-3 mb-8">
+            <span className="diamond-motif !bg-gold-500" />
+            <span className="text-xs tracking-brand text-text-muted">موجودی طلا</span>
+          </div>
+          <div className="flex items-baseline gap-2">
+            <h3 className="text-4xl font-semibold font-num text-text-primary tracking-tight">{toPersianDigits(goldGrams.toFixed(4))}</h3>
+            <span className="text-text-muted">گرم</span>
+          </div>
+          <p className="text-sm text-text-secondary mt-2">
+            ≈ {formatToman(goldValueToman)}
+          </p>
+        </div>
+
+        <div className="bg-surface-secondary p-8 md:p-10">
+          <div className="flex items-center gap-3 mb-8">
+            <Wallet className="h-4 w-4 text-text-muted" />
+            <span className="text-xs tracking-brand text-text-muted">موجودی ریالی</span>
+          </div>
+          <div className="flex items-baseline gap-2">
+            <h3 className="text-4xl font-semibold font-num text-text-primary tracking-tight">{formatNumber(cashBalanceToman)}</h3>
+            <span className="text-text-muted">تومان</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Quick Actions — Clean text links */}
+      <div className="border border-border p-8 bg-surface">
+        <h3 className="text-xs tracking-brand text-text-muted mb-8">عملیات</h3>
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-px bg-border">
           {[
-            { icon: ShoppingCart, label: 'خرید طلا', href: '/buy', color: 'bg-success-light text-success' },
-            { icon: Minus, label: 'فروش طلا', href: '/sell', color: 'bg-danger-light text-danger' },
-            { icon: Plus, label: 'واریز', href: '/wallet', color: 'bg-info-light text-info' },
-            { icon: Wallet, label: 'برداشت', href: '/wallet', color: 'bg-warning-light text-warning' },
-            { icon: ArrowLeftRight, label: 'انتقال', href: '/transfer', color: 'bg-gold-100 text-gold-700' },
-            { icon: Package, label: 'تحویل', href: '/delivery', color: 'bg-surface-secondary text-text-secondary' },
+            { label: 'واریز وجه', href: '/wallet' },
+            { label: 'برداشت', href: '/wallet' },
+            { label: 'انتقال طلا', href: '/transfer' },
+            { label: 'تحویل فیزیکی', href: '/delivery' },
+            { label: 'فروشگاه', href: '/store' },
           ].map((action) => (
             <Link
               key={action.label}
               href={action.href}
-              className="flex flex-col items-center gap-2 p-3 rounded-xl hover:bg-surface-hover transition-colors"
+              className="bg-surface-secondary p-6 text-center hover:bg-surface transition-colors duration-500 group"
             >
-              <div className={`flex h-10 w-10 items-center justify-center rounded-full ${action.color}`}>
-                <action.icon className="h-5 w-5" />
-              </div>
-              <span className="text-xs font-medium text-text-primary">{action.label}</span>
+              <span className="text-sm font-medium text-text-secondary group-hover:text-text-primary transition-colors duration-300">
+                {action.label}
+              </span>
             </Link>
           ))}
         </div>
       </div>
 
-      {/* Portfolio Details & Chart */}
-      <div className="grid gap-4 sm:grid-cols-2">
-        <div className="card-surface p-5">
-          <h2 className="text-sm font-semibold text-text-primary mb-4">جزئیات پرتفوی</h2>
-          <div className="space-y-3">
-            {[
-              { label: 'ارزش کل دارایی‌ها (نقدی + طلا)', value: formatToman(cashBalanceToman + goldValueToman) },
-              { label: 'قیمت فعلی خرید زروی', value: formatToman(Number(snapshot.buyPriceRial / BigInt(10))) },
-              { label: 'قیمت فعلی فروش به زروی', value: formatToman(Number(snapshot.sellPriceRial / BigInt(10))) },
-            ].map((item) => (
-              <div key={item.label} className="flex items-center justify-between">
-                <span className="text-sm text-text-secondary">{item.label}</span>
-                <span className="text-sm font-medium font-num text-text-primary">{item.value}</span>
-              </div>
-            ))}
-          </div>
+      {/* Price Summary */}
+      <div className="border border-border p-8 bg-surface">
+        <div className="flex justify-between items-start mb-8">
+          <h3 className="text-xs tracking-brand text-text-muted">قیمت لحظه‌ای طلا</h3>
+          <Link href="/prices" className="text-xs text-text-muted hover:text-text-primary transition-colors">
+            مشاهده تابلو
+          </Link>
         </div>
-
-        <div className="card-surface p-5">
-          <h2 className="text-sm font-semibold text-text-primary mb-4">نمودار ارزش پرتفوی</h2>
-          <div className="flex items-center justify-center h-48 bg-surface-secondary rounded-lg">
-            <p className="text-sm text-text-muted">نمودار به‌زودی اضافه می‌شود</p>
+        <div className="grid grid-cols-3 gap-8">
+          <div>
+            <p className="text-sm text-text-secondary mb-1">قیمت خرید</p>
+            <p className="text-xl font-num font-medium text-text-primary">{formatToman(Number(snapshot.buyPriceRial / BigInt(10)))}</p>
           </div>
-          <div className="flex gap-1 mt-3">
-            {['۱ر', '۱ه', '۱م', '۳م', '۶م', '۱س', 'همه'].map((period) => (
-              <Button
-                key={period}
-                variant="ghost"
-                size="sm"
-                className="flex-1 text-xs px-1 h-8"
-              >
-                {period}
-              </Button>
-            ))}
+          <div>
+            <p className="text-sm text-text-secondary mb-1">قیمت فروش</p>
+            <p className="text-xl font-num font-medium text-text-primary">{formatToman(Number(snapshot.sellPriceRial / BigInt(10)))}</p>
+          </div>
+          <div>
+            <p className="text-sm text-text-secondary mb-1">نمودار</p>
+            <div className="h-16 bg-surface-secondary flex items-center justify-center">
+              <p className="text-xs text-text-muted">نمودار آینده</p>
+            </div>
           </div>
         </div>
       </div>
+
     </div>
   );
 }
