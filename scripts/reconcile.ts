@@ -9,8 +9,8 @@ async function runReconciliation() {
     const cashWallets = await db.cashWallet.aggregate({ _sum: { balanceRial: true } });
     const goldWallets = await db.goldWallet.aggregate({ _sum: { balanceNg: true } });
 
-    const totalCashLiabilityRial = cashWallets._sum.balanceRial || BigInt(0);
-    const totalGoldLiabilityNg = goldWallets._sum.balanceNg || BigInt(0);
+    const totalCashLiabilityRial = cashWallets._sum.balanceRial ?? 0n;
+    const totalGoldLiabilityNg = goldWallets._sum.balanceNg ?? 0n;
 
     console.log(`- Total User Cash Liability: ${totalCashLiabilityRial.toString()} Rial`);
     console.log(`- Total User Gold Liability: ${totalGoldLiabilityNg.toString()} ng`);
@@ -40,9 +40,9 @@ async function runReconciliation() {
     const cashDiff = actualBankBalanceRial - totalCashLiabilityRial;
     const goldDiff = actualVaultGoldNg - totalGoldLiabilityNg;
 
-    if (cashDiff === BigInt(0) && goldDiff === BigInt(0)) {
+    if (cashDiff === 0n && goldDiff === 0n) {
       status = 'BALANCED';
-    } else if (cashDiff < BigInt(0) || goldDiff < BigInt(0)) {
+    } else if (cashDiff < 0n || goldDiff < 0n) {
       status = 'CRITICAL'; // We have less assets than liabilities! Insolvency risk.
     } else {
       status = 'WARNING'; // We have more assets than liabilities (untracked deposits, fees, etc.)

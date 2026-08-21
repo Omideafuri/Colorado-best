@@ -9,6 +9,7 @@ import { db } from '@/lib/db';
 import { getCurrentUser } from '@/lib/auth/session';
 import { redirect } from 'next/navigation';
 import { getLatestPriceSnapshot } from '@/lib/financial/pricing';
+import { calculateCashAmount } from '@/lib/financial/decimal';
 import { formatNumber, formatToman, toPersianDigits } from '@/lib/utils/format';
 import { Button } from '@/components/ui/button';
 
@@ -24,12 +25,14 @@ export default async function DashboardPage() {
   const goldWallet = await db.goldWallet.findUnique({ where: { userId: user.id } });
   const snapshot = await getLatestPriceSnapshot('18K');
 
-  const cashBalanceRial = cashWallet?.balanceRial || BigInt(0);
-  const goldBalanceNg = goldWallet?.balanceNg || BigInt(0);
+  const cashBalanceRial = cashWallet?.balanceRial ?? 0n;
+  const goldBalanceNg = goldWallet?.balanceNg ?? 0n;
 
   const goldGrams = Number(goldBalanceNg) / 1_000_000_000;
-  const goldValueToman = Number((goldBalanceNg * snapshot.buyPriceRial) / BigInt(10_000_000_000));
-  const cashBalanceToman = Number(cashBalanceRial / BigInt(10));
+  const goldValueRial = calculateCashAmount(goldBalanceNg, snapshot.buyPriceRial);
+  const goldValueToman = Number(goldValueRial / 10n);
+  const cashBalanceToman = Number(cashBalanceRial / 10n);
+  const totalPortfolioToman = goldValueToman + cashBalanceToman;
 
   const isProfit = true;
   const profitPct = 0;
@@ -55,7 +58,7 @@ export default async function DashboardPage() {
             <p className="text-xs tracking-brand text-text-muted mb-4">مجموع دارایی‌ها</p>
             <div className="flex items-baseline gap-3">
               <h2 className="text-5xl md:text-6xl font-semibold font-num text-text-primary tracking-tight">
-                {formatNumber(goldValueToman + cashBalanceToman)}
+                {formatNumber(totalPortfolioToman)}
               </h2>
               <span className="text-lg text-text-muted">تومان</span>
             </div>
