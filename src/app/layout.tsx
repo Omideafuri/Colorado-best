@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next';
 import './globals.css';
 import { siteConfig } from '@/config/site';
+import { kalameh } from '@/app/fonts';
 
 export const metadata: Metadata = {
   title: {
@@ -45,20 +46,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="fa" dir="rtl" suppressHydrationWarning>
-      <head>
-        <link
-          rel="preconnect"
-          href="https://cdn.jsdelivr.net"
-          crossOrigin="anonymous"
-        />
-        <link
-          href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css"
-          rel="stylesheet"
-          type="text/css"
-        />
-      </head>
-      <body className="min-h-screen font-body antialiased" suppressHydrationWarning>
+    <html lang="fa" dir="rtl" className={kalameh.variable} suppressHydrationWarning>
+      <body className={`min-h-screen font-body antialiased ${kalameh.variable}`} suppressHydrationWarning>
         {children}
       </body>
     </html>

@@ -42,10 +42,11 @@
   --color-border-light: #F0EBE4;
   --color-border-dark: #2A2724;
 
-  /* Typography */
-  --font-display: "Vazirmatn", system-ui, sans-serif;
-  --font-body: "Vazirmatn", system-ui, sans-serif;
-  --font-mono: "Vazirmatn FD", ui-monospace, monospace;
+  /* Typography — Kalameh Primary Font */
+  --font-kalameh: var(--font-kalameh), "Kalameh", system-ui, sans-serif;
+  --font-display: var(--font-kalameh), "Kalameh", system-ui, sans-serif;
+  --font-body: var(--font-kalameh), "Kalameh", system-ui, sans-serif;
+  --font-mono: var(--font-kalameh), "Kalameh", ui-monospace, monospace;
 
   /* Radius — Sharp editorial + subtle softness */
   --radius-sm: 0px;
@@ -82,6 +83,7 @@
   body {
     background-color: var(--color-surface-secondary);
     color: var(--color-text-primary);
+    font-family: var(--font-body);
     line-height: 1.75;
     letter-spacing: 0.01em;
   }
@@ -103,6 +105,10 @@
 /* === Component Utilities & Atmospheric Gradients === */
 
 @layer utilities {
+  .font-kalameh {
+    font-family: var(--font-kalameh);
+  }
+
   .text-balance {
     text-wrap: balance;
   }
