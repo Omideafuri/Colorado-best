@@ -10,11 +10,12 @@
   /* Semantic Canvas & Surfaces */
   --color-bg-primary: #FAF8F5;
   --color-bg-secondary: #F4EFE6;
+  --color-bg-champagne: #E3CCAE;
   --color-bg-elevated: #FFFFFF;
   --color-bg-surface-dark: #262A56;
   --color-bg-surface-darker: #1A1D3D;
   --color-bg-floor: #000000;
-  --color-bg-accent-soft: rgba(184, 98, 27, 0.08);
+  --color-bg-accent-soft: rgba(184, 98, 27, 0.12);
 
   /* Semantic Typography */
   --color-text-primary: #141210;
@@ -22,6 +23,7 @@
   --color-text-muted: #7D776C;
   --color-text-brand: #262A56;
   --color-text-accent: #B8621B;
+  --color-text-champagne: #E3CCAE;
   --color-text-on-dark: #FAF8F5;
   --color-text-on-dark-muted: #C5BFB4;
   --color-text-on-brand: #FFFFFF;
@@ -30,7 +32,7 @@
   --color-border-subtle: #E8E1D5;
   --color-border-medium: #D1C7B7;
   --color-border-dark: rgba(227, 204, 174, 0.18);
-  --color-border-accent: rgba(184, 98, 27, 0.45);
+  --color-border-accent: #B8621B;
 
   /* Semantic Action & Accent States */
   --color-accent-primary: #B8621B;
@@ -66,9 +68,9 @@
   /* Shadows — Restrained & Purposeful */
   --shadow-subtle: 0 2px 8px rgba(38, 42, 86, 0.04);
   --shadow-card: 0 12px 36px rgba(38, 42, 86, 0.06);
-  --shadow-elevated: 0 24px 64px rgba(38, 42, 86, 0.1);
-  --shadow-copper-glow: 0 8px 24px rgba(184, 98, 27, 0.22);
-  --shadow-navy-glow: 0 8px 24px rgba(38, 42, 86, 0.22);
+  --shadow-elevated: 0 24px 64px rgba(38, 42, 86, 0.12);
+  --shadow-copper-glow: 0 8px 28px rgba(184, 98, 27, 0.28);
+  --shadow-navy-glow: 0 8px 28px rgba(38, 42, 86, 0.35);
 
   /* Animation timing */
   --ease-editorial: cubic-bezier(0.25, 0.1, 0.25, 1);
@@ -107,8 +109,8 @@
 
   /* Selection */
   ::selection {
-    background-color: var(--color-brand-champagne);
-    color: var(--color-brand-black);
+    background-color: var(--color-brand-copper);
+    color: #FFFFFF;
   }
 }
 
@@ -132,7 +134,7 @@
     color: var(--color-danger);
   }
 
-  /* Card surface — Editorial: clean, flat with subtle hover feedback */
+  /* Card surface */
   .card-surface {
     background-color: var(--color-bg-elevated);
     border: 1px solid var(--color-border-subtle);
@@ -144,20 +146,30 @@
   }
 
   /* Orosi Glass Light Blooms & Radial Refractions */
-  .bg-atmospheric-dark {
-    background: radial-gradient(circle at 75% 25%, rgba(184, 98, 27, 0.14) 0%, transparent 60%),
-                radial-gradient(circle at 20% 80%, rgba(38, 42, 86, 0.4) 0%, transparent 50%),
-                var(--color-bg-surface-dark);
+  .bg-atmospheric-navy {
+    background: radial-gradient(circle at 80% 20%, rgba(184, 98, 27, 0.22) 0%, transparent 60%),
+                radial-gradient(circle at 15% 85%, rgba(0, 0, 0, 0.65) 0%, transparent 65%),
+                var(--color-brand-navy);
   }
 
-  .bg-atmospheric-ivory {
-    background: radial-gradient(circle at 80% 20%, rgba(227, 204, 174, 0.45) 0%, transparent 65%),
-                radial-gradient(circle at 10% 90%, rgba(244, 239, 230, 0.6) 0%, transparent 50%),
+  .bg-atmospheric-black {
+    background: radial-gradient(circle at 75% 25%, rgba(184, 98, 27, 0.2) 0%, transparent 55%),
+                radial-gradient(circle at 20% 80%, rgba(38, 42, 86, 0.4) 0%, transparent 60%),
+                var(--color-brand-black);
+  }
+
+  .bg-atmospheric-champagne {
+    background: radial-gradient(circle at 80% 20%, rgba(227, 204, 174, 0.8) 0%, transparent 65%),
+                radial-gradient(circle at 15% 85%, rgba(244, 239, 230, 0.9) 0%, transparent 50%),
                 var(--color-bg-primary);
   }
 
-  .bg-subtle-glow {
-    background: linear-gradient(180deg, rgba(250, 248, 245, 0) 0%, rgba(227, 204, 174, 0.25) 100%);
+  .bg-orosi-blend {
+    background: linear-gradient(135deg, #262A56 0%, #1A1D3D 50%, #000000 100%);
+  }
+
+  .bg-champagne-warm {
+    background: linear-gradient(180deg, #E3CCAE 0%, #FAF8F5 100%);
   }
 
   /* Diamond motif ◇ */
