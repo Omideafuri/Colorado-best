@@ -1,40 +1,111 @@
-import { Mail, Phone, MapPin } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 export default function ContactPage() {
   return (
-    <div className="mx-auto max-w-4xl px-4 py-16 sm:px-6 lg:px-8">
-      <h1 className="text-3xl font-bold text-text-primary mb-8 text-center">تماس با ما</h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div className="card-surface p-8 space-y-6">
-          <h2 className="text-xl font-bold text-text-primary">اطلاعات تماس</h2>
-          <div className="space-y-4 text-text-secondary">
-            <div className="flex items-center gap-3">
-              <Phone className="h-5 w-5 text-gold-500" />
-              <span>۰۲۱-XXXXXXXX</span>
+    <div className="min-h-screen bg-[#FAF8F5] text-[#141210] selection:bg-[#B8621B] selection:text-white pt-28 pb-20">
+      <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-12">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-[#E8E1D5] text-xs text-[#262A56] mb-4 shadow-xs">
+            <Sparkles className="w-3.5 h-3.5 text-[#B8621B]" />
+            <span>پشتیبانی و ارتباط مستقیم</span>
+          </div>
+          <h1 className="text-3xl sm:text-4xl font-bold text-[#141210] tracking-tight">ارتباط با خانه زروی</h1>
+          <p className="text-xs sm:text-sm text-[#4A463F] mt-2 font-light max-w-lg mx-auto">
+            کارشناسان مدیریت دارایی زروی در تمامی روزهای هفته آماده پاسخگویی به سوالات شما هستند
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          {/* Info Card */}
+          <div className="lg:col-span-5 bg-[#262A56] text-white rounded-3xl p-8 border border-white/15 shadow-2xl space-y-8 relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-48 h-48 bg-[#B8621B]/20 rounded-full blur-2xl pointer-events-none" />
+            
+            <div className="relative z-10">
+              <span className="text-xs tracking-brand text-[#E3CCAE] uppercase block mb-2">میز پشتیبانی VIP</span>
+              <h2 className="text-2xl font-bold text-white mb-2">همواره در کنار شما</h2>
+              <p className="text-xs text-[#C5BFB4] font-light leading-relaxed">
+                مشاوران ما برای خریدهای با حجم بالا و هماهنگی‌های تحویل فیزیکی پاسخگوی شما هستند.
+              </p>
             </div>
-            <div className="flex items-center gap-3">
-              <Mail className="h-5 w-5 text-gold-500" />
-              <span>info@zaravi.gold</span>
-            </div>
-            <div className="flex items-center gap-3">
-              <MapPin className="h-5 w-5 text-gold-500" />
-              <span>تهران، خیابان ...، پلاک ...</span>
+
+            <div className="relative z-10 space-y-5 text-xs">
+              <div className="flex items-center gap-3.5 p-3.5 rounded-2xl bg-[#1A1D3D] border border-white/10">
+                <Phone className="h-5 w-5 text-[#B8621B] flex-shrink-0" />
+                <div>
+                  <span className="text-[10px] text-[#C5BFB4] block">تلفن پشتیبانی مرکزی</span>
+                  <span className="font-num text-sm font-bold text-white" dir="ltr">۰۲۱ - ۸۸۸۸ ۰۰۰۰</span>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-3.5 p-3.5 rounded-2xl bg-[#1A1D3D] border border-white/10">
+                <Mail className="h-5 w-5 text-[#B8621B] flex-shrink-0" />
+                <div>
+                  <span className="text-[10px] text-[#C5BFB4] block">پست الکترونیکی رسمی</span>
+                  <span className="font-mono text-xs text-white">concierge@zaravi.gold</span>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-3.5 p-3.5 rounded-2xl bg-[#1A1D3D] border border-white/10">
+                <MapPin className="h-5 w-5 text-[#B8621B] flex-shrink-0" />
+                <div>
+                  <span className="text-[10px] text-[#C5BFB4] block">دفتر مرکزی و خزانه</span>
+                  <span className="text-xs text-white leading-relaxed">تهران، خیابان ولیعصر، برج بین‌المللی طلای ایران</span>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-        <div className="card-surface p-8">
-          <form className="space-y-4">
-            <div>
-              <label className="block text-sm font-medium mb-1">نام شما</label>
-              <input type="text" className="w-full rounded-lg border border-border bg-surface px-4 py-2" />
-            </div>
-            <div>
-              <label className="block text-sm font-medium mb-1">پیام</label>
-              <textarea rows={4} className="w-full rounded-lg border border-border bg-surface px-4 py-2"></textarea>
-            </div>
-            <Button variant="primary" className="w-full">ارسال پیام</Button>
-          </form>
+
+          {/* Form */}
+          <div className="lg:col-span-7 bg-white rounded-3xl p-8 border border-[#E8E1D5] shadow-xs">
+            <h3 className="text-base font-bold text-[#141210] mb-6">ارسال پیام یا درخواست مشاوره</h3>
+            <form className="space-y-4">
+              <div>
+                <label className="block text-xs font-bold text-[#141210] mb-1.5">نام و نام خانوادگی</label>
+                <input 
+                  type="text" 
+                  className="w-full rounded-2xl border border-[#E8E1D5] bg-[#FAF8F5] px-4 py-3 text-xs outline-none focus:border-[#B8621B] focus:bg-white transition-all" 
+                  required 
+                />
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-xs font-bold text-[#141210] mb-1.5">شماره موبایل</label>
+                  <input 
+                    type="tel" 
+                    dir="ltr"
+                    className="w-full rounded-2xl border border-[#E8E1D5] bg-[#FAF8F5] px-4 py-3 font-num text-left text-xs outline-none focus:border-[#B8621B] focus:bg-white transition-all" 
+                    required 
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-bold text-[#141210] mb-1.5">موضوع</label>
+                  <input 
+                    type="text" 
+                    className="w-full rounded-2xl border border-[#E8E1D5] bg-[#FAF8F5] px-4 py-3 text-xs outline-none focus:border-[#B8621B] focus:bg-white transition-all" 
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-[#141210] mb-1.5">متن پیام</label>
+                <textarea 
+                  rows={4} 
+                  className="w-full rounded-2xl border border-[#E8E1D5] bg-[#FAF8F5] px-4 py-3 text-xs outline-none focus:border-[#B8621B] focus:bg-white resize-none transition-all"
+                  required
+                />
+              </div>
+
+              <Button 
+                variant="primary" 
+                className="w-full py-4 rounded-full text-xs font-bold shadow-copper-glow flex items-center justify-center gap-2"
+              >
+                <Send className="w-4 h-4" />
+                <span>ارسال پیام به کارشناس</span>
+              </Button>
+            </form>
+          </div>
         </div>
       </div>
     </div>

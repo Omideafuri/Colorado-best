@@ -2,8 +2,10 @@ import { db } from '@/lib/db';
 import { getCurrentUser } from '@/lib/auth/session';
 import { redirect } from 'next/navigation';
 import { reviewKycAction } from '@/app/actions/kyc';
-import { Check, X } from 'lucide-react';
+import { Check, X, ShieldCheck } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+
+export const dynamic = 'force-dynamic';
 
 export default async function AdminKycPage() {
   const user = await getCurrentUser();
@@ -20,41 +22,49 @@ export default async function AdminKycPage() {
   });
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 max-w-5xl">
       <div>
-        <h1 className="text-xl font-bold text-text-primary">بررسی احراز هویت</h1>
-        <p className="text-sm text-text-secondary mt-1">مدارک ارسال شده توسط کاربران جهت تأیید حساب</p>
+        <div className="flex items-center gap-2 mb-1.5">
+          <span className="diamond-motif !w-2 !h-2" />
+          <span className="text-xs tracking-brand font-semibold text-[#7D776C]">صف ارزیابی مدارک</span>
+        </div>
+        <h1 className="text-2xl font-bold text-[#141210] tracking-tight">بررسی درخواست‌های احراز هویت</h1>
+        <p className="text-xs sm:text-sm text-[#4A463F] mt-1 font-light">
+          تطبیق سجلی و صدور دسترسی معاملات سطح طلایی
+        </p>
       </div>
 
-      <div className="card-surface overflow-hidden">
+      <div className="bg-white rounded-3xl border border-[#E8E1D5] overflow-hidden shadow-xs">
         {applications.length === 0 ? (
-          <div className="p-8 text-center text-text-secondary">
-            درخواستی برای بررسی وجود ندارد.
+          <div className="p-12 text-center text-[#7D776C] space-y-2">
+            <ShieldCheck className="w-8 h-8 text-[#B8621B] mx-auto opacity-60" />
+            <p className="text-sm font-semibold text-[#141210]">هیچ درخواستی در صف انتظار نیست.</p>
+            <p className="text-xs font-light">تمامی پرونده‌های دریافتی تعیین تکلیف گردیده‌اند.</p>
           </div>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-sm text-right">
-              <thead className="bg-surface-secondary text-text-secondary border-b border-border">
-                <tr>
-                  <th className="px-4 py-3 font-medium">شماره موبایل</th>
-                  <th className="px-4 py-3 font-medium">نام و نام خانوادگی</th>
-                  <th className="px-4 py-3 font-medium">کد ملی</th>
-                  <th className="px-4 py-3 font-medium text-center">عملیات</th>
+              <thead>
+                <tr className="bg-[#FAF8F5] text-[#7D776C] border-b border-[#E8E1D5] text-xs">
+                  <th className="px-6 py-4 font-semibold">شماره موبایل</th>
+                  <th className="px-6 py-4 font-semibold">نام و نام خانوادگی</th>
+                  <th className="px-6 py-4 font-semibold">کد ملی</th>
+                  <th className="px-6 py-4 font-semibold text-center">عملیات تصمیم‌گیری</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-border">
+              <tbody className="divide-y divide-[#E8E1D5]">
                 {applications.map((app) => (
-                  <tr key={app.id} className="hover:bg-surface-hover/50 transition-colors">
-                    <td className="px-4 py-4 font-num text-text-primary" dir="ltr">
+                  <tr key={app.id} className="hover:bg-[#FAF8F5]/80 transition-colors">
+                    <td className="px-6 py-4 font-num text-[#141210] text-xs" dir="ltr">
                       {app.user.mobile}
                     </td>
-                    <td className="px-4 py-4">
+                    <td className="px-6 py-4 font-semibold text-xs sm:text-sm text-[#141210]">
                       {app.user.profile?.firstName} {app.user.profile?.lastName}
                     </td>
-                    <td className="px-4 py-4 font-num">
+                    <td className="px-6 py-4 font-num text-xs text-[#262A56]">
                       {app.user.profile?.nationalId}
                     </td>
-                    <td className="px-4 py-4">
+                    <td className="px-6 py-4">
                       <div className="flex items-center justify-center gap-2">
                         <form action={async () => {
                           'use server';
@@ -64,8 +74,9 @@ export default async function AdminKycPage() {
                             type="submit"
                             variant="primary"
                             size="sm"
-                            icon={<Check className="h-4 w-4" />}
+                            className="rounded-full text-xs"
                           >
+                            <Check className="h-3.5 w-3.5 ml-1" />
                             تأیید
                           </Button>
                         </form>
@@ -75,10 +86,11 @@ export default async function AdminKycPage() {
                         }}>
                           <Button
                             type="submit"
-                            variant="danger"
+                            variant="outline"
                             size="sm"
-                            icon={<X className="h-4 w-4" />}
+                            className="rounded-full text-xs text-rose-700 hover:bg-rose-50"
                           >
+                            <X className="h-3.5 w-3.5 ml-1" />
                             رد
                           </Button>
                         </form>

@@ -4,6 +4,7 @@ import { useState, useTransition, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { verifyOtpAction, sendOtpAction } from '../actions';
 import { Button } from '@/components/ui/button';
+import { ArrowLeft, ShieldCheck } from 'lucide-react';
 
 function VerifyForm() {
   const router = useRouter();
@@ -36,7 +37,6 @@ function VerifyForm() {
     newCode[index] = value;
     setCode(newCode);
 
-    // Auto focus next input
     if (value && index < 5) {
       const nextInput = document.getElementById(`otp-${index + 1}`);
       nextInput?.focus();
@@ -89,24 +89,25 @@ function VerifyForm() {
   return (
     <>
       <div className="text-center mb-8">
-        <h1 className="text-xl font-bold text-text-primary">تایید شماره موبایل</h1>
-        <p className="mt-2 text-sm text-text-secondary">
-          کد ۶ رقمی ارسال شده به شماره موبایل خود را وارد کنید
+        <span className="text-xs tracking-brand font-semibold text-[#B8621B] block mb-1.5 uppercase">امنیت دوعاملی</span>
+        <h1 className="text-2xl font-bold text-[#141210] tracking-tight">تأیید شماره موبایل</h1>
+        <p className="mt-2 text-xs text-[#4A463F] font-light">
+          کد ۶ رقمی ارسال شده به شماره زیر را وارد نمایید:
         </p>
-        <p className="mt-1 text-sm font-num text-gold-600" dir="ltr">
+        <p className="mt-1 text-sm font-num font-bold text-[#262A56]" dir="ltr">
           {maskedMobile}
         </p>
       </div>
 
       <form onSubmit={onSubmit} className="space-y-6">
         {error && (
-          <div className="p-3 text-sm text-danger bg-danger-light rounded-lg text-center">
+          <div className="p-3.5 text-xs text-rose-800 bg-rose-50 border border-rose-200 rounded-2xl text-center">
             {error}
           </div>
         )}
 
         {/* OTP Input */}
-        <div className="flex justify-center gap-2" dir="ltr">
+        <div className="flex justify-center gap-2.5" dir="ltr">
           {code.map((digit, index) => (
             <input
               key={index}
@@ -116,25 +117,26 @@ function VerifyForm() {
               value={digit}
               onChange={(e) => handleInputChange(index, e.target.value)}
               onKeyDown={(e) => handleKeyDown(index, e)}
-              className="h-12 w-12 rounded-lg border border-border bg-surface text-center text-lg font-num font-bold placeholder:text-text-muted focus:border-gold-500 focus:ring-1 focus:ring-gold-500 outline-none transition-colors"
+              className="h-12 w-12 rounded-2xl border border-[#E8E1D5] bg-[#FAF8F5] text-center text-lg font-num font-bold text-[#141210] focus:border-[#B8621B] focus:bg-white outline-none transition-all shadow-xs"
             />
           ))}
         </div>
 
         {/* Timer & Resend */}
-        <div className="text-center text-sm">
+        <div className="text-center text-xs">
           {timer > 0 ? (
-            <p className="text-text-secondary">
+            <p className="text-[#7D776C]">
               ارسال مجدد کد تا {' '}
-              <span className="font-num text-gold-600 font-medium">{formattedTimer}</span>
+              <span className="font-num text-[#262A56] font-bold">{formattedTimer}</span>
               {' '}دیگر
             </p>
           ) : (
             <Button
               type="button"
-              variant="ghost"
+              variant="outline"
               size="sm"
               onClick={handleResend}
+              className="rounded-full text-xs"
             >
               ارسال مجدد کد
             </Button>
@@ -146,9 +148,11 @@ function VerifyForm() {
           type="submit"
           disabled={code.join('').length < 6}
           isLoading={isPending}
-          className="w-full"
+          variant="primary"
+          className="w-full py-4 rounded-full text-xs font-bold shadow-copper-glow flex items-center justify-center gap-2"
         >
-          تایید
+          <span>تأیید و ورود به پنل</span>
+          <ArrowLeft className="w-4 h-4" />
         </Button>
       </form>
     </>
@@ -157,7 +161,7 @@ function VerifyForm() {
 
 export default function VerifyPage() {
   return (
-    <Suspense fallback={<div className="text-center">در حال بارگذاری...</div>}>
+    <Suspense fallback={<div className="text-center text-xs text-[#7D776C] py-8">در حال فراخوانی سامانه پیامک...</div>}>
       <VerifyForm />
     </Suspense>
   );

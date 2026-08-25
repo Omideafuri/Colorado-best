@@ -1,9 +1,11 @@
 import { db } from '@/lib/db';
 import { getCurrentUser } from '@/lib/auth/session';
 import { redirect } from 'next/navigation';
-import { Shield } from 'lucide-react';
+import { Shield, ShieldCheck, UserCheck, Sparkles } from 'lucide-react';
 import { submitKycAction } from '@/app/actions/kyc';
 import { Button } from '@/components/ui/button';
+
+export const dynamic = 'force-dynamic';
 
 export default async function ProfilePage() {
   const user = await getCurrentUser();
@@ -16,86 +18,95 @@ export default async function ProfilePage() {
   });
 
   return (
-    <div className="max-w-2xl mx-auto space-y-6">
+    <div className="max-w-3xl mx-auto space-y-8 pt-4 pb-16">
       <div>
-        <h1 className="text-xl font-bold text-text-primary">پروفایل کاربری و احراز هویت</h1>
-        <p className="text-sm text-text-secondary mt-1">مدیریت اطلاعات هویتی شما</p>
+        <div className="flex items-center gap-2 mb-1.5">
+          <span className="diamond-motif !w-2 !h-2" />
+          <span className="text-xs tracking-brand font-semibold text-[#7D776C]">شناسنامه و امنیت حساب</span>
+        </div>
+        <h1 className="text-2xl sm:text-3xl font-bold text-[#141210] tracking-tight">پروفایل کاربری و احراز هویت</h1>
+        <p className="text-xs sm:text-sm text-[#4A463F] mt-1 font-light">
+          مدیریت اطلاعات سجلی، انطباق با قوانین مبارزه با پولشویی و تأیید سطح دسترسی معاملات
+        </p>
       </div>
 
       {/* KYC Status Badge */}
-      <div className={`p-4 rounded-xl flex items-start gap-4 ${
-        kyc?.status === 'VERIFIED' ? 'bg-success-light text-success' :
-        kyc?.status === 'PENDING' ? 'bg-warning-light text-warning' :
-        kyc?.status === 'REJECTED' ? 'bg-danger-light text-danger' :
-        'bg-surface-secondary text-text-secondary'
+      <div className={`p-6 rounded-3xl border flex items-start gap-4 shadow-xs ${
+        kyc?.status === 'VERIFIED' ? 'bg-emerald-50 border-emerald-200 text-emerald-900' :
+        kyc?.status === 'PENDING' ? 'bg-amber-50 border-amber-200 text-amber-900' :
+        kyc?.status === 'REJECTED' ? 'bg-rose-50 border-rose-200 text-rose-900' :
+        'bg-white border-[#E8E1D5] text-[#141210]'
       }`}>
-        <Shield className="h-6 w-6 mt-1 flex-shrink-0" />
+        <div className="w-10 h-10 rounded-2xl bg-white/80 flex items-center justify-center flex-shrink-0 shadow-xs">
+          <Shield className="h-5 w-5 text-[#B8621B]" />
+        </div>
         <div>
-          <h2 className="font-semibold mb-1">
-            وضعیت احراز هویت: {' '}
-            {kyc?.status === 'VERIFIED' ? 'تأیید شده' :
-             kyc?.status === 'PENDING' ? 'در حال بررسی' :
-             kyc?.status === 'REJECTED' ? 'رد شده' : 'انجام نشده'}
+          <h2 className="font-bold text-base mb-1">
+            سطح کاربری: {' '}
+            {kyc?.status === 'VERIFIED' ? 'احراز هویت شده (سطح طلایی)' :
+             kyc?.status === 'PENDING' ? 'در حال بررسی توسط کارشناسان' :
+             kyc?.status === 'REJECTED' ? 'مدارک نیاز به بازنگری دارد' : 'احراز هویت پایه'}
           </h2>
-          <p className="text-sm opacity-90">
-            {kyc?.status === 'VERIFIED' ? 'حساب شما تأیید شده است و محدودیتی برای معاملات ندارید.' :
-             kyc?.status === 'PENDING' ? 'مدارک شما دریافت شده و در صف بررسی توسط کارشناسان است.' :
-             kyc?.status === 'REJECTED' ? `مدارک شما رد شد. دلیل: ${kyc.rejectionReason || 'نامشخص'}` : 
-             'برای دسترسی به تمام امکانات پلتفرم زروی، لطفاً فرم زیر را تکمیل کنید.'}
+          <p className="text-xs leading-relaxed opacity-90 font-light">
+            {kyc?.status === 'VERIFIED' ? 'حساب شما با موفقیت تأیید شده است و محدودیتی برای خرید، فروش و تحویل فیزیکی طلا ندارید.' :
+             kyc?.status === 'PENDING' ? 'مدارک هویتی شما دریافت شده و طبق ضوابط شاپرک و اتحادیه در حال تطبیق است.' :
+             kyc?.status === 'REJECTED' ? `دلیل عدم تأیید: ${kyc.rejectionReason || 'عدم تطابق اطلاعات با ثبت احوال'}` : 
+             'جهت افزایش سقف واریز و برداشت بانکی، لطفاً اطلاعات زیر را با دقت تکمیل فرمایید.'}
           </p>
         </div>
       </div>
 
-      {/* KYC Form (Only if not pending or verified) */}
+      {/* KYC Form */}
       {kyc?.status !== 'VERIFIED' && kyc?.status !== 'PENDING' && (
-        <div className="card-surface p-6">
-          <h3 className="text-lg font-semibold mb-4">فرم درخواست احراز هویت</h3>
+        <div className="bg-white rounded-3xl p-6 sm:p-8 border border-[#E8E1D5] shadow-xs">
+          <h3 className="text-base font-bold text-[#141210] mb-4">فرم درخواست تطبیق کد ملی</h3>
           <form action={submitKycAction as unknown as string} className="space-y-4">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium mb-1">نام</label>
+                <label className="block text-xs font-bold text-[#141210] mb-1.5">نام</label>
                 <input 
                   type="text" 
                   name="firstName"
                   defaultValue={profile?.firstName || ''}
-                  className="w-full rounded-lg border border-border bg-surface px-4 py-2.5 outline-none focus:border-info"
+                  className="w-full rounded-2xl border border-[#E8E1D5] bg-[#FAF8F5] px-4 py-3 text-xs outline-none focus:border-[#B8621B] focus:bg-white transition-all"
                   required 
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium mb-1">نام خانوادگی</label>
+                <label className="block text-xs font-bold text-[#141210] mb-1.5">نام خانوادگی</label>
                 <input 
                   type="text" 
                   name="lastName"
                   defaultValue={profile?.lastName || ''}
-                  className="w-full rounded-lg border border-border bg-surface px-4 py-2.5 outline-none focus:border-info"
+                  className="w-full rounded-2xl border border-[#E8E1D5] bg-[#FAF8F5] px-4 py-3 text-xs outline-none focus:border-[#B8621B] focus:bg-white transition-all"
                   required 
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-sm font-medium mb-1">کد ملی</label>
+              <label className="block text-xs font-bold text-[#141210] mb-1.5">کد ملی ۱۰ رقمی</label>
               <input 
                 type="text" 
                 name="nationalId"
                 dir="ltr"
                 defaultValue={profile?.nationalId || ''}
-                className="w-full rounded-lg border border-border bg-surface px-4 py-2.5 font-num text-left outline-none focus:border-info"
+                className="w-full rounded-2xl border border-[#E8E1D5] bg-[#FAF8F5] px-4 py-3 font-num text-left text-xs outline-none focus:border-[#B8621B] focus:bg-white transition-all"
                 maxLength={10}
                 required 
               />
             </div>
 
-            <div className="p-4 bg-info-light/50 border border-info/20 rounded-lg text-sm text-text-secondary leading-relaxed">
-              <strong>توجه:</strong> در این نسخه آزمایشی (MVP) نیازی به آپلود عکس واقعی نیست. با کلیک روی دکمه زیر، یک درخواست شبیه‌سازی شده ثبت می‌شود.
+            <div className="p-4 bg-[#FAF8F5] border border-[#E8E1D5] rounded-2xl text-xs text-[#4A463F] leading-relaxed">
+              <span className="font-bold text-[#262A56]">الزام قانونی:</span> نام صاحب حساب بانکی و دارنده سیم‌کارت باید با کد ملی ثبت‌شده تطابق کامل داشته باشد.
             </div>
 
             <Button 
               type="submit"
-              className="w-full"
+              variant="primary"
+              className="w-full py-3.5 rounded-full text-xs font-bold shadow-copper-glow"
             >
-              ثبت و ارسال اطلاعات
+              ثبت و ارسال اطلاعات هویتی
             </Button>
           </form>
         </div>

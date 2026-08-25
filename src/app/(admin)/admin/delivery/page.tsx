@@ -3,8 +3,10 @@ import { getCurrentUser } from '@/lib/auth/session';
 import { redirect } from 'next/navigation';
 import { updateDeliveryStatusAction } from '@/app/actions/delivery';
 import { toPersianDigits } from '@/lib/utils/format';
-import { Truck } from 'lucide-react';
+import { Truck, Package } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+
+export const dynamic = 'force-dynamic';
 
 export default async function AdminDeliveryPage() {
   const user = await getCurrentUser();
@@ -23,34 +25,42 @@ export default async function AdminDeliveryPage() {
   });
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 max-w-5xl">
       <div>
-        <h1 className="text-xl font-bold text-text-primary">مدیریت مرسولات</h1>
-        <p className="text-sm text-text-secondary mt-1">درخواست‌های تحویل فیزیکی طلای کاربران</p>
+        <div className="flex items-center gap-2 mb-1.5">
+          <span className="diamond-motif !w-2 !h-2" />
+          <span className="text-xs tracking-brand font-semibold text-[#7D776C]">سامانه لجستیک</span>
+        </div>
+        <h1 className="text-2xl font-bold text-[#141210] tracking-tight">مدیریت سفارشات تحویل فیزیکی</h1>
+        <p className="text-xs sm:text-sm text-[#4A463F] mt-1 font-light">
+          نظارت بر بسته‌بندی امنیتی شمش و تحویل به مأمورین پست ویژه
+        </p>
       </div>
 
       <div className="grid gap-4">
         {deliveries.length === 0 ? (
-          <div className="card-surface p-8 text-center text-text-secondary">
-            هیچ درخواست تحویلی وجود ندارد.
+          <div className="bg-white rounded-3xl p-12 text-center border border-[#E8E1D5] shadow-xs space-y-2">
+            <Package className="w-8 h-8 text-[#B8621B] mx-auto opacity-60" />
+            <p className="text-sm font-semibold text-[#141210]">هیچ درخواست ارسالی در انتظار پردازش نیست.</p>
+            <p className="text-xs text-[#7D776C] font-light">سفارشات تحویل جدید به محض ثبت در این قسمت نمایش داده می‌شوند.</p>
           </div>
         ) : (
           deliveries.map(order => (
-            <div key={order.id} className="card-surface p-5 flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div key={order.id} className="bg-white rounded-3xl p-6 border border-[#E8E1D5] shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
               <div>
-                <div className="flex items-center gap-2 mb-2">
-                  <span className="font-bold font-num text-lg text-gold-600">
-                    {toPersianDigits((Number(order.weightNg) / 1_000_000_000).toFixed(2))} گرم
+                <div className="flex items-center gap-2.5 mb-2">
+                  <span className="font-bold font-num text-base text-[#262A56]">
+                    {toPersianDigits((Number(order.weightNg) / 1_000_000_000).toFixed(2))} گرم طلا
                   </span>
-                  <span className="text-xs bg-surface-secondary px-2 py-1 rounded text-text-secondary">
-                    وضعیت فعلی: {order.status}
+                  <span className="text-xs bg-[#FAF8F5] border border-[#E8E1D5] px-2.5 py-0.5 rounded-full text-[#7D776C] font-medium">
+                    وضعیت: {order.status}
                   </span>
                 </div>
-                <p className="text-sm">
-                  <span className="text-text-muted">گیرنده:</span> {order.recipientName} ({order.recipientMobile})
+                <p className="text-xs text-[#4A463F]">
+                  <span className="text-[#7D776C]">گیرنده:</span> <span className="font-semibold text-[#141210]">{order.recipientName}</span> ({order.recipientMobile})
                 </p>
-                <p className="text-sm mt-1">
-                  <span className="text-text-muted">آدرس:</span> {order.city} - {order.deliveryAddress} (کد پستی: {order.postalCode})
+                <p className="text-xs text-[#4A463F] mt-1">
+                  <span className="text-[#7D776C]">آدرس:</span> {order.city} - {order.deliveryAddress} (کد پستی: <span className="font-num">{order.postalCode}</span>)
                 </p>
               </div>
 
@@ -60,18 +70,19 @@ export default async function AdminDeliveryPage() {
                     'use server';
                     await updateDeliveryStatusAction(order.id, 'PROCESSING');
                   }}>
-                    <Button variant="primary" size="sm" className="bg-info border-info hover:bg-info/90">
-                      تأیید و پردازش
+                    <Button variant="primary" size="sm" className="rounded-full text-xs font-bold shadow-copper-glow">
+                      تأیید و صدور مجوز خروج
                     </Button>
                   </form>
                 )}
                 {order.status === 'PROCESSING' && (
                   <form action={async () => {
                     'use server';
-                    await updateDeliveryStatusAction(order.id, 'SHIPPED', '123456789'); // Mock tracking code
+                    await updateDeliveryStatusAction(order.id, 'SHIPPED', '123456789');
                   }}>
-                    <Button variant="primary" size="sm" className="bg-success border-success hover:bg-success/90" icon={<Truck className="h-4 w-4" />}>
-                      ارسال شد
+                    <Button variant="secondary" size="sm" className="rounded-full text-xs font-bold flex items-center gap-1">
+                      <Truck className="h-3.5 w-3.5" />
+                      <span>ثبت کد رهگیری پست</span>
                     </Button>
                   </form>
                 )}
@@ -80,8 +91,8 @@ export default async function AdminDeliveryPage() {
                     'use server';
                     await updateDeliveryStatusAction(order.id, 'DELIVERED');
                   }}>
-                    <Button variant="primary" size="sm">
-                      تحویل به مشتری
+                    <Button variant="outline" size="sm" className="rounded-full text-xs font-bold">
+                      تأیید تحویل به مشتری
                     </Button>
                   </form>
                 )}

@@ -3,7 +3,7 @@
 import { useState, useTransition } from 'react';
 import { useRouter } from 'next/navigation';
 import { buyGoldAction } from '../actions';
-import { ShoppingCart } from 'lucide-react';
+import { ShoppingCart, Sparkles, ArrowLeft, ShieldCheck } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 export default function BuyGoldPage() {
@@ -36,45 +36,55 @@ export default function BuyGoldPage() {
   };
 
   return (
-    <div className="max-w-md mx-auto space-y-6">
+    <div className="max-w-xl mx-auto space-y-6 pt-4 pb-16">
       <div>
-        <h1 className="text-xl font-bold text-text-primary">خرید طلا</h1>
-        <p className="text-sm text-text-secondary mt-1">خرید آنی طلای ۱۸ عیار</p>
+        <div className="flex items-center gap-2 mb-2">
+          <span className="diamond-motif !w-2 !h-2" />
+          <span className="text-xs tracking-brand font-semibold text-[#7D776C]">میز معاملات برخط</span>
+        </div>
+        <h1 className="text-2xl sm:text-3xl font-bold text-[#141210] tracking-tight">خرید آنلاین طلای ۱۸ عیار</h1>
+        <p className="text-xs sm:text-sm text-[#4A463F] mt-1 font-light">
+          خرید آنی با نرخ رسمی لحظه‌ای و واریز فوری به خزانه امن زروی
+        </p>
       </div>
 
-      <div className="card-surface p-5">
-        <form onSubmit={handleSubmit} className="space-y-5">
+      <div className="bg-white rounded-3xl p-6 sm:p-8 border border-[#E8E1D5] shadow-xs">
+        <form onSubmit={handleSubmit} className="space-y-6">
           {error && (
-            <div className="p-3 text-sm text-danger bg-danger-light rounded-lg text-center">
+            <div className="p-4 text-xs font-semibold text-rose-800 bg-rose-50 border border-rose-200 rounded-2xl text-center">
               {error}
             </div>
           )}
 
           {/* Mode Selector */}
-          <div className="flex p-1 bg-surface-secondary rounded-lg gap-1">
-            <Button
+          <div className="flex p-1 bg-[#FAF8F5] border border-[#E8E1D5] rounded-2xl gap-1">
+            <button
               type="button"
-              variant={mode === 'BY_AMOUNT' ? 'primary' : 'ghost'}
-              size="sm"
               onClick={() => { setMode('BY_AMOUNT'); setInputValue(''); }}
-              className="flex-1"
+              className={`flex-1 py-2.5 text-xs font-bold rounded-xl transition-all ${
+                mode === 'BY_AMOUNT'
+                  ? 'bg-[#262A56] text-white shadow-xs'
+                  : 'text-[#7D776C] hover:text-[#141210]'
+              }`}
             >
-              مبلغی
-            </Button>
-            <Button
+              خرید بر اساس مبلغ (تومان)
+            </button>
+            <button
               type="button"
-              variant={mode === 'BY_WEIGHT' ? 'primary' : 'ghost'}
-              size="sm"
               onClick={() => { setMode('BY_WEIGHT'); setInputValue(''); }}
-              className="flex-1"
+              className={`flex-1 py-2.5 text-xs font-bold rounded-xl transition-all ${
+                mode === 'BY_WEIGHT'
+                  ? 'bg-[#262A56] text-white shadow-xs'
+                  : 'text-[#7D776C] hover:text-[#141210]'
+              }`}
             >
-              وزنی
-            </Button>
+              خرید بر اساس وزن (گرم)
+            </button>
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-text-primary mb-1.5">
-              {mode === 'BY_AMOUNT' ? 'مبلغ خرید (تومان)' : 'وزن طلا (گرم)'}
+            <label className="block text-xs font-bold text-[#141210] mb-2">
+              {mode === 'BY_AMOUNT' ? 'مبلغ مورد نظر برای خرید' : 'وزن طلای درخواستی'}
             </label>
             <div className="relative">
               <input
@@ -82,24 +92,35 @@ export default function BuyGoldPage() {
                 dir="ltr"
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value.replace(/[^0-9.]/g, ''))}
-                placeholder={mode === 'BY_AMOUNT' ? '1,000,000' : '1.5'}
-                className="w-full rounded-lg border border-border bg-surface px-4 py-3 text-lg font-num text-left placeholder:text-text-muted focus:border-gold-500 focus:ring-1 focus:ring-gold-500 outline-none transition-colors"
+                placeholder={mode === 'BY_AMOUNT' ? '1,000,000' : '1.500'}
+                className="w-full rounded-2xl border border-[#E8E1D5] bg-[#FAF8F5] px-4 py-3.5 text-lg font-num text-left placeholder:text-[#7D776C] focus:border-[#B8621B] focus:bg-white outline-none transition-all"
                 required
               />
-              <span className="absolute right-4 top-1/2 -translate-y-1/2 text-text-muted text-sm">
+              <span className="absolute right-4 top-1/2 -translate-y-1/2 text-xs font-bold text-[#7D776C]">
                 {mode === 'BY_AMOUNT' ? 'تومان' : 'گرم'}
               </span>
             </div>
+          </div>
+
+          <div className="bg-[#FAF8F5] p-4 rounded-2xl border border-[#E8E1D5] space-y-2 text-xs text-[#4A463F]">
+            <div className="flex items-center gap-2 text-[#262A56] font-semibold">
+              <ShieldCheck className="w-4 h-4 text-[#B8621B]" />
+              <span>تضمین اصالت شمش و خلوص ۷۵۰</span>
+            </div>
+            <p className="text-[11px] text-[#7D776C] leading-relaxed">
+              پس از تکمیل خرید، طلای شما بلافاصله در خزانه امن ثبت شده و در هر زمان قابل فروش لحظه‌ای یا تحویل فیزیکی است.
+            </p>
           </div>
 
           <Button
             type="submit"
             disabled={!inputValue}
             isLoading={isPending}
-            icon={<ShoppingCart className="h-4 w-4" />}
-            className="w-full"
+            variant="primary"
+            className="w-full py-4 rounded-full text-xs font-bold shadow-copper-glow flex items-center justify-center gap-2"
           >
-            تأیید و خرید
+            <ShoppingCart className="h-4 w-4" />
+            <span>تأیید و پرداخت نهایی</span>
           </Button>
         </form>
       </div>

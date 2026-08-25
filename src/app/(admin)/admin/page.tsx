@@ -2,7 +2,9 @@ import { db } from '@/lib/db';
 import { getCurrentUser } from '@/lib/auth/session';
 import { redirect } from 'next/navigation';
 import { formatNumber, toPersianDigits } from '@/lib/utils/format';
-import { Users, TrendingUp, Wallet, ShieldAlert } from 'lucide-react';
+import { Users, TrendingUp, Wallet, ShieldAlert, Sparkles } from 'lucide-react';
+
+export const dynamic = 'force-dynamic';
 
 export default async function AdminDashboardPage() {
   const user = await getCurrentUser();
@@ -10,10 +12,8 @@ export default async function AdminDashboardPage() {
     redirect('/dashboard');
   }
 
-  // Fetch basic platform metrics
   const totalUsers = await db.user.count();
   
-  // Aggregate total gold held by users
   const goldWallets = await db.goldWallet.aggregate({
     _sum: { balanceNg: true }
   });
@@ -21,7 +21,6 @@ export default async function AdminDashboardPage() {
   const totalGoldNg = goldWallets._sum.balanceNg || 0n;
   const totalGoldGrams = Number(totalGoldNg) / 1_000_000_000;
 
-  // Aggregate total cash held by users
   const cashWallets = await db.cashWallet.aggregate({
     _sum: { balanceRial: true }
   });
@@ -29,65 +28,70 @@ export default async function AdminDashboardPage() {
   const totalCashRial = cashWallets._sum.balanceRial || 0n;
   const totalCashToman = Number(totalCashRial / 10n);
 
-  // Pending KYC applications
   const pendingKyc = await db.kycApplication.count({
     where: { status: 'PENDING' }
   });
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8 max-w-6xl mx-auto">
       <div>
-        <h1 className="text-xl font-bold text-text-primary">داشبورد مدیریت</h1>
-        <p className="text-sm text-text-secondary mt-1">نمای کلی از وضعیت پلتفرم زروی</p>
+        <div className="flex items-center gap-2 mb-1.5">
+          <span className="diamond-motif !w-2 !h-2" />
+          <span className="text-xs tracking-brand font-semibold text-[#7D776C]">مرکز پایش شاخص‌های کلیدی</span>
+        </div>
+        <h1 className="text-2xl sm:text-3xl font-bold text-[#141210] tracking-tight">داشبورد مدیریت و نظارت زروی</h1>
+        <p className="text-xs sm:text-sm text-[#4A463F] mt-1 font-light">
+          وضعیت تراز خزانه‌های طلا، حساب‌های ریالی شتاب و صف‌های بررسی احراز هویت
+        </p>
       </div>
 
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <div className="card-surface p-5">
-          <div className="flex items-center gap-3 mb-3">
-            <div className="p-2 bg-info-light text-info rounded-lg">
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="bg-white rounded-3xl p-6 border border-[#E8E1D5] shadow-xs">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="p-2.5 bg-[#FAF8F5] text-[#262A56] rounded-2xl border border-[#E8E1D5]">
               <Users className="h-5 w-5" />
             </div>
-            <p className="text-sm font-medium text-text-secondary">تعداد کاربران</p>
+            <p className="text-xs font-semibold text-[#7D776C]">کاربران عضو</p>
           </div>
-          <p className="text-2xl font-bold font-num text-text-primary">
+          <p className="text-3xl font-extrabold font-num text-[#141210]">
             {formatNumber(totalUsers)}
           </p>
         </div>
 
-        <div className="card-surface p-5">
-          <div className="flex items-center gap-3 mb-3">
-            <div className="p-2 bg-gold-100 text-gold-700 rounded-lg">
+        <div className="bg-[#E3CCAE] rounded-3xl p-6 border border-[#D1C7B7] shadow-xs text-[#141210]">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="p-2.5 bg-white text-[#262A56] rounded-2xl border border-[#D1C7B7]">
               <TrendingUp className="h-5 w-5" />
             </div>
-            <p className="text-sm font-medium text-text-secondary">کل طلای کاربران</p>
+            <p className="text-xs font-bold text-[#262A56]">موجودی کل خزانه طلا</p>
           </div>
-          <p className="text-2xl font-bold font-num text-text-primary">
+          <p className="text-3xl font-extrabold font-num text-[#141210]">
             {toPersianDigits(totalGoldGrams.toFixed(4))}
-            <span className="text-sm font-normal text-text-muted mr-1">گرم</span>
+            <span className="text-xs font-bold text-[#4A463F] mr-1">گرم</span>
           </p>
         </div>
 
-        <div className="card-surface p-5">
-          <div className="flex items-center gap-3 mb-3">
-            <div className="p-2 bg-success-light text-success rounded-lg">
+        <div className="bg-[#000000] text-white rounded-3xl p-6 border border-white/15 shadow-2xl">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="p-2.5 bg-[#14162B] text-[#B8621B] rounded-2xl border border-white/10">
               <Wallet className="h-5 w-5" />
             </div>
-            <p className="text-sm font-medium text-text-secondary">کل دارایی نقدی</p>
+            <p className="text-xs font-bold text-[#E3CCAE]">نقدینگی در گردش</p>
           </div>
-          <p className="text-2xl font-bold font-num text-text-primary">
+          <p className="text-3xl font-extrabold font-num text-white">
             {formatNumber(totalCashToman)}
-            <span className="text-sm font-normal text-text-muted mr-1">تومان</span>
+            <span className="text-xs font-normal text-[#C5BFB4] mr-1">تومان</span>
           </p>
         </div>
 
-        <div className="card-surface p-5">
-          <div className="flex items-center gap-3 mb-3">
-            <div className="p-2 bg-warning-light text-warning rounded-lg">
+        <div className="bg-white rounded-3xl p-6 border border-[#E8E1D5] shadow-xs">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="p-2.5 bg-[#FAF8F5] text-[#B8621B] rounded-2xl border border-[#E8E1D5]">
               <ShieldAlert className="h-5 w-5" />
             </div>
-            <p className="text-sm font-medium text-text-secondary">احراز هویت‌های در انتظار</p>
+            <p className="text-xs font-semibold text-[#7D776C]">احراز هویت‌های در صف</p>
           </div>
-          <p className="text-2xl font-bold font-num text-text-primary">
+          <p className="text-3xl font-extrabold font-num text-[#B8621B]">
             {formatNumber(pendingKyc)}
           </p>
         </div>

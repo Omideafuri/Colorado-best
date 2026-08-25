@@ -1,20 +1,34 @@
+import { ArrowLeftRight, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { ArrowLeftRight } from 'lucide-react';
 
 export default function TransferPage() {
   return (
-    <div className="max-w-md mx-auto space-y-6">
+    <div className="max-w-xl mx-auto space-y-6 pt-4 pb-16">
       <div>
-        <h1 className="text-xl font-bold text-text-primary">انتقال طلا</h1>
-        <p className="text-sm text-text-secondary mt-1">انتقال طلای دیجیتال به حساب کاربران دیگر زروی</p>
+        <div className="flex items-center gap-2 mb-2">
+          <span className="diamond-motif !w-2 !h-2" />
+          <span className="text-xs tracking-brand font-semibold text-[#7D776C]">انتقال داخلی دارایی</span>
+        </div>
+        <h1 className="text-2xl sm:text-3xl font-bold text-[#141210] tracking-tight">انتقال طلای دیجیتال</h1>
+        <p className="text-xs sm:text-sm text-[#4A463F] mt-1 font-light">انتقال آنی طلا با شماره همراه به کیف پول سایر اعضای زروی</p>
       </div>
-      <div className="card-surface p-6 text-center space-y-4">
-        <div className="flex h-16 w-16 items-center justify-center rounded-full bg-gold-500/10 mx-auto text-gold-500">
+
+      <div className="bg-white rounded-3xl p-8 sm:p-12 text-center border border-[#E8E1D5] shadow-xs space-y-5">
+        <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-[#FAF8F5] border border-[#E8E1D5] mx-auto text-[#B8621B]">
           <ArrowLeftRight className="h-8 w-8" />
         </div>
-        <h2 className="text-lg font-bold">این قابلیت به زودی فعال می‌شود</h2>
-        <p className="text-sm text-text-secondary">تیم ما در حال توسعه زیرساخت‌های امن برای انتقال مستقیم طلا بین کاربران است.</p>
-        <Button variant="outline" className="w-full" disabled>در حال توسعه</Button>
+        <div>
+          <span className="text-[10px] tracking-brand font-bold text-[#B8621B] block mb-1">نسخه آزمایشی شبکه</span>
+          <h2 className="text-xl font-bold text-[#262A56]">زیرساخت انتقال همتا به همتا</h2>
+        </div>
+        <p className="text-xs sm:text-sm text-[#4A463F] max-w-md mx-auto leading-relaxed font-light">
+          پروتکل انتقال امن طلای دیجیتال زروی به زودی با قابلیت ایجاد فاکتور، هدیه طلایی و انتقال آنی فعال خواهد شد.
+        </p>
+        <div className="pt-2">
+          <Button variant="outline" className="px-8 py-3 rounded-full text-xs font-semibold" disabled>
+            به‌زودی در دسترس خواهد بود
+          </Button>
+        </div>
       </div>
     </div>
   );

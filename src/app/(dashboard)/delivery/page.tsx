@@ -2,9 +2,11 @@ import { db } from '@/lib/db';
 import { getCurrentUser } from '@/lib/auth/session';
 import { redirect } from 'next/navigation';
 import { requestDeliveryAction } from '@/app/actions/delivery';
-import {  Info } from 'lucide-react';
-import {  toPersianDigits } from '@/lib/utils/format';
+import { Info, Truck, ShieldCheck, Package } from 'lucide-react';
+import { toPersianDigits } from '@/lib/utils/format';
 import { Button } from '@/components/ui/button';
+
+export const dynamic = 'force-dynamic';
 
 export default async function DeliveryPage() {
   const user = await getCurrentUser();
@@ -20,140 +22,157 @@ export default async function DeliveryPage() {
   });
 
   return (
-    <div className="max-w-4xl mx-auto space-y-6">
+    <div className="max-w-5xl mx-auto space-y-8 pt-4 pb-16">
       <div>
-        <h1 className="text-xl font-bold text-text-primary">دریافت فیزیکی طلا</h1>
-        <p className="text-sm text-text-secondary mt-1">ارسال طلای ۱۸ عیار شمش یا آب‌شده به آدرس شما</p>
+        <div className="flex items-center gap-2 mb-1.5">
+          <span className="diamond-motif !w-2 !h-2" />
+          <span className="text-xs tracking-brand font-semibold text-[#7D776C]">لجستیک و تحویل فیزیکی</span>
+        </div>
+        <h1 className="text-2xl sm:text-3xl font-bold text-[#141210] tracking-tight">درخواست تحویل فیزیکی طلا</h1>
+        <p className="text-xs sm:text-sm text-[#4A463F] mt-1 font-light">
+          تبدیل موجودی طلای دیجیتال به شمش استاندارد و ارسال محرمانه با پست بیمه‌شده به تمام نقاط کشور
+        </p>
       </div>
 
-      <div className="grid md:grid-cols-2 gap-6">
+      <div className="grid lg:grid-cols-12 gap-8">
         {/* Request Form */}
-        <div className="card-surface p-6">
-          <div className="flex items-center justify-between mb-6">
-            <h2 className="font-semibold text-lg">درخواست جدید</h2>
-            <div className="text-sm">
-              موجودی: <span className="font-bold font-num text-gold-600">{toPersianDigits(goldGrams.toFixed(4))} گرم</span>
+        <div className="lg:col-span-6">
+          <div className="bg-white rounded-3xl p-6 sm:p-8 border border-[#E8E1D5] shadow-xs">
+            <div className="flex items-center justify-between mb-6 pb-4 border-b border-[#E8E1D5]">
+              <h2 className="font-bold text-base text-[#141210]">ثبت سفارش ارسال</h2>
+              <div className="text-xs">
+                موجودی: <span className="font-bold font-num text-[#262A56]">{toPersianDigits(goldGrams.toFixed(4))} گرم</span>
+              </div>
             </div>
+
+            <form action={requestDeliveryAction as unknown as string} className="space-y-4">
+              <input type="hidden" name="idempotencyKey" value={crypto.randomUUID()} />
+              <div>
+                <label className="block text-xs font-bold text-[#141210] mb-1.5">وزن درخواستی جهت تحویل (گرم)</label>
+                <input 
+                  type="text" 
+                  name="weightGrams"
+                  dir="ltr"
+                  placeholder="حداقل ۱ گرم"
+                  className="w-full rounded-2xl border border-[#E8E1D5] bg-[#FAF8F5] px-4 py-3 font-num text-left text-sm outline-none focus:border-[#B8621B] focus:bg-white transition-all"
+                  required 
+                />
+              </div>
+              
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-xs font-bold text-[#141210] mb-1.5">نام و نام خانوادگی گیرنده</label>
+                  <input 
+                    type="text" 
+                    name="recipientName"
+                    className="w-full rounded-2xl border border-[#E8E1D5] bg-[#FAF8F5] px-4 py-3 text-xs outline-none focus:border-[#B8621B] focus:bg-white transition-all"
+                    required 
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-bold text-[#141210] mb-1.5">شماره موبایل گیرنده</label>
+                  <input 
+                    type="text" 
+                    name="recipientMobile"
+                    dir="ltr"
+                    maxLength={11}
+                    placeholder="09XXXXXXXXX"
+                    className="w-full rounded-2xl border border-[#E8E1D5] bg-[#FAF8F5] px-4 py-3 font-num text-left text-xs outline-none focus:border-[#B8621B] focus:bg-white transition-all"
+                    required 
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-[#141210] mb-1.5">آدرس کامل پستی</label>
+                <textarea 
+                  name="address"
+                  rows={3}
+                  className="w-full rounded-2xl border border-[#E8E1D5] bg-[#FAF8F5] px-4 py-3 text-xs outline-none focus:border-[#B8621B] focus:bg-white resize-none transition-all"
+                  required 
+                />
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-xs font-bold text-[#141210] mb-1.5">شهر مقصد</label>
+                  <input 
+                    type="text" 
+                    name="city"
+                    className="w-full rounded-2xl border border-[#E8E1D5] bg-[#FAF8F5] px-4 py-3 text-xs outline-none focus:border-[#B8621B] focus:bg-white transition-all"
+                    required 
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-bold text-[#141210] mb-1.5">کد پستی ۱۰ رقمی</label>
+                  <input 
+                    type="text" 
+                    name="postalCode"
+                    dir="ltr"
+                    maxLength={10}
+                    className="w-full rounded-2xl border border-[#E8E1D5] bg-[#FAF8F5] px-4 py-3 font-num text-left text-xs outline-none focus:border-[#B8621B] focus:bg-white transition-all"
+                    required 
+                  />
+                </div>
+              </div>
+
+              <div className="bg-[#FAF8F5] p-4 rounded-2xl border border-[#E8E1D5] flex gap-3 text-xs text-[#4A463F] mt-4">
+                <Info className="h-5 w-5 flex-shrink-0 text-[#B8621B]" />
+                <p className="leading-relaxed">
+                  هزینه ثابت ارسال محرمانه (۵۰,۰۰۰ تومان) و بیمه مرسوله (۲۰,۰۰۰ تومان) از کیف پول نقدی کسر می‌گردد.
+                </p>
+              </div>
+
+              <Button 
+                type="submit"
+                variant="primary"
+                className="w-full mt-2 py-4 rounded-full text-xs font-bold shadow-copper-glow flex items-center justify-center gap-2"
+              >
+                <Truck className="h-4 w-4" />
+                <span>ثبت درخواست و هماهنگی ارسال</span>
+              </Button>
+            </form>
           </div>
-
-          <form action={requestDeliveryAction as unknown as string} className="space-y-4">
-            <input type="hidden" name="idempotencyKey" value={crypto.randomUUID()} />
-            <div>
-              <label className="block text-sm font-medium mb-1">وزن درخواستی (گرم)</label>
-              <input 
-                type="text" 
-                name="weightGrams"
-                dir="ltr"
-                placeholder="حداقل ۱ گرم"
-                className="w-full rounded-lg border border-border bg-surface px-4 py-2.5 font-num text-left outline-none focus:border-gold-500"
-                required 
-              />
-            </div>
-            
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <label className="block text-sm font-medium mb-1">نام گیرنده</label>
-                <input 
-                  type="text" 
-                  name="recipientName"
-                  className="w-full rounded-lg border border-border bg-surface px-4 py-2.5 outline-none focus:border-gold-500"
-                  required 
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium mb-1">موبایل گیرنده</label>
-                <input 
-                  type="text" 
-                  name="recipientMobile"
-                  dir="ltr"
-                  maxLength={11}
-                  className="w-full rounded-lg border border-border bg-surface px-4 py-2.5 font-num text-left outline-none focus:border-gold-500"
-                  required 
-                />
-              </div>
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium mb-1">آدرس کامل</label>
-              <textarea 
-                name="address"
-                rows={3}
-                className="w-full rounded-lg border border-border bg-surface px-4 py-2.5 outline-none focus:border-gold-500 resize-none"
-                required 
-              />
-            </div>
-
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <label className="block text-sm font-medium mb-1">شهر</label>
-                <input 
-                  type="text" 
-                  name="city"
-                  className="w-full rounded-lg border border-border bg-surface px-4 py-2.5 outline-none focus:border-gold-500"
-                  required 
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium mb-1">کد پستی</label>
-                <input 
-                  type="text" 
-                  name="postalCode"
-                  dir="ltr"
-                  maxLength={10}
-                  className="w-full rounded-lg border border-border bg-surface px-4 py-2.5 font-num text-left outline-none focus:border-gold-500"
-                  required 
-                />
-              </div>
-            </div>
-
-            <div className="bg-warning-light/50 p-3 rounded-lg flex gap-3 text-sm text-warning-dark mt-4">
-              <Info className="h-5 w-5 flex-shrink-0" />
-              <p>هزینه ثابت ارسال (۵۰,۰۰۰ تومان) و بیمه (۲۰,۰۰۰ تومان) از کیف پول نقدی شما کسر خواهد شد.</p>
-            </div>
-
-            <Button 
-              type="submit"
-              className="w-full mt-2"
-            >
-              ثبت درخواست و پرداخت هزینه
-            </Button>
-          </form>
         </div>
 
         {/* History list */}
-        <div className="card-surface p-6">
-          <h2 className="font-semibold text-lg mb-4">پیگیری سفارشات</h2>
+        <div className="lg:col-span-6 space-y-4">
+          <h2 className="font-bold text-base text-[#141210]">پیگیری مرسوله‌ها</h2>
           {deliveries.length === 0 ? (
-            <div className="text-center py-10 text-text-muted text-sm">
-              سفارش تحویلی ثبت نکرده‌اید.
+            <div className="bg-white rounded-3xl p-10 sm:p-14 text-center border border-[#E8E1D5] shadow-xs space-y-3">
+              <Package className="h-10 w-10 mx-auto text-[#B8621B] opacity-60" />
+              <p className="text-sm font-semibold text-[#141210]">سفارش تحویلی ثبت نشده است.</p>
+              <p className="text-xs text-[#7D776C] font-light max-w-sm mx-auto">
+                پس از ثبت درخواست، اطلاعات رهگیری پستی و وضعیت بسته‌بندی در این بخش قابل پیگیری خواهد بود.
+              </p>
             </div>
           ) : (
             <div className="space-y-4">
               {deliveries.map(order => (
-                <div key={order.id} className="border border-border rounded-xl p-4">
-                  <div className="flex justify-between items-center mb-3">
-                    <span className="font-bold text-lg font-num">
-                      {toPersianDigits((Number(order.weightNg) / 1_000_000_000).toFixed(2))} گرم
+                <div key={order.id} className="bg-white rounded-3xl p-5 border border-[#E8E1D5] shadow-xs space-y-3">
+                  <div className="flex justify-between items-center pb-3 border-b border-[#E8E1D5]">
+                    <span className="font-bold text-base font-num text-[#262A56]">
+                      {toPersianDigits((Number(order.weightNg) / 1_000_000_000).toFixed(2))} گرم طلا
                     </span>
-                    <span className={`px-2.5 py-1 rounded-full text-xs font-medium ${
-                      order.status === 'DELIVERED' ? 'bg-success-light text-success' :
-                      order.status === 'SHIPPED' ? 'bg-info-light text-info' :
-                      'bg-warning-light text-warning'
+                    <span className={`px-3 py-1 rounded-full text-xs font-semibold ${
+                      order.status === 'DELIVERED' ? 'bg-emerald-50 text-emerald-800' :
+                      order.status === 'SHIPPED' ? 'bg-[#1A1D3D] text-[#E3CCAE]' :
+                      'bg-amber-50 text-amber-800'
                     }`}>
                       {order.status === 'REQUESTED' ? 'درخواست شده' :
                        order.status === 'VERIFIED' ? 'تأیید شده' :
                        order.status === 'PROCESSING' ? 'در حال آماده‌سازی' :
-                       order.status === 'PACKAGED' ? 'بسته‌بندی شده' :
-                       order.status === 'SHIPPED' ? 'ارسال شده' :
+                       order.status === 'PACKAGED' ? 'بسته‌بندی امنیتی' :
+                       order.status === 'SHIPPED' ? 'تحویل به پست' :
                        order.status === 'DELIVERED' ? 'تحویل داده شد' : 'لغو شده'}
                     </span>
                   </div>
-                  <div className="text-sm text-text-secondary space-y-1">
-                    <p>گیرنده: {order.recipientName}</p>
+                  <div className="text-xs text-[#4A463F] space-y-1">
+                    <p>گیرنده: <span className="font-semibold text-[#141210]">{order.recipientName}</span></p>
                     <p className="truncate">آدرس: {order.deliveryAddress}</p>
                     {order.trackingCode && (
-                      <p className="mt-2 text-info font-medium font-num">
-                        کد رهگیری: {order.trackingCode}
+                      <p className="mt-2 text-[#262A56] font-semibold font-num">
+                        کد رهگیری پستی: {order.trackingCode}
                       </p>
                     )}
                   </div>
