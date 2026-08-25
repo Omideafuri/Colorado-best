@@ -1,7 +1,10 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  outputFileTracingIncludes: {
+    '/*': ['./node_modules/pg-cloudflare/**/*'],
+  },
+  serverExternalPackages: ['pg', 'pg-cloudflare'],
 };
 
 export default nextConfig;

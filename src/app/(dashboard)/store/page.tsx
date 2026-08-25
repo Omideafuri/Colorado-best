@@ -16,45 +16,49 @@ const productImages: Record<string, string> = {
 };
 
 async function ensureMockProducts() {
-  const count = await db.product.count();
-  if (count === 0) {
-    await db.product.createMany({
-      data: [
-        {
-          nameFa: 'شمش ۵ گرمی زروی',
-          nameEn: 'Zaravi 5g Cast Gold Bar',
-          category: 'BAR',
-          goldType: '18K',
-          weightNg: BigInt(5_000_000_000),
-          premiumBp: 200,
-          isAvailable: true,
-          quantityAvailable: 15,
-          imageUrl: '/images/product_bar.jpg',
-        },
-        {
-          nameFa: 'سکه بهار آزادی طرح جدید',
-          nameEn: 'Bahar Azadi Bullion Coin',
-          category: 'COIN',
-          goldType: '18K',
-          weightNg: BigInt(2_033_000_000),
-          premiumBp: 1500,
-          isAvailable: true,
-          quantityAvailable: 4,
-          imageUrl: '/images/product_coin.jpg',
-        },
-        {
-          nameFa: 'پلاک آویز معماری پارسیان',
-          nameEn: 'Parsian Architectural Plaque 1g',
-          category: 'PLAQUE',
-          goldType: '18K',
-          weightNg: BigInt(1_000_000_000),
-          premiumBp: 300,
-          isAvailable: true,
-          quantityAvailable: 8,
-          imageUrl: '/images/product_plaque.jpg',
-        }
-      ]
-    });
+  try {
+    const count = await db.product.count();
+    if (count === 0) {
+      await db.product.createMany({
+        data: [
+          {
+            nameFa: 'شمش ۵ گرمی زروی',
+            nameEn: 'Zaravi 5g Cast Gold Bar',
+            category: 'BAR',
+            goldType: '18K',
+            weightNg: BigInt(5_000_000_000),
+            premiumBp: 200,
+            isAvailable: true,
+            quantityAvailable: 15,
+            imageUrl: '/images/product_bar.jpg',
+          },
+          {
+            nameFa: 'سکه بهار آزادی طرح جدید',
+            nameEn: 'Bahar Azadi Bullion Coin',
+            category: 'COIN',
+            goldType: '18K',
+            weightNg: BigInt(2_033_000_000),
+            premiumBp: 1500,
+            isAvailable: true,
+            quantityAvailable: 4,
+            imageUrl: '/images/product_coin.jpg',
+          },
+          {
+            nameFa: 'پلاک آویز معماری پارسیان',
+            nameEn: 'Parsian Architectural Plaque 1g',
+            category: 'PLAQUE',
+            goldType: '18K',
+            weightNg: BigInt(1_000_000_000),
+            premiumBp: 300,
+            isAvailable: true,
+            quantityAvailable: 8,
+            imageUrl: '/images/product_plaque.jpg',
+          }
+        ]
+      });
+    }
+  } catch {
+    // Database unreachable during build time
   }
 }
 

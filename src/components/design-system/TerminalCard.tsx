@@ -1,0 +1,22 @@
+import React from 'react';
+import { cn } from '@/lib/utils';
+
+export interface TerminalCardProps {
+  children: React.ReactNode;
+  className?: string;
+}
+
+export function TerminalCard({ children, className }: TerminalCardProps) {
+  return (
+    <div
+      className={cn(
+        'bg-[#12100E] text-white rounded-3xl p-8 md:p-14 border border-border-dark shadow-2xl relative overflow-hidden',
+        className
+      )}
+    >
+      {/* Background Glow */}
+      <div className="absolute top-0 left-1/4 w-96 h-96 bg-gold-500/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="relative z-10">{children}</div>
+    </div>
+  );
+}

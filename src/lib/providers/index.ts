@@ -16,6 +16,9 @@ import { MockKycProvider } from './mock/kyc.mock';
 import { MockNotificationProvider } from './mock/notification.mock';
 import { MockShippingProvider } from './mock/shipping.mock';
 
+import { AlanChandPriceProvider } from './alanchand/gold-price.provider';
+import { fetchAlanChandMarketRates } from './alanchand/client';
+
 // Singleton instances
 let goldPriceProvider: IGoldPriceProvider | null = null;
 let paymentProvider: IPaymentProvider | null = null;
@@ -25,10 +28,9 @@ let shippingProvider: IShippingProvider | null = null;
 
 export function getGoldPriceProvider(): IGoldPriceProvider {
   if (!goldPriceProvider) {
-    if (process.env.MOCK_GOLD_PRICE_PROVIDER === 'true') {
-      goldPriceProvider = new MockGoldPriceProvider();
+    if (process.env.MOCK_GOLD_PRICE_PROVIDER === 'false' || process.env.ALANCHAND_API_TOKEN) {
+      goldPriceProvider = new AlanChandPriceProvider();
     } else {
-      // Fallback to mock if real provider not implemented yet
       goldPriceProvider = new MockGoldPriceProvider();
     }
   }
@@ -79,7 +81,9 @@ export function getShippingProvider(): IShippingProvider {
   return shippingProvider;
 }
 
-// Re-export interfaces
+// Re-export interfaces and helpers
+export { fetchAlanChandMarketRates } from './alanchand/client';
+export { AlanChandPriceProvider } from './alanchand/gold-price.provider';
 export type { IGoldPriceProvider, PriceData, HistoricalPrice, TimeRange } from './interfaces/gold-price';
 export type { IPaymentProvider, DepositParams, PaymentResult, PaymentVerification, WithdrawalParams, WithdrawalResult } from './interfaces/payment';
 export type { IKycProvider, KycVerification, BankVerification } from './interfaces/kyc';

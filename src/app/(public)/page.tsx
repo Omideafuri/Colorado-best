@@ -3,430 +3,516 @@ import Image from 'next/image';
 import type { Metadata } from 'next';
 import { toPersianDigits, formatNumber } from '@/lib/utils/format';
 import { Button } from '@/components/ui/button';
+import { getLatestPriceSnapshot } from '@/lib/financial/pricing';
+import { ArrowLeft, RefreshCw, Sparkles, Lock, Layers, Truck } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'زروی — خانه طلای دیجیتال و جواهرات فاخر',
-  description: 'پلتفرم مدرن خرید، فروش، پس‌انداز و تحویل فیزیکی طلای ۱۸ و ۲۴ عیار.',
+  title: 'زروی — خانه طلای دیجیتال و مسکوکات فاخر',
+  description: 'پلتفرم مدرن خرید، فروش، پس‌انداز و تحویل فیزیکی طلای ۱۸ و ۲۴ عیار با اصالت تضمین‌شده.',
 };
 
-const mockPrice = {
-  referenceToman: 3500000,
-  buyToman: 3552500,
-  sellToman: 3447500,
-  changePercent: 0.72,
-};
+export const dynamic = 'force-dynamic';
 
-export default function HomePage() {
+export default async function HomePage() {
+  const snapshot = await getLatestPriceSnapshot('18K');
+  const buyToman = Number(snapshot.buyPriceRial / BigInt(10));
+  const sellToman = Number(snapshot.sellPriceRial / BigInt(10));
+  const refToman = Number(snapshot.referencePriceRial / BigInt(10));
+  const spreadToman = buyToman - sellToman;
+
   return (
-    <div className="flex flex-col min-h-screen selection:bg-gold-200">
+    <div className="flex flex-col min-h-screen bg-[#FAF8F5] text-text-primary selection:bg-gold-200 overflow-x-hidden">
 
-      {/* ━━━ 01. CINEMATIC HERO ━━━ */}
-      <section className="relative min-h-screen flex flex-col justify-end bg-surface-dark text-white overflow-hidden">
-        {/* Background Editorial Image with Chiaroscuro Overlays */}
-        <div className="absolute inset-0 z-0">
-          <Image
-            src="/images/hero_gold.jpg"
-            alt="Zaravi Sculptural Gold"
-            fill
-            priority
-            className="object-cover object-right md:object-center opacity-65 scale-[1.02] transition-transform duration-1000"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#141210] via-[#141210]/60 to-[#141210]/40" />
-          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#141210]/40 to-[#141210]/80" />
+      {/* ━━━ STAGE 1: HERO MASTHEAD (Bespoke Mobile & Desktop Architecture) ━━━ */}
+      <section className="relative pt-24 pb-16 sm:pt-32 sm:pb-20 md:pt-40 md:pb-36 bg-gradient-to-b from-[#FAF8F5] via-[#F4EFE6] to-[#FAF8F5] overflow-hidden border-b border-border/60">
+        
+        {/* Monumental Typographic Backdrop */}
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none overflow-hidden opacity-[0.035]">
+          <span className="text-[clamp(6rem,24vw,28rem)] font-extrabold tracking-[0.18em] text-text-primary leading-none">
+            ZARAVI
+          </span>
         </div>
 
-        <div className="relative z-10 mx-auto max-w-[1400px] w-full px-6 md:px-10 pb-16 md:pb-24 pt-32">
-          {/* Top Brand Mark */}
-          <div className="flex items-center gap-3 mb-8">
-            <span className="diamond-motif !w-2.5 !h-2.5 !bg-gold-400" />
-            <span className="text-xs tracking-brand text-gold-300/80 font-medium">جواهر · طلا · اشیاء ماندگار</span>
-          </div>
-
-          {/* Headline */}
-          <div className="max-w-3xl">
-            <h1 className="text-[clamp(2.5rem,7.5vw,6.5rem)] font-bold text-white leading-[1.02] tracking-tight mb-8">
-              طلا فقط<br />
-              پوشیده نمی‌شود.<br />
-              <span className="text-gold-400 font-normal">به یاد سپرده</span><br />
-              می‌شود.
-            </h1>
-
-            <p className="text-lg md:text-xl text-neutral-300 font-light max-w-lg mb-12 leading-relaxed">
-              پلتفرم شفاف خرید، نگهداری امن و تحویل فیزیکی طلای شمش و مسکوکات با اصالت تضمین‌شده.
-            </p>
-
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
-              <Link href="/register">
-                <Button size="lg" className="w-full sm:w-auto bg-gold-500 hover:bg-gold-600 text-surface-dark font-semibold border-transparent">
-                  شروع سرمایه‌گذاری
-                </Button>
-              </Link>
-              <Link href="/store">
-                <Button variant="outline" size="lg" className="w-full sm:w-auto border-white/30 text-white hover:bg-white hover:text-surface-dark hover:border-white">
-                  گالری محصولات
-                </Button>
-              </Link>
-            </div>
-          </div>
-        </div>
-
-        {/* Scroll Line Indicator */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-gold-400/50">
-          <div className="w-px h-10 bg-gradient-to-b from-transparent to-gold-400/60" />
-        </div>
-      </section>
-
-      {/* ━━━ 02. BRAND STATEMENT & PHILOSOPHY ━━━ */}
-      <section className="section-editorial px-6 md:px-10 bg-atmospheric-ivory">
-        <div className="max-w-[1400px] mx-auto">
-          <div className="flex items-center gap-4 mb-12">
-            <span className="diamond-motif" />
-            <span className="text-xs tracking-brand text-text-muted">فلسفه زروی</span>
-          </div>
-
-          <div className="grid lg:grid-cols-12 gap-12 items-end">
-            <div className="lg:col-span-8">
-              <h2 className="text-[clamp(1.8rem,3.8vw,3.2rem)] font-semibold text-text-primary leading-[1.35] tracking-tight">
-                زروی بر پایه اصالت ماده، دقت مهندسی مالی و زیبایی‌شناسی معاصر بنا شده است. 
-                ما دسترسی به طلای واقعی را بدون اصطکاک‌های سنتی و با شفافیت مطلق فراهم کرده‌ایم.
-              </h2>
-            </div>
-            <div className="lg:col-span-4 flex flex-col justify-end">
-              <p className="text-text-secondary leading-relaxed mb-6">
-                تمام موجودی دیجیتال شما دارای پشتوانه شمش‌های دارای شناسه و مهر استاندارد بوده و در هر لحظه به صورت فیزیکی یا معادل ریالی قابل برداشت است.
-              </p>
-              <Link href="/about" className="inline-flex items-center gap-2 text-sm font-semibold text-text-primary hover:text-gold-600 transition-colors">
-                <span>داستان خانه زروی</span>
-                <span className="text-xs">←</span>
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ━━━ 03. FEATURED SERVICES — Asymmetric Editorial Grid ━━━ */}
-      <section className="section-editorial px-6 md:px-10 bg-surface">
-        <div className="max-w-[1400px] mx-auto">
-          <div className="flex items-center gap-4 mb-16">
-            <span className="diamond-motif" />
-            <span className="text-xs tracking-brand text-text-muted">ستون‌های پلتفرم</span>
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-px bg-border">
-            {/* Buy Gold */}
-            <Link href="/buy" className="group bg-surface-secondary p-10 md:p-14 flex flex-col justify-between min-h-[420px] hover:bg-surface transition-all duration-700">
-              <div>
-                <span className="text-xs tracking-brand text-text-muted block mb-4">۰۱ / خـریـد</span>
-                <h3 className="text-2xl md:text-3xl font-semibold text-text-primary tracking-tight group-hover:text-gold-600 transition-colors">
-                  خرید آنی طلا
-                </h3>
-              </div>
-              <div>
-                <p className="text-text-secondary max-w-sm leading-relaxed mb-6">
-                  خرید طلای ۱۸ عیار از مبالغ خرد تا سفارش‌های کلان با قیمت زنده اتحادیه و کمترین شکاف قیمت در کشور.
-                </p>
-                <span className="text-xs font-semibold text-text-primary group-hover:translate-x-[-4px] inline-block transition-transform">
-                  ورود به بخش خرید ←
-                </span>
-              </div>
-            </Link>
-
-            {/* Sell Gold */}
-            <Link href="/sell" className="group bg-surface-secondary p-10 md:p-14 flex flex-col justify-between min-h-[420px] hover:bg-surface transition-all duration-700">
-              <div>
-                <span className="text-xs tracking-brand text-text-muted block mb-4">۰۲ / فـروش</span>
-                <h3 className="text-2xl md:text-3xl font-semibold text-text-primary tracking-tight group-hover:text-gold-600 transition-colors">
-                  فروش و تسویه فوری
-                </h3>
-              </div>
-              <div>
-                <p className="text-text-secondary max-w-sm leading-relaxed mb-6">
-                  تبدیل موجودی طلا به ریال در کسری از ثانیه و انتقال مستقیم وجه به حساب‌های بانکی شتاب.
-                </p>
-                <span className="text-xs font-semibold text-text-primary group-hover:translate-x-[-4px] inline-block transition-transform">
-                  ورود به بخش فروش ←
-                </span>
-              </div>
-            </Link>
-
-            {/* Save */}
-            <Link href="/savings" className="group bg-surface-secondary p-10 md:p-14 flex flex-col justify-between min-h-[420px] hover:bg-surface transition-all duration-700">
-              <div>
-                <span className="text-xs tracking-brand text-text-muted block mb-4">۰۳ / پـس‌انـداز</span>
-                <h3 className="text-2xl md:text-3xl font-semibold text-text-primary tracking-tight group-hover:text-gold-600 transition-colors">
-                  طرح‌های پس‌انداز خودکار
-                </h3>
-              </div>
-              <div>
-                <p className="text-text-secondary max-w-sm leading-relaxed mb-6">
-                  برنامه‌ریزی خرید هوشمند و دوره‌ای طلا برای حفظ ارزش سرمایه در برابر تورم بدون دغدغه نوسانات روزمره.
-                </p>
-                <span className="text-xs font-semibold text-text-primary group-hover:translate-x-[-4px] inline-block transition-transform">
-                  تنظیم طرح پس‌انداز ←
-                </span>
-              </div>
-            </Link>
-
-            {/* Deliver */}
-            <Link href="/delivery" className="group bg-surface-secondary p-10 md:p-14 flex flex-col justify-between min-h-[420px] hover:bg-surface transition-all duration-700">
-              <div>
-                <span className="text-xs tracking-brand text-text-muted block mb-4">۰۴ / تـحـویـل</span>
-                <h3 className="text-2xl md:text-3xl font-semibold text-text-primary tracking-tight group-hover:text-gold-600 transition-colors">
-                  تحویل فیزیکی بیمه‌شده
-                </h3>
-              </div>
-              <div>
-                <p className="text-text-secondary max-w-sm leading-relaxed mb-6">
-                  دریافت فیزیکی طلا در قالب شمش‌های ۱ تا ۱۰ گرمی یا سکه‌های بانکی در بسته‌بندی امن و محرمانه در سراسر کشور.
-                </p>
-                <span className="text-xs font-semibold text-text-primary group-hover:translate-x-[-4px] inline-block transition-transform">
-                  ثبت درخواست تحویل ←
-                </span>
-              </div>
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* ━━━ 04. CRAFTSMANSHIP & ART DOCUMENTARY ━━━ */}
-      <section className="section-editorial px-6 md:px-10 bg-surface-dark text-white overflow-hidden">
-        <div className="max-w-[1400px] mx-auto">
-          <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-            <div className="lg:col-span-6">
-              <div className="flex items-center gap-4 mb-8">
-                <span className="diamond-motif !bg-gold-400" />
-                <span className="text-xs tracking-brand text-gold-300/80">هنر ساخت و اصالت</span>
+        <div className="relative z-10 mx-auto max-w-[1400px] px-4 sm:px-6 md:px-10">
+          <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+            
+            {/* Main Column: Editorial Headline & Action Triggers */}
+            <div className="lg:col-span-7 flex flex-col items-start">
+              
+              {/* Category Pill */}
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-surface border border-border text-[11px] sm:text-xs text-text-secondary mb-6 shadow-xs">
+                <span className="diamond-motif !w-1.5 !h-1.5" />
+                <span className="font-medium tracking-wide">آتلیه و پلتفرم رسمی طلای ایران</span>
               </div>
 
-              <h2 className="text-[clamp(2rem,4vw,3.6rem)] font-semibold leading-[1.2] tracking-tight mb-8">
-                هر قطعه طلا،<br />
-                حاصل دست‌های استادکار<br />
-                و <span className="text-gold-400">عیارسنجی دقیق</span> است.
-              </h2>
+              {/* Responsive Monumental Title */}
+              <h1 className="text-[clamp(2.1rem,7vw,5.5rem)] font-bold text-text-primary leading-[1.12] sm:leading-[1.08] tracking-tight mb-6 sm:mb-8">
+                طلا؛ تجلی ارزش پایدار<br className="hidden xs:inline" />
+                و <span className="text-gold-600 font-semibold italic">معماری ثروت.</span>
+              </h1>
 
-              <p className="text-neutral-300 leading-relaxed max-w-lg mb-8 font-light text-base md:text-lg">
-                تمامی محصولات زروی در کارگاه‌های اختصاصی و زیر نظر بازرسان رسمی اتحادیه طلا و جواهر ریخته‌گری، تراش و نشان‌گذاری می‌شوند. ما اطمینان می‌دهیم که هر میلی‌گرم طلا با بالاترین استاندارد خلوص به دست شما برسد.
+              <p className="text-sm sm:text-base md:text-lg text-text-secondary font-light max-w-xl mb-8 sm:mb-10 leading-relaxed">
+                خرید برخط طلای ۱۸ و ۲۴ عیار با نرخ لحظه‌ای بازار، نگهداری امن در خزانه بیمه‌شده و قابلیت تحویل فیزیکی شمش‌های استاندارد در سراسر کشور.
               </p>
 
-              <div className="border-t border-neutral-800 pt-8 mt-8 grid grid-cols-2 gap-8">
-                <div>
-                  <span className="text-2xl font-bold font-num text-gold-400">۹۹۹.۹</span>
-                  <p className="text-xs text-neutral-400 mt-1 uppercase tracking-wider">خلوص شمش ۲۴ عیار</p>
-                </div>
-                <div>
-                  <span className="text-2xl font-bold font-num text-gold-400">۱۰۰٪</span>
-                  <p className="text-xs text-neutral-400 mt-1 uppercase tracking-wider">پوشش بیمه ارسال</p>
-                </div>
+              {/* Bespoke Mobile Touch Actions */}
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 w-full sm:w-auto mb-10 sm:mb-12">
+                <Link href="/register" className="w-full sm:w-auto">
+                  <Button size="lg" className="w-full sm:w-auto bg-surface-dark text-white hover:bg-black px-8 py-3.5 rounded-full shadow-md flex items-center justify-center gap-3 text-sm">
+                    <span>افتتاح حساب و خرید طلا</span>
+                    <ArrowLeft className="w-4 h-4" />
+                  </Button>
+                </Link>
+                <Link href="/prices" className="w-full sm:w-auto">
+                  <Button variant="outline" size="lg" className="w-full sm:w-auto border-border text-text-primary hover:bg-surface rounded-full px-7 py-3.5 text-sm justify-center">
+                    تابلوی لحظه‌ای نرخ‌ها
+                  </Button>
+                </Link>
               </div>
-            </div>
 
-            {/* Editorial Craftsmanship Photography */}
-            <div className="lg:col-span-6">
-              <div className="relative aspect-[4/3] image-hover-zoom border border-neutral-800 bg-[#1A1816]">
-                <Image
-                  src="/images/craftsmanship.jpg"
-                  alt="Zaravi Master Goldsmith Craftsmanship"
-                  fill
-                  className="object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#141210]/60 via-transparent to-transparent" />
-                <div className="absolute bottom-6 right-6">
-                  <span className="text-xs font-mono tracking-brand text-white/80 uppercase bg-black/60 px-3 py-1.5 backdrop-blur-md">
-                    ATELIER ZARAVI — EST. 2024
+              {/* Real-time Gold Indicator Pill */}
+              <div className="w-full sm:w-auto inline-flex items-center justify-between sm:justify-start gap-3 bg-surface p-3.5 sm:p-4 rounded-2xl border border-border shadow-xs">
+                <div className="flex items-center gap-2 text-xs">
+                  <span className="flex h-2.5 w-2.5 relative">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+                  </span>
+                  <span className="font-semibold text-text-primary">طلای ۱۸ عیار:</span>
+                  <span className="font-num font-bold text-sm text-gold-600">
+                    {toPersianDigits(formatNumber(refToman))} تومان
                   </span>
                 </div>
+                <span className="text-border hidden sm:inline">|</span>
+                <span className="text-[10px] sm:text-xs text-text-muted">منبع: AlanChand API</span>
+              </div>
+
+            </div>
+
+            {/* Feature Studio Photo Card */}
+            <div className="lg:col-span-5 relative mt-4 lg:mt-0">
+              <div className="relative aspect-[4/3] sm:aspect-square w-full rounded-2xl sm:rounded-3xl overflow-hidden border border-border/80 bg-surface shadow-xl sm:shadow-2xl">
+                <Image
+                  src="/images/hero_gold.jpg"
+                  alt="Zaravi 24K Pure Gold Bullion Ingot"
+                  fill
+                  priority
+                  className="object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-surface-dark/50 via-transparent to-transparent" />
+                <div className="absolute bottom-4 left-4 right-4 sm:bottom-6 sm:left-6 sm:right-6 flex justify-between items-end">
+                  <div className="bg-surface/90 backdrop-blur-md px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-xl border border-border text-[11px] sm:text-xs">
+                    <span className="text-text-muted block text-[9px] sm:text-[10px]">خلوص استاندارد</span>
+                    <span className="font-num font-bold text-text-primary">۹۹۹.۹ Fine Gold</span>
+                  </div>
+                  <div className="bg-gold-500 text-surface-dark px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-lg text-[10px] sm:text-xs font-semibold">
+                    شناسه ملی اتحادیه
+                  </div>
+                </div>
               </div>
             </div>
+
+          </div>
+        </div>
+
+        {/* Responsive Horizontal Ticker Bar */}
+        <div className="mt-14 sm:mt-20 border-t border-b border-border/60 bg-surface/60 backdrop-blur-xs py-3.5 sm:py-4">
+          <div className="mx-auto max-w-[1400px] px-4 sm:px-6 md:px-10 grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-6 text-[11px] sm:text-xs text-text-secondary">
+            <span className="flex items-center gap-1.5">
+              <span className="diamond-motif !w-1.5 !h-1.5 flex-shrink-0" />
+              <span className="truncate">شمش‌های دارای کد شناسه استاندارد</span>
+            </span>
+            <span className="flex items-center gap-1.5">
+              <span className="diamond-motif !w-1.5 !h-1.5 flex-shrink-0" />
+              <span className="truncate">تسویه آنی ریالی شبکه شتاب</span>
+            </span>
+            <span className="flex items-center gap-1.5">
+              <span className="diamond-motif !w-1.5 !h-1.5 flex-shrink-0" />
+              <span className="truncate">پشتوانه ۱۰۰٪ فیزیکی در خزانه</span>
+            </span>
+            <span className="flex items-center gap-1.5">
+              <span className="diamond-motif !w-1.5 !h-1.5 flex-shrink-0" />
+              <span className="truncate">پست بیمه‌شده محرمانه سراسری</span>
+            </span>
           </div>
         </div>
       </section>
 
-      {/* ━━━ 05. EDITORIAL BRAND STORY / STILL LIFE ━━━ */}
-      <section className="section-editorial px-6 md:px-10 bg-atmospheric-ivory">
+      {/* ━━━ STAGE 2: ATELIER NARRATIVE & PROOF ━━━ */}
+      <section className="py-16 sm:py-24 md:py-28 px-4 sm:px-6 md:px-10 bg-[#FAF8F5]">
         <div className="max-w-[1400px] mx-auto">
-          <div className="grid lg:grid-cols-12 gap-12 items-center">
-            <div className="lg:col-span-6 lg:order-2">
-              <div className="flex items-center gap-4 mb-6">
-                <span className="diamond-motif" />
-                <span className="text-xs tracking-brand text-text-muted">جاودانگی دارایی</span>
+          
+          <div className="flex items-center gap-2.5 mb-8 sm:mb-12">
+            <span className="diamond-motif" />
+            <span className="text-[11px] sm:text-xs tracking-brand font-semibold text-text-muted">فلسفه و منشور زروی</span>
+          </div>
+
+          <div className="grid lg:grid-cols-12 gap-8 sm:gap-12 lg:gap-16 items-center">
+            
+            {/* Staggered Micro-Gallery */}
+            <div className="lg:col-span-6 grid grid-cols-2 gap-3 sm:gap-4">
+              <div className="relative aspect-[3/4] rounded-xl sm:rounded-2xl overflow-hidden border border-border shadow-xs sm:shadow-md">
+                <Image
+                  src="/images/craftsmanship.jpg"
+                  alt="Zaravi Craftsman Goldsmith"
+                  fill
+                  className="object-cover"
+                />
               </div>
-              <h2 className="text-[clamp(1.8rem,3.5vw,3rem)] font-semibold text-text-primary leading-[1.3] tracking-tight mb-6">
-                طلا، پیوند دیروز و فردا.
-              </h2>
-              <p className="text-text-secondary leading-relaxed mb-8">
-                در عصری که پول کاغذی ارزش خود را از دست می‌دهد، طلا نماد پایدار ثروت و آرامش خاطر است. زروی تجربه لمس این ارزش را با زیرساخت‌های مدرن دیجیتال ترکیب کرده است.
-              </p>
-              <Link href="/about">
-                <Button variant="secondary">مطالعه منشور شفافیت</Button>
-              </Link>
-            </div>
-            <div className="lg:col-span-6 lg:order-1">
-              <div className="relative aspect-[16/10] image-hover-zoom border border-border bg-surface">
+              <div className="relative aspect-[3/4] rounded-xl sm:rounded-2xl overflow-hidden border border-border shadow-xs sm:shadow-md mt-4 sm:mt-8">
                 <Image
                   src="/images/brand_story.jpg"
-                  alt="Zaravi Luxury Gold Architecture"
+                  alt="Zaravi Gold Still Life"
                   fill
                   className="object-cover"
                 />
               </div>
             </div>
-          </div>
-        </div>
-      </section>
 
-      {/* ━━━ 06. COLLECTIONS SHOWCASE ━━━ */}
-      <section className="section-editorial px-6 md:px-10 bg-surface">
-        <div className="max-w-[1400px] mx-auto">
-          <div className="flex items-center justify-between mb-16">
-            <div className="flex items-center gap-4">
-              <span className="diamond-motif" />
-              <span className="text-xs tracking-brand text-text-muted">گالری و مجموعه‌ها</span>
-            </div>
-            <Link href="/store" className="text-xs font-semibold text-text-primary hover:text-gold-600 transition-colors">
-              مشاهده تمام محصولات ←
-            </Link>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-px bg-border">
-            {/* Bar */}
-            <Link href="/store" className="group bg-surface-secondary flex flex-col justify-between hover:bg-surface transition-colors duration-700">
-              <div className="relative aspect-square image-hover-zoom bg-surface-hover/50 p-8 border-b border-border">
-                <Image
-                  src="/images/product_bar.jpg"
-                  alt="شمش طلای زروی"
-                  fill
-                  className="object-cover p-6"
-                />
-              </div>
-              <div className="p-8">
-                <span className="text-xs tracking-brand text-text-muted block mb-2">COLLECTION ۰۱</span>
-                <h3 className="text-xl font-semibold text-text-primary mb-1">شمش ۵ گرمی سرمایه‌گذاری</h3>
-                <p className="text-sm text-text-secondary">طلای خالص ۲۴ عیار با نشان و شناسنامه اختصاصی</p>
-              </div>
-            </Link>
-
-            {/* Coin */}
-            <Link href="/store" className="group bg-surface-secondary flex flex-col justify-between hover:bg-surface transition-colors duration-700">
-              <div className="relative aspect-square image-hover-zoom bg-surface-hover/50 p-8 border-b border-border">
-                <Image
-                  src="/images/product_coin.jpg"
-                  alt="سکه بهار آزادی"
-                  fill
-                  className="object-cover p-6"
-                />
-              </div>
-              <div className="p-8">
-                <span className="text-xs tracking-brand text-text-muted block mb-2">COLLECTION ۰۲</span>
-                <h3 className="text-xl font-semibold text-text-primary mb-1">مسکوکات بانکی و یادبود</h3>
-                <p className="text-sm text-text-secondary">انواع سکه‌های ضرب بانک مرکزی با هولوگرام امنیتی</p>
-              </div>
-            </Link>
-
-            {/* Plaque */}
-            <Link href="/store" className="group bg-surface-secondary flex flex-col justify-between hover:bg-surface transition-colors duration-700">
-              <div className="relative aspect-square image-hover-zoom bg-surface-hover/50 p-8 border-b border-border">
-                <Image
-                  src="/images/product_plaque.jpg"
-                  alt="پلاک پارسیان زروی"
-                  fill
-                  className="object-cover p-6"
-                />
-              </div>
-              <div className="p-8">
-                <span className="text-xs tracking-brand text-text-muted block mb-2">COLLECTION ۰۳</span>
-                <h3 className="text-xl font-semibold text-text-primary mb-1">پلاک و آویز معماری</h3>
-                <p className="text-sm text-text-secondary">طراحی شده با الهام از خطوط معماری ایرانی معاصر</p>
-              </div>
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* ━━━ 07. LIVE PRICE TERMINAL ━━━ */}
-      <section className="section-editorial px-6 md:px-10 bg-atmospheric-ivory border-t border-border">
-        <div className="max-w-[1400px] mx-auto">
-          <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-start">
-            <div className="lg:col-span-5">
-              <div className="flex items-center gap-4 mb-8">
-                <span className="diamond-motif" />
-                <span className="text-xs tracking-brand text-text-muted">تابلوی معاملاتی</span>
-              </div>
-
-              <h2 className="text-[clamp(2rem,3.5vw,3rem)] font-semibold text-text-primary leading-[1.25] tracking-tight mb-6">
-                قیمت‌گذاری لحظه‌ای و شفاف
+            {/* Text Narrative & Metrics */}
+            <div className="lg:col-span-6 flex flex-col items-start">
+              <h2 className="text-[clamp(1.75rem,3.2vw,3.5rem)] font-bold text-text-primary leading-[1.25] tracking-tight mb-6 sm:mb-8">
+                ترکیب اصالت ماده<br />
+                با شفافیت مدرن دیجیتال.
               </h2>
 
-              <p className="text-text-secondary leading-relaxed mb-8">
-                نرخ‌های اعلامی زروی برگرفته از تابلوی رسمی بازار طلا و جواهر تهران است. بدون دریافت کارمزدهای پنهان و با تضمین بهترین نرخ نقدشوندگی در بازار.
+              <p className="text-xs sm:text-sm md:text-base text-text-secondary leading-relaxed font-light mb-8 sm:mb-10">
+                در زروی، هر سهم از طلای خریده‌شده متعلق به شمش‌های فیزیکی نگهداری‌شده در خزانه امن بانک است. ما اصطکاک‌های خرید سنتی مانند حباب غیرواقعی، کارمزدهای مبهم و ریسک جابه‌جایی را حذف کرده‌ایم.
               </p>
 
-              <Link href="/prices">
-                <Button variant="secondary">مشاهده تابلوی کامل نرخ‌ها</Button>
+              {/* Responsive Metrics Bar */}
+              <div className="grid grid-cols-3 gap-3 sm:gap-6 w-full pt-6 sm:pt-8 border-t border-border">
+                <div>
+                  <span className="text-2xl sm:text-3xl md:text-4xl font-extrabold font-num text-gold-600 block mb-1">۹۹۹.۹</span>
+                  <span className="text-[10px] sm:text-xs text-text-muted">خلوص شمش ۲۴ عیار</span>
+                </div>
+                <div>
+                  <span className="text-2xl sm:text-3xl md:text-4xl font-extrabold font-num text-text-primary block mb-1">۱۰۰٪</span>
+                  <span className="text-[10px] sm:text-xs text-text-muted">پشتوانه فیزیکی خزانه</span>
+                </div>
+                <div>
+                  <span className="text-2xl sm:text-3xl md:text-4xl font-extrabold font-num text-text-primary block mb-1">۲۴/۷</span>
+                  <span className="text-[10px] sm:text-xs text-text-muted">معاملات برخط آنی</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* ━━━ STAGE 3: FINE CRAFTSMANSHIP & SPEC BREAKDOWN ━━━ */}
+      <section className="py-16 sm:py-24 md:py-28 px-4 sm:px-6 md:px-10 bg-surface border-t border-b border-border">
+        <div className="max-w-[1400px] mx-auto text-center">
+          
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-surface-secondary border border-border text-[11px] sm:text-xs text-text-muted mb-6">
+            <Sparkles className="w-3.5 h-3.5 text-gold-600" />
+            <span>استانداردهای ریخته‌گری و امنیتی</span>
+          </div>
+
+          <h2 className="text-[clamp(1.75rem,3.8vw,3.5rem)] font-bold text-text-primary tracking-tight mb-4 sm:mb-6">
+            اجزای یک شمش سرمایه‌گذاری استاندارد
+          </h2>
+
+          <p className="text-xs sm:text-sm md:text-base text-text-secondary max-w-2xl mx-auto font-light mb-12 sm:mb-16">
+            تمامی شمش‌های زروی دارای گواهی عیارسنجی اتحادیه طلا و جواهر و پلمپ امنیتی غیرقابل جعل هستند.
+          </p>
+
+          {/* Recomposed 3-Column / Grid Annotations */}
+          <div className="grid lg:grid-cols-3 gap-6 sm:gap-8 items-center">
+            
+            {/* Right Annotations */}
+            <div className="space-y-4 sm:space-y-6 text-right">
+              <div className="bg-surface-secondary p-5 sm:p-6 rounded-2xl border border-border">
+                <span className="text-[10px] sm:text-xs font-bold text-gold-600 tracking-wider block mb-1">۰۱ / شناسه استاندارد</span>
+                <h4 className="text-sm sm:text-base font-semibold text-text-primary mb-1">کد حک‌شده لیزری</h4>
+                <p className="text-xs text-text-secondary leading-relaxed">
+                  هر شمش دارای یک شماره سریال اختصاصی ثبت‌شده در سامانه اتحادیه است.
+                </p>
+              </div>
+
+              <div className="bg-surface-secondary p-5 sm:p-6 rounded-2xl border border-border">
+                <span className="text-[10px] sm:text-xs font-bold text-gold-600 tracking-wider block mb-1">۰۲ / خلوص عیار</span>
+                <h4 className="text-sm sm:text-base font-semibold text-text-primary mb-1">طلای خالص ۲۴ عیار (۷۵۰/۹۹۹)</h4>
+                <p className="text-xs text-text-secondary leading-relaxed">
+                  تضمین عیارسنجی در آزمایشگاه‌های معتبر ری‌گیری کشور.
+                </p>
+              </div>
+            </div>
+
+            {/* Center Render */}
+            <div className="relative aspect-square max-w-xs sm:max-w-md mx-auto w-full rounded-2xl sm:rounded-3xl overflow-hidden border border-border shadow-lg my-4 lg:my-0">
+              <Image
+                src="/images/hero_gold.jpg"
+                alt="Zaravi Ingot Anatomy"
+                fill
+                className="object-cover p-3 sm:p-4 bg-surface-secondary"
+              />
+            </div>
+
+            {/* Left Annotations */}
+            <div className="space-y-4 sm:space-y-6 text-right">
+              <div className="bg-surface-secondary p-5 sm:p-6 rounded-2xl border border-border">
+                <span className="text-[10px] sm:text-xs font-bold text-gold-600 tracking-wider block mb-1">۰۳ / بسته پلمپ امنیتی</span>
+                <h4 className="text-sm sm:text-base font-semibold text-text-primary mb-1">هولوگرام ضدجعل</h4>
+                <p className="text-xs text-text-secondary leading-relaxed">
+                  بسته‌بندی امنیتی وکیوم شده با قابلیت استعلام آنلاین اصالت.
+                </p>
+              </div>
+
+              <div className="bg-surface-secondary p-5 sm:p-6 rounded-2xl border border-border">
+                <span className="text-[10px] sm:text-xs font-bold text-gold-600 tracking-wider block mb-1">۰۴ / نقدشوندگی</span>
+                <h4 className="text-sm sm:text-base font-semibold text-text-primary mb-1">بازخرید آنی با بالاترین نرخ</h4>
+                <p className="text-xs text-text-secondary leading-relaxed">
+                  قابلیت فروش لحظه‌ای در پلتفرم زروی بدون کسر کارمزد اضافی.
+                </p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* ━━━ STAGE 4: THE MIDNIGHT TRADING TERMINAL CAPSULE ━━━ */}
+      <section className="py-16 sm:py-24 px-4 sm:px-6 md:px-10 bg-[#FAF8F5]">
+        <div className="max-w-[1400px] mx-auto">
+          
+          <div className="bg-[#12100E] text-white rounded-2xl sm:rounded-3xl p-6 sm:p-10 md:p-14 border border-border-dark shadow-2xl relative overflow-hidden">
+            <div className="absolute top-0 left-1/4 w-72 sm:w-96 h-72 sm:h-96 bg-gold-500/10 rounded-full blur-3xl pointer-events-none" />
+
+            <div className="grid lg:grid-cols-12 gap-8 lg:gap-10 items-center relative z-10">
+              
+              {/* Terminal Details */}
+              <div className="lg:col-span-5">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface-dark-hover border border-border-dark text-[11px] sm:text-xs text-gold-400 mb-4 sm:mb-6">
+                  <RefreshCw className="w-3.5 h-3.5 animate-spin" />
+                  <span>تابلوی معاملات برخط زروی</span>
+                </div>
+
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-white mb-4 sm:mb-6">
+                  قیمت‌گذاری شفاف و بی‌واسطه
+                </h2>
+
+                <p className="text-neutral-400 font-light leading-relaxed text-xs sm:text-sm md:text-base mb-6 sm:mb-8">
+                  قیمت‌ها بر اساس تابلوی رسمی اتحادیه و سرورهای مرجع AlanChand محاسبه می‌شوند. اسپرد پلتفرم کاملاً شفاف و ثابت است.
+                </p>
+
+                <div className="space-y-3 sm:space-y-4 border-t border-neutral-800 pt-5">
+                  <div className="flex justify-between items-center text-xs sm:text-sm">
+                    <span className="text-neutral-400">قیمت مرجع بازار (گرم ۱۸ عیار):</span>
+                    <span className="font-num font-bold text-white text-sm sm:text-base">{toPersianDigits(formatNumber(refToman))} تومان</span>
+                  </div>
+                  <div className="flex justify-between items-center text-xs sm:text-sm">
+                    <span className="text-neutral-400">اسپرد شفاف خرید/فروش:</span>
+                    <span className="font-num font-semibold text-gold-400">{toPersianDigits(formatNumber(spreadToman))} تومان</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Mobile Recomposed Trading Card */}
+              <div className="lg:col-span-7 bg-[#1B1815] p-5 sm:p-8 rounded-xl sm:rounded-2xl border border-neutral-800">
+                <div className="flex justify-between items-center border-b border-neutral-800 pb-4 sm:pb-6 mb-6">
+                  <div>
+                    <span className="text-[10px] sm:text-xs text-neutral-400 block mb-1">شاخص اصلی معاملات</span>
+                    <h3 className="text-base sm:text-lg font-bold text-white">طلای ۱۸ عیار (۷۵۰)</h3>
+                  </div>
+                  <div className="text-left">
+                    <span className="text-[10px] sm:text-xs text-emerald-400 font-semibold block">بازار زنده</span>
+                    <span className="text-[10px] sm:text-xs text-neutral-400 font-num">۲۰ ثانیه‌ای</span>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 mb-6 sm:mb-8">
+                  <div className="bg-[#24211D] p-4 sm:p-5 rounded-xl border border-neutral-800">
+                    <span className="text-[10px] sm:text-xs text-neutral-400 block mb-1">نرخ خرید زروی از شما (فروش)</span>
+                    <p className="text-xl sm:text-2xl font-bold font-num text-white">{toPersianDigits(formatNumber(sellToman))} <span className="text-xs font-normal text-neutral-400">تومان</span></p>
+                    <span className="text-[10px] text-neutral-500 mt-1 block">تسویه آنی شتاب</span>
+                  </div>
+
+                  <div className="bg-[#24211D] p-4 sm:p-5 rounded-xl border border-neutral-800">
+                    <span className="text-[10px] sm:text-xs text-neutral-400 block mb-1">نرخ فروش زروی به شما (خرید)</span>
+                    <p className="text-xl sm:text-2xl font-bold font-num text-white">{toPersianDigits(formatNumber(buyToman))} <span className="text-xs font-normal text-neutral-400">تومان</span></p>
+                    <span className="text-[10px] text-neutral-500 mt-1 block">ثبت آنی در کیف طلا</span>
+                  </div>
+                </div>
+
+                <div className="flex flex-col sm:flex-row gap-3">
+                  <Link href="/buy" className="w-full sm:flex-1">
+                    <Button className="w-full bg-gold-500 hover:bg-gold-600 text-surface-dark font-bold py-3 sm:py-3.5 rounded-xl border-transparent text-xs sm:text-sm">
+                      خرید آنلاین طلا
+                    </Button>
+                  </Link>
+                  <Link href="/sell" className="w-full sm:flex-1">
+                    <Button variant="outline" className="w-full border-neutral-700 text-white hover:bg-neutral-800 py-3 sm:py-3.5 rounded-xl text-xs sm:text-sm">
+                      فروش موجودی
+                    </Button>
+                  </Link>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* ━━━ STAGE 5: CURATED COLLECTIONS MATRIX ━━━ */}
+      <section className="py-16 sm:py-24 md:py-28 px-4 sm:px-6 md:px-10 bg-surface">
+        <div className="max-w-[1400px] mx-auto">
+          
+          <div className="flex justify-between items-end mb-10 sm:mb-16">
+            <div>
+              <span className="text-[10px] sm:text-xs tracking-brand font-semibold text-text-muted block mb-1.5">مجموعه‌های فاخر</span>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-text-primary tracking-tight">محصولات فیزیکی طلا و مسکوکات</h2>
+            </div>
+            <Link href="/store" className="text-xs font-bold text-gold-600 hover:text-gold-700 flex items-center gap-1">
+              <span className="hidden sm:inline">مشاهده تمام محصولات</span>
+              <ArrowLeft className="w-3.5 h-3.5" />
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+            
+            {/* Card 1: Bars */}
+            <div className="group bg-[#FAF8F5] rounded-2xl sm:rounded-3xl p-6 sm:p-8 border border-border flex flex-col justify-between hover:shadow-xl transition-all duration-500">
+              <div>
+                <div className="relative aspect-square rounded-xl sm:rounded-2xl overflow-hidden mb-6 bg-surface p-4 border border-border/60">
+                  <Image
+                    src="/images/hero_gold.jpg"
+                    alt="شمش طلای ۲۴ عیار"
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-700"
+                  />
+                </div>
+                <span className="text-[10px] tracking-brand font-bold text-gold-600 block mb-1">COLLECTION ۰۱</span>
+                <h3 className="text-lg sm:text-xl font-bold text-text-primary mb-2">شمش‌های سرمایه‌گذاری ۲۴ عیار</h3>
+                <p className="text-xs text-text-secondary leading-relaxed mb-6 font-light">
+                  از ۱ گرم تا ۱۰۰ گرم با خلوص ۹۹۹.۹ و هولوگرام امنیتی بانکی.
+                </p>
+              </div>
+              <Link href="/store" className="inline-flex items-center justify-between text-xs font-bold text-text-primary pt-4 border-t border-border group-hover:text-gold-600">
+                <span>سفارش و تحویل فیزیکی</span>
+                <ArrowLeft className="w-4 h-4" />
               </Link>
             </div>
 
-            {/* Price Terminal Card */}
-            <div className="lg:col-span-7 border border-border bg-surface p-8 md:p-12">
-              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end border-b border-border pb-8 mb-8 gap-4">
-                <div>
-                  <span className="text-xs tracking-brand text-text-muted block mb-2">ZARAVI INDEX — 18K / IRR</span>
-                  <p className="text-xs text-text-muted">هر گرم طلای ۱۸ عیار (۷۵۰)</p>
+            {/* Card 2: Coins */}
+            <div className="group bg-[#FAF8F5] rounded-2xl sm:rounded-3xl p-6 sm:p-8 border border-border flex flex-col justify-between hover:shadow-xl transition-all duration-500">
+              <div>
+                <div className="relative aspect-square rounded-2xl overflow-hidden mb-6 bg-surface p-4 border border-border/60">
+                  <Image
+                    src="/images/craftsmanship.jpg"
+                    alt="مسکوکات بهار آزادی"
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-700"
+                  />
                 </div>
-                <div className="text-left">
-                  <p className="text-3xl md:text-4xl font-semibold font-num text-text-primary tracking-tight">
-                    {toPersianDigits(formatNumber(mockPrice.referenceToman))} <span className="text-sm font-normal text-text-muted">تومان</span>
-                  </p>
-                  <p className="text-success text-xs font-semibold font-num mt-1">
-                    +{toPersianDigits(mockPrice.changePercent.toString())}% (۲۴ ساعت گذشته)
-                  </p>
-                </div>
+                <span className="text-[10px] tracking-brand font-bold text-gold-600 block mb-1">COLLECTION ۰۲</span>
+                <h3 className="text-lg sm:text-xl font-bold text-text-primary mb-2">مسکوکات بانکی و بهار آزادی</h3>
+                <p className="text-xs text-text-secondary leading-relaxed mb-6 font-light">
+                  انواع سکه‌های امامی، طرح قدیم، نیم و ربع سکه ضرب بانک مرکزی.
+                </p>
               </div>
-
-              <div className="space-y-5">
-                <div className="flex justify-between items-center py-2">
-                  <span className="text-sm text-text-secondary">نرخ خرید زروی از شما</span>
-                  <span className="text-lg font-num font-semibold text-text-primary">{toPersianDigits(formatNumber(mockPrice.buyToman))} تومان</span>
-                </div>
-                <div className="flex justify-between items-center py-2">
-                  <span className="text-sm text-text-secondary">نرخ فروش زروی به شما</span>
-                  <span className="text-lg font-num font-semibold text-text-primary">{toPersianDigits(formatNumber(mockPrice.sellToman))} تومان</span>
-                </div>
-                <div className="flex justify-between items-center pt-5 border-t border-border">
-                  <span className="text-sm text-text-secondary">اسپرد معاملاتی</span>
-                  <span className="text-sm font-num font-semibold text-gold-600">{toPersianDigits(formatNumber(mockPrice.buyToman - mockPrice.sellToman))} تومان</span>
-                </div>
-              </div>
-
-              <div className="mt-10 grid grid-cols-2 gap-4">
-                <Link href="/buy">
-                  <Button className="w-full">خرید طلا</Button>
-                </Link>
-                <Link href="/sell">
-                  <Button variant="outline" className="w-full">فروش طلا</Button>
-                </Link>
-              </div>
+              <Link href="/store" className="inline-flex items-center justify-between text-xs font-bold text-text-primary pt-4 border-t border-border group-hover:text-gold-600">
+                <span>سفارش و تحویل فیزیکی</span>
+                <ArrowLeft className="w-4 h-4" />
+              </Link>
             </div>
+
+            {/* Card 3: Plaques */}
+            <div className="group bg-[#FAF8F5] rounded-2xl sm:rounded-3xl p-6 sm:p-8 border border-border flex flex-col justify-between hover:shadow-xl transition-all duration-500">
+              <div>
+                <div className="relative aspect-square rounded-2xl overflow-hidden mb-6 bg-surface p-4 border border-border/60">
+                  <Image
+                    src="/images/brand_story.jpg"
+                    alt="پلاک‌های پارسیان"
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-700"
+                  />
+                </div>
+                <span className="text-[10px] tracking-brand font-bold text-gold-600 block mb-1">COLLECTION ۰۳</span>
+                <h3 className="text-lg sm:text-xl font-bold text-text-primary mb-2">پلاک و آویزهای زرین</h3>
+                <p className="text-xs text-text-secondary leading-relaxed mb-6 font-light">
+                  پلاک‌های پارسیان با وزن‌های خرد کادویی و طراحی اختصاصی.
+                </p>
+              </div>
+              <Link href="/store" className="inline-flex items-center justify-between text-xs font-bold text-text-primary pt-4 border-t border-border group-hover:text-gold-600">
+                <span>سفارش و تحویل فیزیکی</span>
+                <ArrowLeft className="w-4 h-4" />
+              </Link>
+            </div>
+
           </div>
         </div>
       </section>
 
-      {/* ━━━ 08. FINAL CTA ━━━ */}
-      <section className="section-editorial px-6 md:px-10 bg-surface-dark text-white text-center">
-        <div className="max-w-2xl mx-auto">
-          <span className="diamond-motif !bg-gold-400 !w-3 !h-3 mx-auto mb-10 block" />
+      {/* ━━━ STAGE 6: ECOSYSTEM BENTO GRID ━━━ */}
+      <section className="py-16 sm:py-24 md:py-28 px-4 sm:px-6 md:px-10 bg-[#FAF8F5] border-t border-border">
+        <div className="max-w-[1400px] mx-auto">
+          
+          <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-16">
+            <span className="text-[10px] sm:text-xs tracking-brand font-semibold text-text-muted block mb-2">مزایای رقابتی</span>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-text-primary tracking-tight">ستون‌های پلتفرم زروی</h2>
+          </div>
 
-          <h2 className="text-[clamp(2.2rem,4.5vw,3.8rem)] font-semibold leading-[1.2] tracking-tight mb-8">
-            ثروت شما<br />
-            شایسته ماندگاری است.
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+            
+            <div className="bg-surface p-6 sm:p-8 rounded-2xl sm:rounded-3xl border border-border shadow-xs">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-surface-secondary flex items-center justify-center text-gold-600 mb-5 border border-border">
+                <RefreshCw className="w-5 h-5 sm:w-6 sm:h-6" />
+              </div>
+              <h3 className="text-base sm:text-lg font-bold text-text-primary mb-2">تسویه آنی ریالی</h3>
+              <p className="text-xs text-text-secondary leading-relaxed font-light">
+                فروش طلای دیجیتال و واریز آنی وجه به کارت‌های بانکی عضو شتاب در هر ساعت از شبانه‌روز.
+              </p>
+            </div>
+
+            <div className="bg-surface p-6 sm:p-8 rounded-2xl sm:rounded-3xl border border-border shadow-xs">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-surface-secondary flex items-center justify-center text-gold-600 mb-5 border border-border">
+                <Lock className="w-5 h-5 sm:w-6 sm:h-6" />
+              </div>
+              <h3 className="text-base sm:text-lg font-bold text-text-primary mb-2">خزانه امن بیمه‌شده</h3>
+              <p className="text-xs text-text-secondary leading-relaxed font-light">
+                نگهداری فیزیکی طلا در گاوصندوق‌های اختصاصی بانکی با پوشش ۱۰۰٪ بیمه حوادث.
+              </p>
+            </div>
+
+            <div className="bg-surface p-6 sm:p-8 rounded-2xl sm:rounded-3xl border border-border shadow-xs">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-surface-secondary flex items-center justify-center text-gold-600 mb-5 border border-border">
+                <Layers className="w-5 h-5 sm:w-6 sm:h-6" />
+              </div>
+              <h3 className="text-base sm:text-lg font-bold text-text-primary mb-2">پس‌انداز خودکار</h3>
+              <p className="text-xs text-text-secondary leading-relaxed font-light">
+                برنامه‌ریزی خرید منظم و دوره‌ای طلا برای حفظ ارزش سرمایه در برابر تورم.
+              </p>
+            </div>
+
+            <div className="bg-surface p-6 sm:p-8 rounded-2xl sm:rounded-3xl border border-border shadow-xs">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-surface-secondary flex items-center justify-center text-gold-600 mb-5 border border-border">
+                <Truck className="w-5 h-5 sm:w-6 sm:h-6" />
+              </div>
+              <h3 className="text-base sm:text-lg font-bold text-text-primary mb-2">ارسال محرمانه پستی</h3>
+              <p className="text-xs text-text-secondary leading-relaxed font-light">
+                تحویل فیزیکی طلا در بسته‌بندی امن و محرمانه با پست بیمه‌شده به تمام نقاط کشور.
+              </p>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* ━━━ STAGE 7: PRE-FOOTER INVITATION ━━━ */}
+      <section className="py-16 sm:py-24 px-4 sm:px-6 md:px-10 bg-surface">
+        <div className="max-w-[1000px] mx-auto text-center bg-[#FAF8F5] p-8 sm:p-12 md:p-20 rounded-2xl sm:rounded-3xl border border-border shadow-xs">
+          <span className="diamond-motif !w-2.5 !h-2.5 mx-auto block mb-4 sm:mb-6" />
+          <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold text-text-primary tracking-tight mb-4 sm:mb-6">
+            سفر سرمایه‌گذاری خود را آغاز کنید
           </h2>
-
-          <p className="text-neutral-400 mb-10 leading-relaxed font-light text-base md:text-lg">
-            به جامعه سرمایه‌گذاران زروی بپیوندید و دارایی‌های طلای خود را در یک بستر امن و مدرن مدیریت کنید.
+          <p className="text-xs sm:text-sm md:text-base text-text-secondary font-light max-w-lg mx-auto mb-8 sm:mb-10 leading-relaxed">
+            در کمتر از ۲ دقیقه حساب کاربری خود را فعال کنید و با هر مبلغی طلای استاندارد خریداری کنید.
           </p>
-
           <Link href="/register">
-            <Button size="lg" className="bg-gold-500 hover:bg-gold-600 text-surface-dark font-semibold px-10">
-              افتتاح حساب در زروی
+            <Button size="lg" className="w-full sm:w-auto bg-surface-dark text-white hover:bg-black px-10 py-3.5 rounded-full font-bold shadow-lg text-xs sm:text-sm">
+              افتتاح حساب رایگان در زروی
             </Button>
           </Link>
         </div>

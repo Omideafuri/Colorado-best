@@ -16,9 +16,6 @@ const protectedPaths = [
   '/settings',
 ];
 
-// Routes that require admin role
-
-
 // Routes only for unauthenticated users
 const authPaths = ['/login', '/register', '/verify', '/forgot-password'];
 

@@ -148,3 +148,45 @@ export const kycStatusLabels: Record<string, string> = {
   VERIFIED: 'تأیید شده',
   REJECTED: 'رد شده',
 };
+
+/**
+ * Format a Date to Persian calendar string or relative time.
+ */
+export function formatDate(
+  date: Date | string | number,
+  format: 'date' | 'datetime' | 'time' | 'relative' = 'date'
+): string {
+  const d = typeof date === 'object' ? date : new Date(date);
+  if (isNaN(d.getTime())) return '';
+
+  if (format === 'relative') {
+    const diffSec = Math.floor((Date.now() - d.getTime()) / 1000);
+    if (diffSec < 60) return 'چند لحظه پیش';
+    if (diffSec < 3600) return `${toPersianDigits(Math.floor(diffSec / 60))} دقیقه پیش`;
+    if (diffSec < 86400) return `${toPersianDigits(Math.floor(diffSec / 3600))} ساعت پیش`;
+    return `${toPersianDigits(Math.floor(diffSec / 86400))} روز پیش`;
+  }
+
+  const options: Intl.DateTimeFormatOptions = {
+    calendar: 'persian',
+    numberingSystem: 'persian',
+  };
+
+  if (format === 'time') {
+    options.hour = '2-digit';
+    options.minute = '2-digit';
+  } else if (format === 'datetime') {
+    options.year = 'numeric';
+    options.month = 'long';
+    options.day = 'numeric';
+    options.hour = '2-digit';
+    options.minute = '2-digit';
+  } else {
+    options.year = 'numeric';
+    options.month = 'long';
+    options.day = 'numeric';
+  }
+
+  return new Intl.DateTimeFormat('fa-IR', options).format(d);
+}
+
