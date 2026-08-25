@@ -6,7 +6,7 @@ import { AspectImage } from './AspectImage';
 import { PriceDisplay } from './Typography';
 
 export interface ProductCardProps {
-  id: string;
+  id?: string;
   title: string;
   category: string;
   description: string;
@@ -28,7 +28,7 @@ export function ProductCard({
   return (
     <div
       className={cn(
-        'group bg-[#FAF8F5] rounded-3xl p-6 sm:p-8 border border-border flex flex-col justify-between hover:shadow-xl transition-all duration-500',
+        'group bg-white rounded-3xl p-6 sm:p-8 border border-[#E8E1D5] flex flex-col justify-between hover:border-[#B8621B]/40 hover:shadow-xl transition-all duration-500',
         className
       )}
     >
@@ -38,30 +38,30 @@ export function ProductCard({
           alt={title}
           ratio="square"
           rounded="sm"
-          className="mb-6 bg-surface p-4 border border-border/60"
+          className="mb-6 bg-[#FAF8F5] p-4 border border-[#E8E1D5]/60"
         />
 
-        <span className="text-[10px] tracking-brand font-bold text-gold-600 block mb-1 uppercase">
+        <span className="text-[10px] tracking-brand font-bold text-[#B8621B] block mb-1 uppercase">
           {category}
         </span>
 
-        <h3 className="text-lg md:text-xl font-bold text-text-primary mb-2 group-hover:text-gold-600 transition-colors">
+        <h3 className="text-lg md:text-xl font-bold text-[#141210] mb-2 group-hover:text-[#262A56] transition-colors">
           {title}
         </h3>
 
-        <p className="text-xs text-text-secondary leading-relaxed mb-6 font-light">
+        <p className="text-xs text-[#4A463F] leading-relaxed mb-6 font-light">
           {description}
         </p>
       </div>
 
-      <div className="pt-4 border-t border-border flex items-end justify-between">
+      <div className="pt-4 border-t border-[#E8E1D5] flex items-end justify-between">
         <PriceDisplay toman={priceToman} size="sm" />
 
         <Link
           href={href}
-          className="inline-flex items-center gap-1 text-xs font-bold text-text-primary hover:text-gold-600 transition-colors"
+          className="inline-flex items-center gap-1 text-xs font-bold text-[#262A56] hover:text-[#B8621B] transition-colors"
         >
-          <span>خرید</span>
+          <span>خرید و تحویل</span>
           <ArrowLeft className="w-3.5 h-3.5" />
         </Link>
       </div>

@@ -4,7 +4,7 @@ import React from "react"
 import { Loader2 } from "lucide-react"
 import { cn } from "@/lib/utils"
 
-export type ButtonVariant = 'primary' | 'secondary' | 'outline' | 'ghost' | 'danger' | 'icon' | 'pill' | 'gold';
+export type ButtonVariant = 'primary' | 'secondary' | 'outline' | 'ghost' | 'danger' | 'icon' | 'pill' | 'gold' | 'copper' | 'dark';
 export type ButtonSize = 'sm' | 'md' | 'lg' | 'icon' | 'pill';
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -18,7 +18,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ children, className, variant = 'primary', size = 'md', isLoading, icon, disabled, ...props }, ref) => {
     const isIconOnly = variant === 'icon' || size === 'icon';
 
-    const baseClasses = "relative inline-flex items-center justify-center font-medium tracking-wide transition-all duration-500 ease-[cubic-bezier(0.25,0.1,0.25,1)] active:scale-[0.985] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gold-500 disabled:opacity-40 disabled:cursor-not-allowed disabled:pointer-events-none disabled:active:scale-100 select-none cursor-pointer";
+    const baseClasses = "relative inline-flex items-center justify-center font-medium tracking-wide transition-all duration-300 ease-[cubic-bezier(0.25,0.1,0.25,1)] active:scale-[0.985] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B8621B] focus-visible:ring-offset-2 disabled:opacity-40 disabled:cursor-not-allowed disabled:pointer-events-none disabled:active:scale-100 select-none cursor-pointer";
 
     const sizeClasses = {
       sm: "h-10 px-5 text-xs tracking-wider rounded-full",
@@ -29,14 +29,16 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     }[size];
 
     const variantClasses = {
-      primary: "bg-surface-dark text-white border border-transparent hover:bg-black hover:shadow-lg hover:shadow-surface-dark/10",
-      gold: "bg-gold-500 text-surface-dark font-semibold border border-transparent hover:bg-gold-600 hover:shadow-md",
-      secondary: "bg-surface text-text-primary border border-border hover:border-text-primary hover:bg-surface-hover",
-      outline: "border border-text-primary text-text-primary bg-transparent hover:bg-surface-dark hover:text-white hover:border-surface-dark",
-      ghost: "text-text-secondary hover:text-text-primary hover:bg-surface-hover/60",
+      primary: "bg-[#B8621B] text-white border border-transparent hover:bg-[#9E5214] hover:shadow-lg hover:shadow-[#B8621B]/20",
+      secondary: "bg-[#262A56] text-[#FAF8F5] border border-transparent hover:bg-[#1D2042] hover:shadow-lg hover:shadow-[#262A56]/20",
+      outline: "border border-[#262A56] text-[#262A56] bg-transparent hover:bg-[#262A56] hover:text-[#FAF8F5]",
+      ghost: "text-[#4A463F] hover:text-[#141210] hover:bg-[#F4EFE6]",
       danger: "bg-danger text-white border border-transparent hover:bg-danger/90",
-      icon: "text-text-secondary hover:text-text-primary hover:bg-surface-hover/80 border border-border/60",
-      pill: "bg-surface text-text-primary border border-border hover:border-text-primary hover:bg-surface-dark hover:text-white",
+      icon: "text-[#4A463F] hover:text-[#262A56] hover:bg-[#F4EFE6] border border-[#E8E1D5]",
+      pill: "bg-[#FAF8F5] text-[#262A56] border border-[#E8E1D5] hover:border-[#262A56] hover:bg-[#262A56] hover:text-white",
+      gold: "bg-[#B8621B] text-white font-medium border border-transparent hover:bg-[#9E5214] hover:shadow-lg hover:shadow-[#B8621B]/20",
+      copper: "bg-[#B8621B] text-white font-medium border border-transparent hover:bg-[#9E5214] hover:shadow-lg hover:shadow-[#B8621B]/20",
+      dark: "bg-[#000000] text-white border border-transparent hover:bg-[#1A1D3D] hover:shadow-lg",
     }[variant];
 
     return (

@@ -1,33 +1,45 @@
 @import "tailwindcss";
 
 @theme {
-  /* Brand Colors — Muted Champagne Gold & Warm Metalliic */
-  --color-gold-50: #FAF7F2;
-  --color-gold-100: #F0EBE0;
-  --color-gold-200: #E2D9C8;
-  --color-gold-300: #CFBFA4;
-  --color-gold-400: #C2AB88;
-  --color-gold-500: #B5976A; /* Main Accent — Restrained champagne */
-  --color-gold-600: #9A7E56;
-  --color-gold-700: #7D6544;
-  --color-gold-800: #614D35;
-  --color-gold-900: #4A3A28;
-  --color-gold-950: #2D2318;
+  /* Brand Signature Colors — #000000 · #262A56 · #B8621B · #E3CCAE */
+  --color-brand-black: #000000;
+  --color-brand-navy: #262A56;
+  --color-brand-copper: #B8621B;
+  --color-brand-champagne: #E3CCAE;
 
-  /* Surface — Warm Ivory & Near-Black */
-  --color-surface: #FFFFFF;
-  --color-surface-secondary: #FAF8F5;
-  --color-surface-hover: #F5F2ED;
-  --color-surface-dark: #141210;
-  --color-surface-dark-hover: #1E1C19;
+  /* Semantic Canvas & Surfaces */
+  --color-bg-primary: #FAF8F5;
+  --color-bg-secondary: #F4EFE6;
+  --color-bg-elevated: #FFFFFF;
+  --color-bg-surface-dark: #262A56;
+  --color-bg-surface-darker: #1A1D3D;
+  --color-bg-floor: #000000;
+  --color-bg-accent-soft: rgba(184, 98, 27, 0.08);
 
-  /* Text */
+  /* Semantic Typography */
   --color-text-primary: #141210;
-  --color-text-secondary: #6B665E;
-  --color-text-muted: #9E988F;
-  --color-text-inverse: #FAF8F5;
+  --color-text-secondary: #4A463F;
+  --color-text-muted: #7D776C;
+  --color-text-brand: #262A56;
+  --color-text-accent: #B8621B;
+  --color-text-on-dark: #FAF8F5;
+  --color-text-on-dark-muted: #C5BFB4;
+  --color-text-on-brand: #FFFFFF;
 
-  /* Semantic — Muted, sophisticated */
+  /* Semantic Borders & Dividers */
+  --color-border-subtle: #E8E1D5;
+  --color-border-medium: #D1C7B7;
+  --color-border-dark: rgba(227, 204, 174, 0.18);
+  --color-border-accent: rgba(184, 98, 27, 0.45);
+
+  /* Semantic Action & Accent States */
+  --color-accent-primary: #B8621B;
+  --color-accent-hover: #9E5214;
+  --color-accent-active: #82430F;
+  --color-brand-primary: #262A56;
+  --color-brand-hover: #1D2042;
+
+  /* Semantic Status Indicators */
   --color-success: #3D6647;
   --color-success-light: #EDF2EE;
   --color-danger: #8B4049;
@@ -37,28 +49,26 @@
   --color-info: #4A5A6B;
   --color-info-light: #EDF0F2;
 
-  /* Border */
-  --color-border: #E5E0D8;
-  --color-border-light: #F0EBE4;
-  --color-border-dark: #2A2724;
-
-  /* Typography — Kalameh Primary Font */
+  /* Typography — Kalameh Primary Persian Typeface */
   --font-kalameh: var(--font-kalameh), "Kalameh", system-ui, sans-serif;
   --font-display: var(--font-kalameh), "Kalameh", system-ui, sans-serif;
   --font-body: var(--font-kalameh), "Kalameh", system-ui, sans-serif;
   --font-mono: var(--font-kalameh), "Kalameh", ui-monospace, monospace;
 
-  /* Radius — Sharp editorial + subtle softness */
-  --radius-sm: 0px;
-  --radius-md: 2px;
-  --radius-lg: 4px;
-  --radius-xl: 8px;
-  --radius-2xl: 9999px;
+  /* Editorial Radii Scale */
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+  --radius-full: 9999px;
 
-  /* Shadows — Minimal and restrained */
-  --shadow-card: 0 1px 3px rgba(20, 18, 16, 0.02);
-  --shadow-elevated: 0 12px 48px rgba(20, 18, 16, 0.06);
-  --shadow-modal: 0 24px 72px rgba(20, 18, 16, 0.14);
+  /* Shadows — Restrained & Purposeful */
+  --shadow-subtle: 0 2px 8px rgba(38, 42, 86, 0.04);
+  --shadow-card: 0 12px 36px rgba(38, 42, 86, 0.06);
+  --shadow-elevated: 0 24px 64px rgba(38, 42, 86, 0.1);
+  --shadow-copper-glow: 0 8px 24px rgba(184, 98, 27, 0.22);
+  --shadow-navy-glow: 0 8px 24px rgba(38, 42, 86, 0.22);
 
   /* Animation timing */
   --ease-editorial: cubic-bezier(0.25, 0.1, 0.25, 1);
@@ -69,7 +79,7 @@
 
 @layer base {
   * {
-    border-color: var(--color-border);
+    border-color: var(--color-border-subtle);
   }
 
   html {
@@ -81,7 +91,7 @@
   }
 
   body {
-    background-color: var(--color-surface-secondary);
+    background-color: var(--color-bg-primary);
     color: var(--color-text-primary);
     font-family: var(--font-body);
     line-height: 1.75;
@@ -97,12 +107,12 @@
 
   /* Selection */
   ::selection {
-    background-color: var(--color-gold-200);
-    color: var(--color-gold-950);
+    background-color: var(--color-brand-champagne);
+    color: var(--color-brand-black);
   }
 }
 
-/* === Component Utilities & Atmospheric Gradients === */
+/* === Component Utilities & Orosi Atmospheric Refractions === */
 
 @layer utilities {
   .font-kalameh {
@@ -124,30 +134,30 @@
 
   /* Card surface — Editorial: clean, flat with subtle hover feedback */
   .card-surface {
-    background-color: var(--color-surface);
-    border: 1px solid var(--color-border);
+    background-color: var(--color-bg-elevated);
+    border: 1px solid var(--color-border-subtle);
     transition: border-color 0.4s var(--ease-editorial), box-shadow 0.4s var(--ease-editorial);
   }
 
   .card-surface:hover {
-    border-color: var(--color-gold-400);
+    border-color: var(--color-border-accent);
   }
 
-  /* Atmospheric Light Blooms & Gradient Backgrounds */
+  /* Orosi Glass Light Blooms & Radial Refractions */
   .bg-atmospheric-dark {
-    background: radial-gradient(circle at 75% 30%, rgba(181, 151, 106, 0.12) 0%, transparent 60%),
-                radial-gradient(circle at 20% 80%, rgba(125, 101, 68, 0.08) 0%, transparent 50%),
-                #141210;
+    background: radial-gradient(circle at 75% 25%, rgba(184, 98, 27, 0.14) 0%, transparent 60%),
+                radial-gradient(circle at 20% 80%, rgba(38, 42, 86, 0.4) 0%, transparent 50%),
+                var(--color-bg-surface-dark);
   }
 
   .bg-atmospheric-ivory {
-    background: radial-gradient(circle at 80% 20%, rgba(240, 235, 224, 0.6) 0%, transparent 65%),
-                radial-gradient(circle at 10% 90%, rgba(226, 217, 200, 0.35) 0%, transparent 50%),
-                #FAF8F5;
+    background: radial-gradient(circle at 80% 20%, rgba(227, 204, 174, 0.45) 0%, transparent 65%),
+                radial-gradient(circle at 10% 90%, rgba(244, 239, 230, 0.6) 0%, transparent 50%),
+                var(--color-bg-primary);
   }
 
   .bg-subtle-glow {
-    background: linear-gradient(180deg, rgba(250, 248, 245, 0) 0%, rgba(240, 235, 224, 0.4) 100%);
+    background: linear-gradient(180deg, rgba(250, 248, 245, 0) 0%, rgba(227, 204, 174, 0.25) 100%);
   }
 
   /* Diamond motif ◇ */
@@ -155,7 +165,7 @@
     display: inline-block;
     width: 7px;
     height: 7px;
-    background-color: var(--color-gold-500);
+    background-color: var(--color-brand-copper);
     transform: rotate(45deg);
     transition: transform 0.4s var(--ease-editorial);
   }

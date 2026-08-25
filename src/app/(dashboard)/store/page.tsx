@@ -83,26 +83,26 @@ export default async function StorePage() {
       <div className="pt-4">
         <div className="flex items-center gap-3 mb-4">
           <span className="diamond-motif" />
-          <span className="text-xs tracking-brand text-text-muted">گالری فیزیکی زروی</span>
+          <span className="text-xs tracking-brand text-[#7D776C]">گالری فیزیکی زروی</span>
         </div>
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 border-b border-border pb-10">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 border-b border-[#E8E1D5] pb-10">
           <div className="max-w-xl">
-            <h1 className="text-4xl md:text-5xl font-semibold text-text-primary tracking-tight mb-4">گالری و تحویل فیزیکی</h1>
-            <p className="text-lg text-text-secondary leading-relaxed font-light">
+            <h1 className="text-4xl md:text-5xl font-bold text-[#141210] tracking-tight mb-4">گالری و تحویل فیزیکی</h1>
+            <p className="text-base sm:text-lg text-[#4A463F] leading-relaxed font-light">
               محصولات فیزیکی استاندارد با بسته‌بندی امنیتی ضدجعل، هولوگرام اصالت و شناسنامه رسمی عیار.
             </p>
           </div>
-          <div className="text-left border border-border p-6 bg-surface min-w-[240px]">
-            <p className="text-xs tracking-brand text-text-muted mb-2">موجودی کیف پول ریالی</p>
-            <p className="text-2xl font-semibold font-num text-text-primary">
-              {formatNumber(cashBalanceToman)} <span className="text-sm font-normal text-text-muted">تومان</span>
+          <div className="text-left border border-[#E8E1D5] rounded-2xl p-6 bg-white shadow-xs min-w-[240px]">
+            <p className="text-xs tracking-brand text-[#7D776C] mb-2">موجودی کیف پول ریالی</p>
+            <p className="text-2xl font-bold font-num text-[#262A56]">
+              {formatNumber(cashBalanceToman)} <span className="text-sm font-normal text-[#7D776C]">تومان</span>
             </p>
           </div>
         </div>
       </div>
 
       {/* Products — Editorial Gallery */}
-      <div className="space-y-px bg-border">
+      <div className="space-y-6">
         {products.map((product, idx) => {
           const weightGrams = Number(product.weightNg) / 1_000_000_000;
           const baseValueRial = calculateCashAmount(product.weightNg, snapshot.buyPriceRial);
@@ -114,54 +114,55 @@ export default async function StorePage() {
           const imageSrc = product.imageUrl || productImages[product.category] || '/images/product_bar.jpg';
 
           return (
-            <div key={product.id} className="grid md:grid-cols-12 gap-px bg-border group">
+            <div key={product.id} className="grid md:grid-cols-12 rounded-3xl border border-[#E8E1D5] bg-white overflow-hidden shadow-xs hover:border-[#B8621B]/40 hover:shadow-md transition-all duration-500 group">
               {/* Product Visual */}
-              <div className={`md:col-span-6 bg-surface-secondary flex items-center justify-center min-h-[380px] md:min-h-[460px] relative overflow-hidden p-8 image-hover-zoom ${idx % 2 === 1 ? 'md:order-2' : ''}`}>
-                <div className="relative w-full h-full max-w-[340px] aspect-square">
+              <div className={`md:col-span-6 bg-[#FAF8F5] flex items-center justify-center min-h-[340px] md:min-h-[420px] relative overflow-hidden p-8 image-hover-zoom ${idx % 2 === 1 ? 'md:order-2' : ''}`}>
+                <div className="relative w-full h-full max-w-[320px] aspect-square rounded-2xl overflow-hidden border border-[#E8E1D5] bg-white p-4">
                   <Image
                     src={imageSrc}
                     alt={product.nameFa}
                     fill
-                    className="object-cover border border-border/80"
+                    sizes="(max-width: 768px) 100vw, 320px"
+                    className="object-cover rounded-xl"
                   />
                 </div>
 
                 {/* Availability badge */}
                 <div className="absolute top-6 right-6">
-                  <span className={`text-xs tracking-brand px-3 py-1.5 backdrop-blur-md ${isAvailable ? 'bg-surface/80 text-success border border-success/30' : 'bg-surface/80 text-text-muted border border-border'}`}>
+                  <span className={`text-xs tracking-brand px-3 py-1.5 rounded-full backdrop-blur-md ${isAvailable ? 'bg-white/90 text-emerald-800 border border-emerald-300' : 'bg-white/90 text-[#7D776C] border border-[#E8E1D5]'}`}>
                     {isAvailable ? `موجودی: ${toPersianDigits(quantityAvailable.toString())}` : 'اتمام موجودی'}
                   </span>
                 </div>
               </div>
 
               {/* Product Details */}
-              <div className={`md:col-span-6 bg-surface p-8 md:p-14 flex flex-col justify-between ${idx % 2 === 1 ? 'md:order-1' : ''}`}>
+              <div className={`md:col-span-6 p-8 md:p-12 flex flex-col justify-between ${idx % 2 === 1 ? 'md:order-1' : ''}`}>
                 <div>
                   <div className="flex justify-between items-start mb-4">
-                    <span className="text-xs tracking-brand text-text-muted">
+                    <span className="text-xs tracking-brand font-bold text-[#B8621B]">
                       قطعه ۰{toPersianDigits((idx + 1).toString())}
                     </span>
-                    <span className="text-xs font-mono font-medium text-text-secondary uppercase">
+                    <span className="text-xs font-mono font-bold text-[#262A56] uppercase">
                       {toPersianDigits(weightGrams.toString())} G
                     </span>
                   </div>
 
-                  <h3 className="text-2xl md:text-3xl font-semibold text-text-primary tracking-tight mb-2">{product.nameFa}</h3>
-                  <p className="text-xs text-text-muted mb-8 tracking-wider uppercase font-mono">{product.nameEn}</p>
+                  <h3 className="text-2xl md:text-3xl font-bold text-[#141210] tracking-tight mb-1">{product.nameFa}</h3>
+                  <p className="text-xs text-[#7D776C] mb-8 tracking-wider uppercase font-mono">{product.nameEn}</p>
 
                   {/* Price breakdown */}
-                  <div className="space-y-3.5 border-t border-border pt-6 text-sm">
+                  <div className="space-y-3.5 border-t border-[#E8E1D5] pt-6 text-sm">
                     <div className="flex justify-between items-center">
-                      <span className="text-text-secondary">ارزش خام طلا</span>
-                      <span className="font-num text-text-primary">{formatNumber(Number(baseValueRial / BigInt(10)))} تومان</span>
+                      <span className="text-[#4A463F]">ارزش خام طلا</span>
+                      <span className="font-num text-[#141210]">{formatNumber(Number(baseValueRial / BigInt(10)))} تومان</span>
                     </div>
                     <div className="flex justify-between items-center">
-                      <span className="text-text-secondary">اجرت ضرب / پریمیوم</span>
-                      <span className="font-num text-text-primary">{formatNumber(Number((premiumRial + makingChargeRial) / BigInt(10)))} تومان</span>
+                      <span className="text-[#4A463F]">اجرت ضرب / پریمیوم</span>
+                      <span className="font-num text-[#141210]">{formatNumber(Number((premiumRial + makingChargeRial) / BigInt(10)))} تومان</span>
                     </div>
-                    <div className="flex justify-between items-center border-t border-border pt-4">
-                      <span className="font-medium text-text-primary">مبلغ کل قابل پرداخت</span>
-                      <span className="text-2xl font-semibold font-num text-text-primary tracking-tight">{formatNumber(totalPriceToman)} تومان</span>
+                    <div className="flex justify-between items-center border-t border-[#E8E1D5] pt-4">
+                      <span className="font-bold text-[#141210]">مبلغ کل قابل پرداخت</span>
+                      <span className="text-2xl font-bold font-num text-[#262A56] tracking-tight">{formatNumber(totalPriceToman)} تومان</span>
                     </div>
                   </div>
                 </div>

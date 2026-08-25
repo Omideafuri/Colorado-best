@@ -41,27 +41,27 @@ export default async function PricesPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-surface-secondary selection:bg-gold-200 pt-24 pb-20">
+    <div className="min-h-screen bg-[#FAF8F5] text-[#141210] selection:bg-[#E3CCAE] pt-24 pb-20">
       <div className="mx-auto max-w-5xl px-6 md:px-10">
 
         {/* Header */}
-        <div className="border-b border-border pb-10 mb-12">
+        <div className="border-b border-[#E8E1D5] pb-10 mb-12">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
             <div className="flex items-center gap-3">
               <span className="diamond-motif" />
-              <span className="text-xs tracking-brand text-text-muted">نرخ‌های رسمی و لحظه‌ای بازار ایران</span>
+              <span className="text-xs tracking-brand text-[#7D776C]">نرخ‌های رسمی و لحظه‌ای بازار ایران</span>
             </div>
             
             {/* Timestamp & Source Badge */}
-            <div className="flex flex-wrap items-center gap-3 text-xs text-text-muted bg-surface px-3.5 py-1.5 border border-border self-start md:self-auto">
+            <div className="flex flex-wrap items-center gap-3 text-xs text-[#7D776C] bg-white px-3.5 py-1.5 border border-[#E8E1D5] rounded-full self-start md:self-auto shadow-xs">
               <span className="flex h-2 w-2 relative">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
               </span>
-              <span className="font-medium text-text-primary">منبع: AlanChand</span>
+              <span className="font-medium text-[#262A56]">منبع: AlanChand</span>
               <span>·</span>
               <span className="flex items-center gap-1">
-                <Clock className="w-3 h-3 text-text-muted" />
+                <Clock className="w-3 h-3 text-[#7D776C]" />
                 <span className="font-num">
                   {formatDate(new Date(marketRates.lastUpdated), 'relative')}
                 </span>
@@ -69,66 +69,66 @@ export default async function PricesPage() {
             </div>
           </div>
 
-          <h1 className="text-4xl md:text-5xl font-semibold text-text-primary tracking-tight mb-4">
+          <h1 className="text-4xl md:text-5xl font-bold text-[#141210] tracking-tight mb-4">
             تابلوی معاملات زروی
           </h1>
-          <p className="text-lg text-text-secondary leading-relaxed font-light max-w-2xl">
+          <p className="text-base sm:text-lg text-[#4A463F] leading-relaxed font-light max-w-2xl">
             نرخ‌های اعلامی به صورت مستقیم از منبع رسمی AlanChand دریافت شده و قیمت‌ها بر پایه تومان (اصلی) و ریال (معادل بانکی) نمایش داده می‌شوند.
           </p>
         </div>
 
         {/* Primary 18K Live Trading Terminal Card */}
-        <div className="border border-border bg-surface p-8 md:p-12 mb-12 shadow-sm">
-          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end border-b border-border pb-8 mb-8 gap-4">
+        <div className="border border-[#E8E1D5] bg-white rounded-3xl p-8 md:p-12 mb-12 shadow-sm">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end border-b border-[#E8E1D5] pb-8 mb-8 gap-4">
             <div>
-              <span className="text-xs tracking-brand text-gold-600 block mb-2 font-medium">شاخص اصلی مبادلات پلتفرم</span>
-              <h2 className="text-2xl md:text-3xl font-semibold text-text-primary">هر گرم طلای ۱۸ عیار (۷۵۰)</h2>
+              <span className="text-xs tracking-brand text-[#B8621B] block mb-2 font-semibold">شاخص اصلی مبادلات پلتفرم</span>
+              <h2 className="text-2xl md:text-3xl font-bold text-[#141210]">هر گرم طلای ۱۸ عیار (۷۵۰)</h2>
             </div>
             <div className="text-left">
-              <span className="text-xs tracking-brand text-text-muted block mb-1">قیمت مرجع بازار</span>
-              <p className="text-3xl md:text-4xl font-semibold font-num text-text-primary tracking-tight">
-                {toPersianDigits(formatNumber(refToman))} <span className="text-sm font-normal text-text-muted">تومان</span>
+              <span className="text-xs tracking-brand text-[#7D776C] block mb-1">قیمت مرجع بازار</span>
+              <p className="text-3xl md:text-4xl font-bold font-num text-[#262A56] tracking-tight">
+                {toPersianDigits(formatNumber(refToman))} <span className="text-sm font-normal text-[#7D776C]">تومان</span>
               </p>
-              <p className="text-xs font-num text-text-muted mt-1">
+              <p className="text-xs font-num text-[#7D776C] mt-1">
                 معادل {toPersianDigits(formatNumber(refToman * 10))} ریال
               </p>
             </div>
           </div>
 
           <div className="grid md:grid-cols-2 gap-6 mb-8">
-            <div className="border border-border-light p-6 bg-surface-secondary">
-              <span className="text-xs text-text-muted block mb-2 font-medium">نرخ خرید زروی از شما (فروش موجودی)</span>
-              <p className="text-2xl md:text-3xl font-semibold font-num text-text-primary">
-                {toPersianDigits(formatNumber(sellToman))} <span className="text-sm font-normal text-text-muted">تومان</span>
+            <div className="border border-[#E8E1D5] p-6 bg-[#FAF8F5] rounded-2xl">
+              <span className="text-xs text-[#7D776C] block mb-2 font-medium">نرخ خرید زروی از شما (فروش موجودی)</span>
+              <p className="text-2xl md:text-3xl font-bold font-num text-[#141210]">
+                {toPersianDigits(formatNumber(sellToman))} <span className="text-sm font-normal text-[#7D776C]">تومان</span>
               </p>
-              <p className="text-xs font-num text-text-muted mt-1">
+              <p className="text-xs font-num text-[#7D776C] mt-1">
                 معادل {toPersianDigits(formatNumber(sellToman * 10))} ریال
               </p>
-              <span className="text-xs text-text-muted mt-2 block">تسویه آنی به کیف پول ریالی</span>
+              <span className="text-xs text-[#7D776C] mt-2 block">تسویه آنی به کیف پول ریالی</span>
             </div>
 
-            <div className="border border-border-light p-6 bg-surface-secondary">
-              <span className="text-xs text-text-muted block mb-2 font-medium">نرخ فروش زروی به شما (خرید آنلاین)</span>
-              <p className="text-2xl md:text-3xl font-semibold font-num text-text-primary">
-                {toPersianDigits(formatNumber(buyToman))} <span className="text-sm font-normal text-text-muted">تومان</span>
+            <div className="border border-[#E8E1D5] p-6 bg-[#FAF8F5] rounded-2xl">
+              <span className="text-xs text-[#7D776C] block mb-2 font-medium">نرخ فروش زروی به شما (خرید آنلاین)</span>
+              <p className="text-2xl md:text-3xl font-bold font-num text-[#141210]">
+                {toPersianDigits(formatNumber(buyToman))} <span className="text-sm font-normal text-[#7D776C]">تومان</span>
               </p>
-              <p className="text-xs font-num text-text-muted mt-1">
+              <p className="text-xs font-num text-[#7D776C] mt-1">
                 معادل {toPersianDigits(formatNumber(buyToman * 10))} ریال
               </p>
-              <span className="text-xs text-text-muted mt-2 block">ثبت لحظه‌ای در خزانه با پشتوانه شمش</span>
+              <span className="text-xs text-[#7D776C] mt-2 block">ثبت لحظه‌ای در خزانه با پشتوانه شمش</span>
             </div>
           </div>
 
-          <div className="flex flex-col sm:flex-row justify-between items-center border-t border-border pt-6 gap-4 text-sm text-text-secondary">
+          <div className="flex flex-col sm:flex-row justify-between items-center border-t border-[#E8E1D5] pt-6 gap-4 text-sm text-[#4A463F]">
             <div className="flex items-center gap-3">
-              <ShieldCheck className="w-4 h-4 text-gold-600" />
+              <ShieldCheck className="w-4 h-4 text-[#B8621B]" />
               <span>اسپرد معاملاتی:</span>
-              <span className="font-num font-semibold text-gold-600">{toPersianDigits(formatNumber(spreadToman))} تومان</span>
-              <span className="text-xs text-text-muted">({toPersianDigits(formatNumber(spreadRial))} ریال)</span>
+              <span className="font-num font-bold text-[#B8621B]">{toPersianDigits(formatNumber(spreadToman))} تومان</span>
+              <span className="text-xs text-[#7D776C]">({toPersianDigits(formatNumber(spreadRial))} ریال)</span>
             </div>
-            <div className="flex gap-4 w-full sm:w-auto">
+            <div className="flex gap-3 w-full sm:w-auto">
               <Link href="/buy" className="flex-1 sm:flex-none">
-                <Button className="w-full sm:w-auto">ورود به پنل خرید طلا</Button>
+                <Button variant="primary" className="w-full sm:w-auto">ورود به پنل خرید طلا</Button>
               </Link>
               <Link href="/sell" className="flex-1 sm:flex-none">
                 <Button variant="outline" className="w-full sm:w-auto">فروش موجودی</Button>
@@ -142,19 +142,19 @@ export default async function PricesPage() {
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center gap-3">
               <span className="diamond-motif" />
-              <h2 className="text-xl md:text-2xl font-semibold text-text-primary">نرخ انواع طلا، مسکوکات و انس جهانی</h2>
+              <h2 className="text-xl md:text-2xl font-bold text-[#141210]">نرخ انواع طلا، مسکوکات و انس جهانی</h2>
             </div>
-            <div className="flex items-center gap-2 text-xs text-text-muted">
-              <Database className="w-3.5 h-3.5 text-gold-600" />
+            <div className="flex items-center gap-2 text-xs text-[#7D776C]">
+              <Database className="w-3.5 h-3.5 text-[#B8621B]" />
               <span>منبع: AlanChand API</span>
             </div>
           </div>
 
-          <div className="border border-border bg-surface overflow-hidden">
+          <div className="border border-[#E8E1D5] bg-white rounded-3xl overflow-hidden shadow-xs">
             <div className="overflow-x-auto">
               <table className="w-full text-right text-sm">
                 <thead>
-                  <tr className="border-b border-border bg-surface-secondary text-text-muted text-xs tracking-wider">
+                  <tr className="border-b border-[#E8E1D5] bg-[#FAF8F5] text-[#7D776C] text-xs tracking-wider">
                     <th className="py-4 px-6 font-medium">عنوان دارایی</th>
                     <th className="py-4 px-6 font-medium text-left">قیمت (تومان / اصلی)</th>
                     <th className="py-4 px-6 font-medium text-left">معادل ریال (IRR)</th>
@@ -163,28 +163,28 @@ export default async function PricesPage() {
                     <th className="py-4 px-6 font-medium text-center">واحد</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-border-light">
+                <tbody className="divide-y divide-[#E8E1D5]">
                   {allMarketItems.map((item) => {
                     const isPositive = item.changePercent >= 0;
                     return (
-                      <tr key={item.key} className="hover:bg-surface-hover/50 transition-colors">
-                        <td className="py-4 px-6 font-medium text-text-primary">
+                      <tr key={item.key} className="hover:bg-[#FAF8F5]/80 transition-colors">
+                        <td className="py-4 px-6 font-medium text-[#141210]">
                           <div className="flex flex-col">
                             <span className="text-base font-semibold">{item.titleFa}</span>
-                            <span className="text-xs text-text-muted font-mono tracking-tight">{item.titleEn}</span>
+                            <span className="text-xs text-[#7D776C] font-mono tracking-tight">{item.titleEn}</span>
                           </div>
                         </td>
 
                         {/* Primary Price: Toman */}
-                        <td className="py-4 px-6 text-left font-num font-semibold text-base text-text-primary">
+                        <td className="py-4 px-6 text-left font-num font-bold text-base text-[#141210]">
                           {toPersianDigits(formatNumber(item.priceToman))}{' '}
-                          <span className="text-xs font-normal text-text-muted">
+                          <span className="text-xs font-normal text-[#7D776C]">
                             {item.key === 'goldOunce' ? 'دلار' : 'تومان'}
                           </span>
                         </td>
 
                         {/* Secondary Price: Rial */}
-                        <td className="py-4 px-6 text-left font-num text-xs text-text-muted">
+                        <td className="py-4 px-6 text-left font-num text-xs text-[#7D776C]">
                           {item.key === 'goldOunce' ? (
                             '—'
                           ) : (
@@ -194,7 +194,7 @@ export default async function PricesPage() {
 
                         {/* 24h Change */}
                         <td className="py-4 px-6 text-left font-num text-xs">
-                          <div className={`inline-flex items-center gap-1 font-medium ${isPositive ? 'text-emerald-600' : 'text-rose-600'}`}>
+                          <div className={`inline-flex items-center gap-1 font-medium ${isPositive ? 'text-emerald-700' : 'text-rose-700'}`}>
                             {isPositive ? <TrendingUp className="w-3.5 h-3.5" /> : <TrendingDown className="w-3.5 h-3.5" />}
                             <span>{toPersianDigits(formatNumber(Math.abs(item.changeToman)))}</span>
                           </div>
@@ -202,15 +202,15 @@ export default async function PricesPage() {
 
                         {/* Change Percent */}
                         <td className="py-4 px-6 text-left font-num text-xs">
-                          <span className={`inline-block px-2 py-0.5 rounded text-xs font-semibold ${
-                            isPositive ? 'bg-emerald-50 text-emerald-700' : 'bg-rose-50 text-rose-700'
+                          <span className={`inline-block px-2.5 py-0.5 rounded-full text-xs font-semibold ${
+                            isPositive ? 'bg-emerald-50 text-emerald-800' : 'bg-rose-50 text-rose-800'
                           }`}>
                             {isPositive ? '+' : ''}{toPersianDigits(item.changePercent.toFixed(2))}٪
                           </span>
                         </td>
 
                         {/* Unit */}
-                        <td className="py-4 px-6 text-center text-text-secondary text-xs">
+                        <td className="py-4 px-6 text-center text-[#4A463F] text-xs">
                           {item.unit}
                         </td>
                       </tr>
@@ -220,13 +220,13 @@ export default async function PricesPage() {
               </table>
             </div>
 
-            {/* Table Footer / Security Note */}
-            <div className="border-t border-border p-4 bg-surface-secondary text-xs text-text-muted flex flex-col sm:flex-row justify-between items-center gap-2">
+            {/* Table Footer */}
+            <div className="border-t border-[#E8E1D5] p-4 bg-[#FAF8F5] text-xs text-[#7D776C] flex flex-col sm:flex-row justify-between items-center gap-2">
               <div className="flex items-center gap-2">
-                <RefreshCw className="w-3.5 h-3.5 text-text-muted" />
-                <span>داده‌های برخط از AlanChand (الان چند) هر ۲۰ ثانیه نوسازی می‌شوند.</span>
+                <RefreshCw className="w-3.5 h-3.5 text-[#7D776C]" />
+                <span>داده‌های برخط از AlanChand هر ۲۰ ثانیه نوسازی می‌شوند.</span>
               </div>
-              <span className="font-num text-text-muted">
+              <span className="font-num text-[#7D776C]">
                 زمان به‌روزرسانی منبع: {formatDate(new Date(marketRates.lastUpdated), 'datetime')}
               </span>
             </div>

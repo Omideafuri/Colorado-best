@@ -41,29 +41,29 @@ export function Header({ user }: { user?: UserType }) {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 ease-[cubic-bezier(0.25,0.1,0.25,1)] ${
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-[cubic-bezier(0.25,0.1,0.25,1)] ${
           isScrolled
-            ? 'bg-surface/90 backdrop-blur-md border-b border-border py-4'
+            ? 'bg-[#FAF8F5]/90 backdrop-blur-md border-b border-[#E8E1D5] py-3.5 shadow-xs'
             : 'bg-transparent border-b border-transparent py-6'
         }`}
       >
         <div className="mx-auto max-w-[1400px] px-6 md:px-10">
           <div className="flex items-center justify-between">
             {/* Logo */}
-            <Link href="/" className="relative z-10 flex items-center gap-3">
-              <span className="diamond-motif !w-2.5 !h-2.5" />
-              <span className="text-xl tracking-brand font-bold text-text-primary">
+            <Link href="/" className="relative z-10 flex items-center gap-3 group">
+              <span className="diamond-motif !w-2 !h-2 group-hover:rotate-90 transition-transform duration-500" />
+              <span className="text-xl tracking-brand font-bold text-[#262A56]">
                 ZARAVI
               </span>
             </Link>
 
-            {/* Desktop Navigation — Center */}
-            <nav className="hidden lg:flex items-center gap-8 bg-surface-secondary/80 backdrop-blur-sm border border-border/80 px-8 py-2.5 rounded-full">
+            {/* Desktop Navigation — Center Glass Pill */}
+            <nav className="hidden lg:flex items-center gap-8 bg-white/85 backdrop-blur-sm border border-[#E8E1D5] px-8 py-2.5 rounded-full shadow-xs">
               {editorialNavItems.map((item) => (
                 <Link
                   key={item.label}
                   href={item.href}
-                  className="text-xs font-medium text-text-secondary hover:text-text-primary transition-colors duration-300"
+                  className="text-xs font-medium text-[#4A463F] hover:text-[#262A56] transition-colors duration-300 relative py-1"
                 >
                   {item.label}
                 </Link>
@@ -71,12 +71,12 @@ export function Header({ user }: { user?: UserType }) {
             </nav>
 
             {/* Desktop Actions — Left (RTL layout) */}
-            <div className="hidden lg:flex items-center gap-4">
+            <div className="hidden lg:flex items-center gap-3">
               {user ? (
-                <div className="flex items-center gap-4">
+                <div className="flex items-center gap-3">
                   <Link
                     href="/dashboard"
-                    className="text-xs font-medium bg-surface-dark text-white px-6 py-2.5 rounded-full hover:bg-black transition-all duration-300 flex items-center gap-2"
+                    className="text-xs font-medium bg-[#262A56] text-[#FAF8F5] px-6 py-2.5 rounded-full hover:bg-[#1D2042] transition-all duration-300 flex items-center gap-2 shadow-xs"
                   >
                     <span>داشبورد</span>
                     <ArrowLeft className="w-3.5 h-3.5" />
@@ -84,7 +84,7 @@ export function Header({ user }: { user?: UserType }) {
                   <form action={logoutAction}>
                     <button
                       type="submit"
-                      className="text-xs text-text-muted hover:text-text-primary transition-colors duration-300"
+                      className="text-xs text-[#7D776C] hover:text-[#262A56] transition-colors duration-300 px-2 py-1 cursor-pointer"
                     >
                       خروج
                     </button>
@@ -94,13 +94,13 @@ export function Header({ user }: { user?: UserType }) {
                 <>
                   <Link
                     href="/login"
-                    className="text-xs font-medium text-text-secondary hover:text-text-primary transition-colors duration-300 px-4 py-2"
+                    className="text-xs font-medium text-[#4A463F] hover:text-[#262A56] transition-colors duration-300 px-4 py-2"
                   >
                     ورود
                   </Link>
                   <Link
                     href="/register"
-                    className="text-xs font-medium bg-surface-dark text-white px-6 py-2.5 rounded-full hover:bg-black transition-all duration-300 flex items-center gap-2 shadow-sm"
+                    className="text-xs font-medium bg-[#B8621B] text-white px-6 py-2.5 rounded-full hover:bg-[#9E5214] transition-all duration-300 flex items-center gap-2 shadow-copper-glow"
                   >
                     <span>افتتاح حساب</span>
                     <ArrowLeft className="w-3.5 h-3.5" />
@@ -112,7 +112,7 @@ export function Header({ user }: { user?: UserType }) {
             {/* Mobile Menu Button */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="lg:hidden relative z-10 w-10 h-10 rounded-full border border-border flex items-center justify-center text-text-primary bg-surface/80"
+              className="lg:hidden relative z-10 w-10 h-10 rounded-full border border-[#E8E1D5] flex items-center justify-center text-[#262A56] bg-white/90 shadow-xs"
               aria-label={isMobileMenuOpen ? 'بستن منو' : 'باز کردن منو'}
             >
               {isMobileMenuOpen ? (
@@ -127,7 +127,7 @@ export function Header({ user }: { user?: UserType }) {
 
       {/* Full-Screen Immersive Mobile Menu */}
       <div
-        className={`fixed inset-0 z-40 bg-surface-secondary/98 backdrop-blur-xl transition-all duration-500 ease-[cubic-bezier(0.65,0,0.35,1)] lg:hidden ${
+        className={`fixed inset-0 z-40 bg-[#FAF8F5]/98 backdrop-blur-xl transition-all duration-500 ease-[cubic-bezier(0.65,0,0.35,1)] lg:hidden ${
           isMobileMenuOpen
             ? 'opacity-100 pointer-events-auto'
             : 'opacity-0 pointer-events-none'
@@ -140,27 +140,27 @@ export function Header({ user }: { user?: UserType }) {
                 key={item.label}
                 href={item.href}
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="text-2xl font-semibold text-text-primary hover:text-gold-600 transition-colors duration-300"
+                className="text-2xl font-bold text-[#262A56] hover:text-[#B8621B] transition-colors duration-300"
               >
                 {item.label}
               </Link>
             ))}
           </nav>
 
-          <div className="mt-14 flex flex-col items-center gap-4 w-full max-w-xs">
+          <div className="mt-14 flex flex-col items-center gap-3.5 w-full max-w-xs">
             {user ? (
               <>
                 <Link
                   href="/dashboard"
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="w-full text-center bg-surface-dark text-white py-3.5 text-xs font-medium rounded-full hover:bg-black transition-colors"
+                  className="w-full text-center bg-[#262A56] text-white py-3.5 text-xs font-medium rounded-full hover:bg-[#1D2042] transition-colors"
                 >
                   ورود به داشبورد
                 </Link>
                 <form action={logoutAction} className="w-full">
                   <button
                     type="submit"
-                    className="w-full text-center border border-border text-text-secondary py-3.5 text-xs rounded-full hover:text-text-primary transition-colors"
+                    className="w-full text-center border border-[#E8E1D5] text-[#4A463F] py-3.5 text-xs rounded-full hover:text-[#262A56] transition-colors cursor-pointer"
                   >
                     خروج از حساب
                   </button>
@@ -171,25 +171,25 @@ export function Header({ user }: { user?: UserType }) {
                 <Link
                   href="/register"
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="w-full text-center bg-surface-dark text-white py-3.5 text-xs font-medium rounded-full hover:bg-black transition-colors"
+                  className="w-full text-center bg-[#B8621B] text-white py-3.5 text-xs font-medium rounded-full hover:bg-[#9E5214] transition-colors shadow-copper-glow"
                 >
-                  ساخت حساب
+                  ساخت حساب رایگان
                 </Link>
                 <Link
                   href="/login"
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="w-full text-center border border-border text-text-primary py-3.5 text-xs rounded-full hover:bg-surface-hover transition-colors"
+                  className="w-full text-center border border-[#262A56] text-[#262A56] py-3.5 text-xs rounded-full hover:bg-[#262A56] hover:text-white transition-colors"
                 >
-                  ورود
+                  ورود به حساب
                 </Link>
               </>
             )}
           </div>
 
           <div className="mt-14 flex items-center gap-4">
-            <div className="w-8 h-px bg-border" />
+            <div className="w-8 h-px bg-[#E8E1D5]" />
             <span className="diamond-motif" />
-            <div className="w-8 h-px bg-border" />
+            <div className="w-8 h-px bg-[#E8E1D5]" />
           </div>
         </div>
       </div>
