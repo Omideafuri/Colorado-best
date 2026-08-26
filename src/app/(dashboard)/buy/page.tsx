@@ -3,7 +3,7 @@
 import { useState, useTransition } from 'react';
 import { useRouter } from 'next/navigation';
 import { buyGoldAction } from '../actions';
-import { ShoppingCart, Sparkles, ArrowLeft, ShieldCheck } from 'lucide-react';
+import { ShoppingCart, ShieldCheck } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 export default function BuyGoldPage() {
@@ -83,11 +83,12 @@ export default function BuyGoldPage() {
           </div>
 
           <div>
-            <label className="block text-xs font-bold text-[#141210] mb-2">
+            <label htmlFor="buy-input" className="block text-xs font-bold text-[#141210] mb-2">
               {mode === 'BY_AMOUNT' ? 'مبلغ مورد نظر برای خرید' : 'وزن طلای درخواستی'}
             </label>
             <div className="relative">
               <input
+                id="buy-input"
                 type="text"
                 dir="ltr"
                 value={inputValue}

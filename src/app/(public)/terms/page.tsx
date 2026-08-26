@@ -1,4 +1,10 @@
+import type { Metadata } from 'next';
 import { ShieldCheck, FileText } from 'lucide-react';
+
+export const metadata: Metadata = {
+  title: 'قوانین و مقررات',
+  description: 'قوانین و مقررات استفاده از پلتفرم زروی برای خرید، فروش و نگهداری طلای دیجیتال.',
+};
 
 export default function TermsPage() {
   return (

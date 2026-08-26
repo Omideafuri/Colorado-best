@@ -1,7 +1,7 @@
 import { db } from '@/lib/db';
 import { getCurrentUser } from '@/lib/auth/session';
 import { redirect } from 'next/navigation';
-import { Shield, ShieldCheck, UserCheck, Sparkles } from 'lucide-react';
+import { Shield } from 'lucide-react';
 import { submitKycAction } from '@/app/actions/kyc';
 import { Button } from '@/components/ui/button';
 

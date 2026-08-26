@@ -1,4 +1,10 @@
+import type { Metadata } from 'next';
 import { BookOpen, Sparkles } from 'lucide-react';
+
+export const metadata: Metadata = {
+  title: 'گاهنامه زرین — مجله تحلیل طلا',
+  description: 'تحلیل‌های فاندامنتال بازار طلا، راهنمای نگهداری فلزات گرانبها و مقالات تخصصی معماری ثروت در زروی.',
+};
 
 export default function BlogPage() {
   return (

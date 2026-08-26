@@ -1,7 +1,7 @@
 import { db } from '@/lib/db';
 import { getCurrentUser } from '@/lib/auth/session';
 import { redirect } from 'next/navigation';
-import { Settings, Check } from 'lucide-react';
+
 import { revalidatePath } from 'next/cache';
 import { Button } from '@/components/ui/button';
 
@@ -130,7 +130,7 @@ export default async function AdminPricesPage() {
               variant="primary"
               className="px-8 py-3 rounded-full text-xs font-bold shadow-copper-glow"
             >
-              ذخیره و اعمال در تابلوی زنده
+              ذخیره و اعمال در تابلوی نرخ‌ها
             </Button>
           </div>
         </form>

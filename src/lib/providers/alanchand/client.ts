@@ -24,7 +24,7 @@ function parseNumeric(val: unknown, fallback: number): number {
 }
 
 function normalizeItem(
-  raw: any,
+  raw: Record<string, unknown> | null,
   key: string,
   titleFa: string,
   titleEn: string,
@@ -141,11 +141,11 @@ export async function fetchAlanChandMarketRates(): Promise<ComprehensiveMarketRa
     // Match symbol / slug across AlanChand conventions
     const findItem = (possibleKeys: string[]) => {
       if (Array.isArray(items)) {
-        return items.find((it: any) =>
-          possibleKeys.some((k) => 
-            it?.slug === k || 
-            it?.symbol === k || 
-            it?.key === k || 
+        return items.find((it: Record<string, unknown>) =>
+          possibleKeys.some((k) =>
+            it?.slug === k ||
+            it?.symbol === k ||
+            it?.key === k ||
             it?.name === k ||
             it?.id === k
           )

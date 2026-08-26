@@ -3,7 +3,7 @@
 import { useState, useTransition } from 'react';
 import { useRouter } from 'next/navigation';
 import { sellGoldAction } from '../actions';
-import { ArrowLeft, ShieldCheck, TrendingUp } from 'lucide-react';
+import { ShieldCheck, TrendingUp } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 export default function SellGoldPage() {
@@ -83,11 +83,12 @@ export default function SellGoldPage() {
           </div>
 
           <div>
-            <label className="block text-xs font-bold text-[#141210] mb-2">
+            <label htmlFor="sell-input" className="block text-xs font-bold text-[#141210] mb-2">
               {mode === 'BY_AMOUNT' ? 'مبلغ مورد نظر برای دریافت' : 'وزن طلای قابل فروش'}
             </label>
             <div className="relative">
               <input
+                id="sell-input"
                 type="text"
                 dir="ltr"
                 value={inputValue}

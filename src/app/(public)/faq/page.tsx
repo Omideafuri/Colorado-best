@@ -1,4 +1,10 @@
-import { HelpCircle, ChevronDown } from 'lucide-react';
+import type { Metadata } from 'next';
+import { HelpCircle } from 'lucide-react';
+
+export const metadata: Metadata = {
+  title: 'سوالات متداول',
+  description: 'پاسخ به پرسش‌های پرتکرار درباره خرید طلای دیجیتال، پشتوانه فیزیکی خزانه، تحویل شمش و نقدشوندگی در زروی.',
+};
 
 export default function FAQPage() {
   return (

@@ -1,4 +1,10 @@
+import type { Metadata } from 'next';
 import { AlertTriangle, ShieldAlert } from 'lucide-react';
+
+export const metadata: Metadata = {
+  title: 'منشور افشای ریسک',
+  description: 'افشای ریسک‌های سرمایه‌گذاری در طلا و الزامات قانونی پلتفرم زروی.',
+};
 
 export default function RiskDisclosurePage() {
   return (

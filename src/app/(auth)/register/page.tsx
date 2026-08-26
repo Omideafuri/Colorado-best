@@ -41,8 +41,9 @@ export default function RegisterPage() {
 
         <div className="grid grid-cols-2 gap-3">
           <div>
-            <label className="block text-xs font-bold text-[#141210] mb-1.5">نام</label>
+            <label htmlFor="reg-firstname" className="block text-xs font-bold text-[#141210] mb-1.5">نام</label>
             <input
+              id="reg-firstname"
               type="text"
               name="firstName"
               required
@@ -51,8 +52,9 @@ export default function RegisterPage() {
             />
           </div>
           <div>
-            <label className="block text-xs font-bold text-[#141210] mb-1.5">نام خانوادگی</label>
+            <label htmlFor="reg-lastname" className="block text-xs font-bold text-[#141210] mb-1.5">نام خانوادگی</label>
             <input
+              id="reg-lastname"
               type="text"
               name="lastName"
               required
@@ -63,8 +65,9 @@ export default function RegisterPage() {
         </div>
 
         <div>
-          <label className="block text-xs font-bold text-[#141210] mb-1.5">شماره موبایل</label>
+          <label htmlFor="reg-mobile" className="block text-xs font-bold text-[#141210] mb-1.5">شماره موبایل</label>
           <input
+            id="reg-mobile"
             type="tel"
             name="mobile"
             dir="ltr"
@@ -76,8 +79,9 @@ export default function RegisterPage() {
         </div>
 
         <div>
-          <label className="block text-xs font-bold text-[#141210] mb-1.5">رمز عبور</label>
+          <label htmlFor="reg-password" className="block text-xs font-bold text-[#141210] mb-1.5">رمز عبور</label>
           <input
+            id="reg-password"
             type="password"
             name="password"
             dir="ltr"
@@ -88,8 +92,9 @@ export default function RegisterPage() {
         </div>
 
         <div>
-          <label className="block text-xs font-bold text-[#141210] mb-1.5">تکرار رمز عبور</label>
+          <label htmlFor="reg-confirm-password" className="block text-xs font-bold text-[#141210] mb-1.5">تکرار رمز عبور</label>
           <input
+            id="reg-confirm-password"
             type="password"
             name="confirmPassword"
             dir="ltr"

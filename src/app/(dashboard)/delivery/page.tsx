@@ -2,7 +2,7 @@ import { db } from '@/lib/db';
 import { getCurrentUser } from '@/lib/auth/session';
 import { redirect } from 'next/navigation';
 import { requestDeliveryAction } from '@/app/actions/delivery';
-import { Info, Truck, ShieldCheck, Package } from 'lucide-react';
+import { Info, Truck, Package } from 'lucide-react';
 import { toPersianDigits } from '@/lib/utils/format';
 import { Button } from '@/components/ui/button';
 

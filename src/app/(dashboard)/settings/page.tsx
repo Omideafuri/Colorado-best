@@ -1,4 +1,4 @@
-import { Settings, Shield, Bell, Lock } from 'lucide-react';
+import { Shield, Bell, Lock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 export default function SettingsPage() {

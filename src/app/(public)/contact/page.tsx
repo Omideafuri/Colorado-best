@@ -1,5 +1,11 @@
+import type { Metadata } from 'next';
 import { Mail, Phone, MapPin, Send, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+
+export const metadata: Metadata = {
+  title: 'ارتباط با ما',
+  description: 'راه‌های ارتباط با پشتیبانی زروی: تلفن، ایمیل و میز پشتیبانی اختصاصی سرمایه‌گذاران.',
+};
 
 export default function ContactPage() {
   return (

@@ -19,14 +19,14 @@ const protectedPaths = [
 // Routes only for unauthenticated users
 const authPaths = ['/login', '/register', '/verify', '/forgot-password'];
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   // Check for session cookie
   const sessionToken = request.cookies.get('zaravi_session')?.value;
   const isAuthenticated = !!sessionToken;
 
-  // Check admin role (stored in a separate cookie for middleware performance)
+  // Check admin role (stored in a separate cookie for proxy performance)
   const userRole = request.cookies.get('zaravi_role')?.value;
   const isAdmin = ['ADMIN', 'SUPER_ADMIN'].includes(userRole || '');
 

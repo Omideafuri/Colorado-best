@@ -54,10 +54,7 @@ export default async function PricesPage() {
             
             {/* Timestamp & Source Badge */}
             <div className="flex flex-wrap items-center gap-3 text-xs text-[#7D776C] bg-white px-3.5 py-1.5 border border-[#E8E1D5] rounded-full self-start md:self-auto shadow-xs">
-              <span className="flex h-2 w-2 relative">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-              </span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
               <span className="font-medium text-[#262A56]">منبع: AlanChand</span>
               <span>·</span>
               <span className="flex items-center gap-1">
@@ -224,7 +221,7 @@ export default async function PricesPage() {
             <div className="border-t border-[#E8E1D5] p-4 bg-[#FAF8F5] text-xs text-[#7D776C] flex flex-col sm:flex-row justify-between items-center gap-2">
               <div className="flex items-center gap-2">
                 <RefreshCw className="w-3.5 h-3.5 text-[#7D776C]" />
-                <span>داده‌های برخط از AlanChand هر ۲۰ ثانیه نوسازی می‌شوند.</span>
+                <span>نرخ‌ها هنگام بارگذاری صفحه مستقیماً از AlanChand دریافت می‌شوند.</span>
               </div>
               <span className="font-num text-[#7D776C]">
                 زمان به‌روزرسانی منبع: {formatDate(new Date(marketRates.lastUpdated), 'datetime')}

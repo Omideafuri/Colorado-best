@@ -26,7 +26,7 @@ export function EditorialCard({
   return (
     <div
       className={cn(
-        'group bg-surface rounded-3xl p-6 sm:p-8 border border-border flex flex-col justify-between hover:shadow-lg transition-all duration-500',
+        'group bg-bg-elevated rounded-3xl p-6 sm:p-8 border border-border-subtle flex flex-col justify-between hover:shadow-lg transition-all duration-500',
         className
       )}
     >
@@ -40,12 +40,12 @@ export function EditorialCard({
         />
 
         {category && (
-          <span className="text-[10px] tracking-brand font-bold text-gold-600 block mb-1 uppercase">
+          <span className="text-[10px] tracking-brand font-bold text-text-accent block mb-1 uppercase">
             {category}
           </span>
         )}
 
-        <h3 className="text-lg md:text-xl font-bold text-text-primary mb-2 group-hover:text-gold-600 transition-colors">
+        <h3 className="text-lg md:text-xl font-bold text-text-primary mb-2 group-hover:text-text-accent transition-colors">
           {title}
         </h3>
 
@@ -56,7 +56,7 @@ export function EditorialCard({
 
       <Link
         href={href}
-        className="inline-flex items-center gap-1 text-xs font-bold text-text-primary hover:text-gold-600 transition-colors pt-4 border-t border-border"
+        className="inline-flex items-center gap-1 text-xs font-bold text-text-primary hover:text-text-accent transition-colors pt-4 border-t border-border-subtle"
       >
         <span>ادامه مطلب</span>
         <ArrowLeft className="w-3.5 h-3.5" />

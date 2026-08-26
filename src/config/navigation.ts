@@ -64,3 +64,12 @@ export const adminNavItems: NavItem[] = [
   { titleFa: 'لاگها', titleEn: 'Audit', href: '/admin/audit', icon: FileText },
   { titleFa: 'تنظیمات', titleEn: 'Settings', href: '/admin/settings', icon: Settings },
 ];
+
+// Curated subset for the fixed bottom bar on small screens (mirrors mobileNavItems pattern)
+export const adminMobileNavItems: NavItem[] = [
+  { titleFa: 'داشبورد', titleEn: 'Dashboard', href: '/admin', icon: Home },
+  { titleFa: 'کاربران', titleEn: 'Users', href: '/admin/users', icon: Users },
+  { titleFa: 'احراز هویت', titleEn: 'KYC', href: '/admin/kyc', icon: Shield },
+  { titleFa: 'قیمتگذاری', titleEn: 'Pricing', href: '/admin/prices', icon: TrendingUp },
+  { titleFa: 'تراکنشها', titleEn: 'Transactions', href: '/admin/transactions', icon: ArrowLeftRight },
+];

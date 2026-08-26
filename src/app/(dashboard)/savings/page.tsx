@@ -2,9 +2,9 @@ import { db } from '@/lib/db';
 import { getCurrentUser } from '@/lib/auth/session';
 import { redirect } from 'next/navigation';
 import { createSavingsPlanAction, toggleSavingsPlanAction } from '@/app/actions/savings';
-import { Plus, Play, Pause, PiggyBank, Layers, Sparkles } from 'lucide-react';
+import { Plus, PiggyBank, Layers } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { formatNumber, toPersianDigits } from '@/lib/utils/format';
+import { formatNumber } from '@/lib/utils/format';
 
 export const dynamic = 'force-dynamic';
 

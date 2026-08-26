@@ -52,7 +52,7 @@ export function PriceCard({
         <div className={`flex items-center gap-1 text-xs font-medium px-2 py-1 rounded-full ${
           isMarketOpen
             ? 'bg-success-light text-success'
-            : 'bg-surface-secondary text-text-muted'
+            : 'bg-bg-secondary text-text-muted'
         }`}>
           <Activity className="h-3 w-3" />
           {isMarketOpen ? 'بازار باز' : 'بازار بسته'}

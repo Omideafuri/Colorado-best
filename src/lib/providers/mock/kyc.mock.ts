@@ -24,10 +24,7 @@ export class MockKycProvider implements IKycProvider {
     };
   }
 
-  async verifyBankAccount(
-    sheba: string,
-    _nationalId: string
-  ): Promise<BankVerification> {
+  async verifyBankAccount(sheba: string): Promise<BankVerification> {
     console.log(`[MOCK KYC] Verifying Sheba: ${sheba}`);
     return {
       valid: sheba.startsWith('IR') && sheba.length === 26,

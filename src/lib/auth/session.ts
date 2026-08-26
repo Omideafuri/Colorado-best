@@ -1,7 +1,7 @@
 import { db } from '@/lib/db';
 import { randomBytes, createHash } from 'node:crypto';
 import { cookies, headers } from 'next/headers';
-import type { User, Role } from '@prisma/client';
+import type { User } from '@prisma/client';
 
 export const SESSION_COOKIE_NAME = 'zaravi_session';
 export const ROLE_COOKIE_NAME = 'zaravi_role';

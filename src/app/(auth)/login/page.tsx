@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useState, useTransition } from 'react';
 import { loginAction } from '../actions';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, Lock } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 
 export default function LoginPage() {
   const router = useRouter();
@@ -40,10 +40,11 @@ export default function LoginPage() {
         )}
 
         <div>
-          <label className="block text-xs font-bold text-[#141210] mb-2">
+          <label htmlFor="login-mobile" className="block text-xs font-bold text-[#141210] mb-2">
             شماره موبایل
           </label>
           <input
+            id="login-mobile"
             type="tel"
             name="mobile"
             dir="ltr"
@@ -56,7 +57,7 @@ export default function LoginPage() {
 
         <div>
           <div className="flex items-center justify-between mb-2">
-            <label className="block text-xs font-bold text-[#141210]">
+            <label htmlFor="login-password" className="block text-xs font-bold text-[#141210]">
               رمز عبور
             </label>
             <Link
@@ -67,6 +68,7 @@ export default function LoginPage() {
             </Link>
           </div>
           <input
+            id="login-password"
             type="password"
             name="password"
             dir="ltr"

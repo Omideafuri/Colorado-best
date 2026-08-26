@@ -61,13 +61,10 @@ export default async function DashboardPage() {
 
         {/* Live Indicator Badge */}
         <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-white border border-[#E8E1D5] shadow-xs text-xs self-start sm:self-auto">
-          <span className="flex h-2 w-2 relative">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-          </span>
+          <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
           <span className="text-[#262A56] font-semibold">ارتباط مستقیم با خزانه</span>
           <span className="text-[#E8E1D5]">|</span>
-          <span className="text-[11px] text-[#7D776C] font-mono">LIVE 24/7</span>
+          <span className="text-[11px] text-[#7D776C] font-mono">۲۴/۷</span>
         </div>
       </div>
 
@@ -255,7 +252,7 @@ export default async function DashboardPage() {
               <RefreshCw className="w-3.5 h-3.5 text-[#B8621B]" />
               <span>AlanChand (الان چند)</span>
             </div>
-            <span className="text-[10px] text-[#7D776C] font-mono">نوسازی خودکار ۲۰ ثانیه</span>
+            <span className="text-[10px] text-[#7D776C] font-mono">به‌روزرسانی هنگام بارگذاری صفحه</span>
           </div>
         </div>
       </div>

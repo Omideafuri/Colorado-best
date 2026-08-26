@@ -24,7 +24,7 @@ export function Section({
 }: SectionProps) {
   const variantClasses = {
     ivory: 'bg-[#FAF8F5] text-text-primary',
-    white: 'bg-surface text-text-primary',
+    white: 'bg-bg-elevated text-text-primary',
     dark: 'bg-[#12100E] text-white',
     cream: 'bg-[#F4EFE6] text-text-primary',
     transparent: 'bg-transparent text-text-primary',
@@ -38,9 +38,9 @@ export function Section({
   }[padding];
 
   const borderClasses = {
-    top: 'border-t border-border/80',
-    bottom: 'border-b border-border/80',
-    both: 'border-y border-border/80',
+    top: 'border-t border-border-subtle',
+    bottom: 'border-b border-border-subtle',
+    both: 'border-y border-border-subtle',
     none: '',
   }[border];
 

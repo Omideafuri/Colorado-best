@@ -42,7 +42,7 @@ export function AspectImage({
   return (
     <div
       className={cn(
-        'relative w-full overflow-hidden bg-surface-secondary border border-border/80',
+        'relative w-full overflow-hidden bg-bg-secondary border border-border-subtle',
         ratioClasses,
         roundedClasses,
         zoomOnHover && 'group',
@@ -61,7 +61,7 @@ export function AspectImage({
         {...props}
       />
       {overlay && (
-        <div className="absolute inset-0 bg-gradient-to-t from-surface-dark/50 via-transparent to-transparent pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-t from-bg-surface-dark/50 via-transparent to-transparent pointer-events-none" />
       )}
     </div>
   );

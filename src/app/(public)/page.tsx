@@ -288,7 +288,7 @@ export default async function HomePage() {
               {/* Terminal Details */}
               <div className="lg:col-span-5">
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/15 text-[11px] sm:text-xs text-[#E3CCAE] mb-4 sm:mb-6">
-                  <RefreshCw className="w-3.5 h-3.5 animate-spin text-[#B8621B]" />
+                  <RefreshCw className="w-3.5 h-3.5 text-[#B8621B]" />
                   <span>تابلوی معاملات برخط زروی</span>
                 </div>
 
@@ -320,8 +320,8 @@ export default async function HomePage() {
                     <h3 className="text-base sm:text-lg font-bold text-white">طلای ۱۸ عیار (۷۵۰)</h3>
                   </div>
                   <div className="text-left">
-                    <span className="text-[10px] sm:text-xs text-emerald-400 font-semibold block">بازار زنده</span>
-                    <span className="text-[10px] sm:text-xs text-[#C5BFB4] font-num">۲۰ ثانیه‌ای</span>
+                    <span className="text-[10px] sm:text-xs text-emerald-400 font-semibold block">نرخ لحظه‌ای بازار</span>
+                    <span className="text-[10px] sm:text-xs text-[#C5BFB4] font-num">به‌روزرسانی هنگام بازدید</span>
                   </div>
                 </div>
 

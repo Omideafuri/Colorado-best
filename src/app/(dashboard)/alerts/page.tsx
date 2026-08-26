@@ -4,7 +4,7 @@ import { redirect } from 'next/navigation';
 import { createAlertAction, deleteAlertAction } from '@/app/actions/alerts';
 import { getLatestPriceSnapshot } from '@/lib/financial/pricing';
 import { Bell, BellRing, Trash2, TrendingDown, TrendingUp } from 'lucide-react';
-import { formatNumber, toPersianDigits } from '@/lib/utils/format';
+import { formatNumber } from '@/lib/utils/format';
 import { Button } from '@/components/ui/button';
 
 export const dynamic = 'force-dynamic';

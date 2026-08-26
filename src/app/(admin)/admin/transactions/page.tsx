@@ -1,4 +1,4 @@
-import { ArrowLeftRight, Layers } from 'lucide-react';
+import { ArrowLeftRight } from 'lucide-react';
 
 export default function AdminTransactionsPage() {
   return (
@@ -18,7 +18,7 @@ export default function AdminTransactionsPage() {
         <div className="w-14 h-14 rounded-2xl bg-[#FAF8F5] border border-[#E8E1D5] mx-auto flex items-center justify-center text-[#B8621B]">
           <ArrowLeftRight className="h-7 w-7" />
         </div>
-        <h2 className="text-lg font-bold text-[#262A56]">گزارشات زنده تراکنش‌های شبکه</h2>
+        <h2 className="text-lg font-bold text-[#262A56]">گزارش تراکنش‌های شبکه</h2>
         <p className="text-xs text-[#4A463F] max-w-md mx-auto font-light">
           امکان جستجو و پالایش تراکنش‌ها بر اساس شماره رهگیری بانکی، شناسه کاربر و کد یکتا فعال است.
         </p>

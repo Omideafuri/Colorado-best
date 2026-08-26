@@ -4,7 +4,7 @@ import { useState, useTransition, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { verifyOtpAction, sendOtpAction } from '../actions';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, ShieldCheck } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 
 function VerifyForm() {
   const router = useRouter();

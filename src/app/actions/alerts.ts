@@ -53,7 +53,7 @@ export async function deleteAlertAction(alertId: string) {
 
     revalidatePath('/alerts');
     return { success: true };
-  } catch (error: unknown) {
+  } catch {
     return { success: false, error: 'خطا در حذف هشدار' };
   }
 }

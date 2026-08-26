@@ -4,6 +4,7 @@ import { siteConfig } from '@/config/site';
 import { kalameh } from '@/app/fonts';
 
 export const metadata: Metadata = {
+  metadataBase: new URL(siteConfig.url),
   title: {
     default: `${siteConfig.nameFa} — ${siteConfig.description}`,
     template: `%s | ${siteConfig.nameFa}`,
@@ -34,7 +35,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: '#d4911e',
+  themeColor: '#262A56',
   width: 'device-width',
   initialScale: 1,
   maximumScale: 5,

@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import type { Metadata } from 'next';
 import { db } from '@/lib/db';
 import { getCurrentUser } from '@/lib/auth/session';
 import { redirect } from 'next/navigation';
@@ -61,6 +62,10 @@ async function ensureMockProducts() {
     // Database unreachable during build time
   }
 }
+
+export const metadata: Metadata = {
+  title: 'گالری و تحویل فیزیکی',
+};
 
 export default async function StorePage() {
   const user = await getCurrentUser();

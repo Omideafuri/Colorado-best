@@ -12,9 +12,10 @@ export default function ForgotPasswordPage() {
       </div>
       <form className="space-y-4">
         <div>
-          <label className="block text-xs font-bold text-[#141210] mb-1.5">شماره موبایل</label>
-          <input 
-            type="tel" 
+          <label htmlFor="forgot-mobile" className="block text-xs font-bold text-[#141210] mb-1.5">شماره موبایل</label>
+          <input
+            id="forgot-mobile"
+            type="tel"
             dir="ltr" 
             placeholder="09123456789" 
             className="w-full rounded-2xl border border-[#E8E1D5] bg-[#FAF8F5] px-4 py-3 text-xs font-num placeholder:text-[#7D776C] focus:border-[#B8621B] focus:bg-white outline-none transition-all" 

@@ -1,4 +1,10 @@
+import type { Metadata } from 'next';
 import { Truck, ShieldCheck, Package } from 'lucide-react';
+
+export const metadata: Metadata = {
+  title: 'دستورالعمل تحویل و بیمه',
+  description: 'دستورالعمل ارسال بیمه‌شده و تحویل فیزیکی شمش و مسکوکات در پلتفرم زروی.',
+};
 
 export default function DeliveryPolicyPage() {
   return (

@@ -131,7 +131,7 @@ export function MicroLabel({
       {...props}
     >
       {motif === 'diamond' && <span className="diamond-motif !w-1.5 !h-1.5" />}
-      {motif === 'dot' && <span className="w-1.5 h-1.5 rounded-full bg-gold-500" />}
+      {motif === 'dot' && <span className="w-1.5 h-1.5 rounded-full bg-accent-primary" />}
       <span>{children}</span>
     </div>
   );

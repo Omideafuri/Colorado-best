@@ -23,7 +23,7 @@ async function main() {
 
   // 2. Create Admin User
   const adminPass = hashPassword('admin123');
-  const admin = await prisma.user.upsert({
+  await prisma.user.upsert({
     where: { mobile: '09000000000' },
     update: {},
     create: {
@@ -46,7 +46,7 @@ async function main() {
 
   // 3. Create Test User with 10M Toman (100,000,000 Rial) and 5 grams gold
   const userPass = hashPassword('user123');
-  const user = await prisma.user.upsert({
+  await prisma.user.upsert({
     where: { mobile: '09111111111' },
     update: {},
     create: {

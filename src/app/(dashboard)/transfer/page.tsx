@@ -1,5 +1,10 @@
-import { ArrowLeftRight, Sparkles } from 'lucide-react';
+import type { Metadata } from 'next';
+import { ArrowLeftRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+
+export const metadata: Metadata = {
+  title: 'انتقال طلای دیجیتال',
+};
 
 export default function TransferPage() {
   return (

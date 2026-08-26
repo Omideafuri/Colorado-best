@@ -3,8 +3,9 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { LogOut, Shield } from 'lucide-react';
-import { adminNavItems } from '@/config/navigation';
+import { adminNavItems, adminMobileNavItems } from '@/config/navigation';
 import { logoutAction } from '@/app/(auth)/actions';
+import { MobileNav } from '@/components/layout/MobileNav';
 
 export default function AdminLayout({
   children,
@@ -76,7 +77,7 @@ export default function AdminLayout({
         </div>
       </aside>
 
-      <main className="md:mr-64">
+      <main className="md:mr-64 pb-24 md:pb-0">
         {/* Admin Top Bar */}
         <header className="sticky top-0 z-20 h-16 border-b border-[#E8E1D5] bg-white/90 backdrop-blur-md flex items-center justify-between px-6 md:px-10 shadow-xs">
           <div className="flex items-center gap-2">
@@ -94,6 +95,9 @@ export default function AdminLayout({
           {children}
         </div>
       </main>
+
+      {/* Mobile Bottom Navigation (below md only) */}
+      <MobileNav items={adminMobileNavItems} ariaLabel="ناوبری پنل مدیریت" />
     </div>
   );
 }

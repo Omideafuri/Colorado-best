@@ -1,4 +1,10 @@
+import type { Metadata } from 'next';
 import { Lock, Shield } from 'lucide-react';
+
+export const metadata: Metadata = {
+  title: 'حریم خصوصی',
+  description: 'سیاست حفظ حریم خصوصی و نحوه مدیریت اطلاعات کاربران در پلتفرم زروی.',
+};
 
 export default function PrivacyPage() {
   return (

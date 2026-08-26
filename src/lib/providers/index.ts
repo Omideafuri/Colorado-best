@@ -17,7 +17,6 @@ import { MockNotificationProvider } from './mock/notification.mock';
 import { MockShippingProvider } from './mock/shipping.mock';
 
 import { AlanChandPriceProvider } from './alanchand/gold-price.provider';
-import { fetchAlanChandMarketRates } from './alanchand/client';
 
 // Singleton instances
 let goldPriceProvider: IGoldPriceProvider | null = null;

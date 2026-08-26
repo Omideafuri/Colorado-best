@@ -1,4 +1,4 @@
-import { Settings, Sliders } from 'lucide-react';
+import { Sliders } from 'lucide-react';
 
 export default function AdminSettingsPage() {
   return (

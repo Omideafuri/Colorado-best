@@ -3,7 +3,7 @@
 import { useState, useTransition } from 'react';
 import { useRouter } from 'next/navigation';
 import { depositAction } from '../actions';
-import { CreditCard, ShieldCheck, ArrowLeft } from 'lucide-react';
+import { CreditCard, ShieldCheck } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 export default function WalletPage() {
@@ -55,11 +55,12 @@ export default function WalletPage() {
           )}
 
           <div>
-            <label className="block text-xs font-bold text-[#141210] mb-2">
+            <label htmlFor="deposit-amount" className="block text-xs font-bold text-[#141210] mb-2">
               مبلغ واریز مورد نظر
             </label>
             <div className="relative">
               <input
+                id="deposit-amount"
                 type="text"
                 dir="ltr"
                 value={amount}

@@ -2,15 +2,26 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { mobileNavItems } from '@/config/navigation';
+import { mobileNavItems, type NavItem } from '@/config/navigation';
 
-export function MobileNav() {
+interface MobileNavProps {
+  items?: NavItem[];
+  ariaLabel?: string;
+}
+
+export function MobileNav({
+  items = mobileNavItems,
+  ariaLabel = 'ناوبری اصلی',
+}: MobileNavProps) {
   const pathname = usePathname();
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-50 border-t border-white/10 bg-[#262A56]/95 backdrop-blur-xl md:hidden text-white shadow-2xl">
+    <nav
+      className="fixed bottom-0 left-0 right-0 z-50 border-t border-white/10 bg-[#262A56]/95 backdrop-blur-xl md:hidden text-white shadow-2xl"
+      aria-label={ariaLabel}
+    >
       <div className="flex items-center justify-around py-2.5 px-2">
-        {mobileNavItems.map((item) => {
+        {items.map((item) => {
           const isActive = pathname === item.href;
           return (
             <Link
@@ -31,7 +42,7 @@ export function MobileNav() {
         })}
       </div>
       {/* Safe area for mobile home bar */}
-      <div className="h-safe-area-inset-bottom" />
+      <div className="h-[env(safe-area-inset-bottom)]" />
     </nav>
   );
 }

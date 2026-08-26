@@ -1,4 +1,4 @@
-import { FileText, ShieldAlert } from 'lucide-react';
+import { FileText } from 'lucide-react';
 
 export default function AdminAuditPage() {
   return (

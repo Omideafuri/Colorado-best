@@ -2,7 +2,7 @@ import { db } from '@/lib/db';
 import { getCurrentUser } from '@/lib/auth/session';
 import { redirect } from 'next/navigation';
 import { formatNumber, toPersianDigits } from '@/lib/utils/format';
-import { Users, TrendingUp, Wallet, ShieldAlert, Sparkles } from 'lucide-react';
+import { Users, TrendingUp, Wallet, ShieldAlert } from 'lucide-react';
 
 export const dynamic = 'force-dynamic';
 
