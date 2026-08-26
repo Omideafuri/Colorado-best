@@ -36,27 +36,27 @@ export default function WalletPage() {
   return (
     <div className="max-w-xl mx-auto space-y-6 pt-4 pb-16">
       <div>
-        <div className="flex items-center gap-2 mb-2">
+        <div className="flex items-center gap-2.5 mb-2">
           <span className="diamond-motif !w-2 !h-2" />
-          <span className="text-xs tracking-brand font-semibold text-[#7D776C]">امور مالی و کیف پول</span>
+          <span className="text-xs tracking-brand font-semibold text-[#7E776C] uppercase">امور مالی و کیف پول</span>
         </div>
-        <h1 className="text-2xl sm:text-3xl font-bold text-[#141210] tracking-tight">افزایش موجودی نقدی (ریالی)</h1>
-        <p className="text-xs sm:text-sm text-[#4A463F] mt-1 font-light">
+        <h1 className="text-2xl sm:text-3xl font-bold text-[#161412] tracking-tight">افزایش موجودی نقدی (ریالی)</h1>
+        <p className="text-xs sm:text-sm text-[#4A453E] mt-1 font-light">
           واریز آنلاین از کلیه کارت‌های بانکی عضو شتاب با درگاه امن شاپرک
         </p>
       </div>
 
-      <div className="bg-white rounded-3xl p-6 sm:p-8 border border-[#E8E1D5] shadow-xs">
-        <form onSubmit={handleSubmit} className="space-y-6">
+      <div className="bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-8 border border-[#E8E2D7] shadow-subtle">
+        <form onSubmit={handleSubmit} className="space-y-5">
           {error && (
-            <div className="p-4 text-xs font-semibold text-rose-800 bg-rose-50 border border-rose-200 rounded-2xl text-center">
+            <div className="p-3.5 text-xs font-semibold text-rose-800 bg-rose-50 border border-rose-200 rounded-2xl text-center">
               {error}
             </div>
           )}
 
           <div>
-            <label htmlFor="deposit-amount" className="block text-xs font-bold text-[#141210] mb-2">
-              مبلغ واریز مورد نظر
+            <label htmlFor="deposit-amount" className="block text-xs font-bold text-[#161412] mb-1.5">
+              مبلغ واریز مورد نظر (تومان)
             </label>
             <div className="relative">
               <input
@@ -66,21 +66,21 @@ export default function WalletPage() {
                 value={amount}
                 onChange={(e) => setAmount(e.target.value.replace(/[^0-9]/g, ''))}
                 placeholder="1,000,000"
-                className="w-full rounded-2xl border border-[#E8E1D5] bg-[#FAF8F5] px-4 py-3.5 text-lg font-num text-left placeholder:text-[#7D776C] focus:border-[#B8621B] focus:bg-white outline-none transition-all"
+                className="w-full rounded-2xl border border-[#E8E2D7] bg-[#FAF8F4] px-4 py-3.5 text-base sm:text-lg font-num text-left placeholder:text-[#7E776C] focus:border-[#B35817] focus:bg-white outline-none transition-all"
                 required
               />
-              <span className="absolute right-4 top-1/2 -translate-y-1/2 text-xs font-bold text-[#7D776C]">
+              <span className="absolute right-4 top-1/2 -translate-y-1/2 text-xs font-bold text-[#7E776C]">
                 تومان
               </span>
             </div>
           </div>
 
-          <div className="bg-[#FAF8F5] p-4 rounded-2xl border border-[#E8E1D5] space-y-2 text-xs text-[#4A463F]">
-            <div className="flex items-center gap-2 text-[#262A56] font-semibold">
-              <ShieldCheck className="w-4 h-4 text-[#B8621B]" />
-              <span>پروتکل امن پرداخت شاپرک (شاپرک ۲)</span>
+          <div className="bg-[#FAF8F4] p-4 rounded-2xl border border-[#E8E2D7] space-y-1.5 text-xs text-[#4A453E]">
+            <div className="flex items-center gap-2 text-[#14182E] font-semibold">
+              <ShieldCheck className="w-4 h-4 text-[#B35817]" />
+              <span>پروتکل امن پرداخت شاپرک ۲</span>
             </div>
-            <p className="text-[11px] text-[#7D776C] leading-relaxed">
+            <p className="text-[11px] text-[#7E776C] leading-relaxed font-light">
               واریزهای انجام‌شده بلافاصله پس از بازگشت از درگاه در کیف پول شما منظور شده و آماده خرید لحظه‌ای طلا خواهد بود.
             </p>
           </div>

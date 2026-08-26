@@ -2,77 +2,61 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { LogOut } from 'lucide-react';
 import { dashboardNavItems } from '@/config/navigation';
-import { logoutAction } from '@/app/(auth)/actions';
+import { ArrowLeft, Sparkles } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 export function DashboardSidebar() {
   const pathname = usePathname();
 
   return (
-    <aside className="hidden md:flex md:w-64 md:flex-col md:fixed md:inset-y-0 border-l border-white/10 bg-[#262A56] text-[#FAF8F5] shadow-2xl z-30">
-      {/* Logo Area */}
-      <div className="flex h-20 items-center justify-between px-6 border-b border-white/10 bg-[#1A1D3D]/50">
-        <Link href="/" className="flex items-center gap-2.5 group">
-          <span className="diamond-motif !w-2 !h-2 group-hover:rotate-90 transition-transform duration-500 shadow-xs" />
-          <span className="text-base tracking-brand font-bold text-white group-hover:text-[#E3CCAE] transition-colors">
+    <aside className="w-64 bg-[#14182E] text-white border-l border-white/10 flex flex-col justify-between p-6 shrink-0 min-h-screen">
+      <div>
+        {/* Brand Link */}
+        <Link href="/dashboard" className="flex items-center gap-2.5 mb-8 group">
+          <span className="diamond-motif !w-2.5 !h-2.5 group-hover:rotate-90 transition-transform duration-500 shadow-copper-glow" />
+          <span className="text-lg tracking-brand font-bold text-white group-hover:text-[#EBD8C1] transition-colors">
             ZARAVI
           </span>
         </Link>
-        <span className="text-[10px] tracking-brand px-2 py-0.5 rounded-full bg-white/10 text-[#E3CCAE] font-mono border border-white/10">
-          ATELIER
-        </span>
-      </div>
 
-      {/* Navigation Links */}
-      <nav className="flex-1 overflow-y-auto py-6 px-3.5 space-y-1">
-        <div className="px-3 pb-2">
-          <span className="text-[10px] tracking-brand font-semibold text-[#C5BFB4] uppercase block">
-            میز معاملات و دارایی‌ها
-          </span>
-        </div>
-        <ul className="space-y-1">
+        {/* Navigation Items */}
+        <nav className="space-y-1.5">
           {dashboardNavItems.map((item) => {
-            const isActive = pathname === item.href;
+            const isActive = pathname === item.href || (item.href !== '/dashboard' && pathname.startsWith(item.href));
+            const Icon = item.icon;
+
             return (
-              <li key={item.href}>
-                <Link
-                  href={item.href}
-                  className={`flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-medium transition-all duration-300 group ${
-                    isActive
-                      ? 'bg-[#1A1D3D] text-[#FAF8F5] border border-[#B8621B]/40 shadow-xs'
-                      : 'text-[#C5BFB4] hover:text-white hover:bg-white/5'
-                  }`}
-                >
-                  <div className="flex items-center gap-3">
-                    <item.icon
-                      className={`h-4 w-4 flex-shrink-0 transition-colors ${
-                        isActive ? 'text-[#B8621B]' : 'text-[#C5BFB4] group-hover:text-[#E3CCAE]'
-                      }`}
-                    />
-                    <span>{item.titleFa}</span>
-                  </div>
-                  {isActive && (
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#B8621B] shadow-copper-glow" />
-                  )}
-                </Link>
-              </li>
+              <Link
+                key={item.href}
+                href={item.href}
+                className={cn(
+                  'flex items-center justify-between px-4 py-2.5 rounded-xl text-xs font-semibold transition-all duration-200',
+                  isActive
+                    ? 'bg-[#B35817] text-white shadow-copper-glow'
+                    : 'text-[#C7C0B3] hover:text-white hover:bg-white/10'
+                )}
+              >
+                <div className="flex items-center gap-3">
+                  <Icon className="w-4 h-4" />
+                  <span>{item.titleFa}</span>
+                </div>
+                {isActive && <ArrowLeft className="w-3.5 h-3.5" />}
+              </Link>
             );
           })}
-        </ul>
-      </nav>
+        </nav>
+      </div>
 
-      {/* Account & Logout */}
-      <div className="border-t border-white/10 p-4 bg-[#1A1D3D]/60">
-        <form action={logoutAction}>
-          <button
-            type="submit"
-            className="flex items-center gap-2.5 w-full px-3.5 py-2 rounded-xl text-xs text-[#C5BFB4] hover:text-[#FAF8F5] hover:bg-white/10 transition-colors duration-300 cursor-pointer"
-          >
-            <LogOut className="h-4 w-4 text-[#B8621B]" />
-            <span>خروج از حساب کاربری</span>
-          </button>
-        </form>
+      {/* Vault Status Pod */}
+      <div className="bg-[#0C0E1A] p-4 rounded-2xl border border-white/10 text-xs">
+        <div className="flex items-center gap-2 text-[#EBD8C1] font-semibold mb-1">
+          <Sparkles className="w-3.5 h-3.5 text-[#B35817]" />
+          <span>پشتوانه ۱۰۰٪ بیمه‌شده</span>
+        </div>
+        <p className="text-[11px] text-[#C7C0B3] leading-relaxed font-light">
+          تمام موجودی طلای شما در صندوق‌های امن بانکی نگهداری می‌شود.
+        </p>
       </div>
     </aside>
   );
