@@ -1,111 +1,92 @@
 import Image from 'next/image';
-import Link from 'next/link';
 import type { Metadata } from 'next';
-import { Button } from '@/components/ui/button';
-import { ArrowLeft } from 'lucide-react';
+import { Shield, Award, Landmark, Scale } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'درباره خانه زروی — اصالت، هنر و مهندسی ارزش',
-  description: 'داستان پیدایش زروی، استانداردهای ساخت و منشور شفافیت در نگهداری طلای فیزیکی.',
+  title: 'درباره خانه زروی — اصالت، هنر و فناوری',
+  description: 'آشنایی با تاریخچه، رسالت، ارزش‌ها و استانداردهای خلوص و عیارسنجی در پلتفرم طلای دیجیتال زروی.',
 };
 
 export default function AboutPage() {
   return (
-    <div className="flex flex-col min-h-screen bg-[#FAF8F5] text-[#141210] selection:bg-[#B8621B] selection:text-white pt-20">
+    <div className="min-h-screen bg-[#FAF8F4] text-[#161412] selection:bg-[#B35817] selection:text-white pt-24 pb-20">
+      <div className="mx-auto max-w-5xl px-4 sm:px-6 md:px-10">
 
-      {/* Hero Statement (Deep Midnight Lapis #262A56) */}
-      <section className="section-editorial px-6 md:px-10 bg-atmospheric-navy text-white border-b border-white/10 relative overflow-hidden">
-        <div className="max-w-[1400px] mx-auto relative z-10">
-          <div className="flex items-center gap-3 mb-8">
+        {/* Masthead Header */}
+        <div className="border-b border-[#E8E2D7] pb-10 mb-12">
+          <div className="flex items-center gap-2.5 mb-3">
             <span className="diamond-motif" />
-            <span className="text-xs tracking-brand text-[#E3CCAE]">اصالت و منشور خانه زروی</span>
+            <span className="text-xs tracking-brand text-[#7E776C] font-semibold uppercase">داستان و هویت آتلیه</span>
           </div>
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#161412] tracking-tight mb-4">
+            معماری ارزش در جهان طلا
+          </h1>
+          <p className="text-sm sm:text-base md:text-lg text-[#4A453E] leading-relaxed font-light max-w-2xl">
+            خانه زروی با تلفیق هنر سنتی طلاکاری پارسی و زیرساخت پیشرفته دفتر کل دیجیتال، امن‌ترین بستر سرمایه‌گذاری فلزات گرانبها را خلق کرده است.
+          </p>
+        </div>
 
-          <div className="max-w-4xl">
-            <h1 className="text-[clamp(2.2rem,5vw,4.5rem)] font-bold text-white leading-[1.15] tracking-tight mb-8">
-              پیوند میان خلوص ماده و نوآوری دیجیتال.
-            </h1>
-            <p className="text-base sm:text-xl text-[#C5BFB4] leading-relaxed font-light max-w-2xl">
-              زروی برای پاسخ به نیازی بنیادین متولد شد: بازتعریف شیوه مالکیت و انتقال گرانبهاترین دارایی تاریخ بشر در دنیایی شفاف و بدون مرز.
+        {/* Studio Photographic Feature */}
+        <div className="grid md:grid-cols-2 gap-6 sm:gap-8 mb-16 items-center">
+          <div className="relative aspect-[4/3] rounded-2xl sm:rounded-3xl overflow-hidden border border-[#E8E2D7] bg-white p-3 shadow-subtle">
+            <Image
+              src="/images/craftsmanship.jpg"
+              alt="آتلیه طلاسازی زروی"
+              fill
+              sizes="(max-width: 768px) 100vw, 50vw"
+              className="object-cover rounded-xl sm:rounded-2xl"
+            />
+          </div>
+          <div className="space-y-4">
+            <span className="text-xs tracking-brand font-bold text-[#B35817] uppercase">اصالت و شایستگی</span>
+            <h2 className="text-2xl sm:text-3xl font-bold text-[#14182E] tracking-tight">
+              پشتوانه‌ای فراتر از ارقام دیجیتال
+            </h2>
+            <p className="text-xs sm:text-sm text-[#4A453E] leading-relaxed font-light">
+              در زروی، هر گرم طلای ثبت‌شده در پنل کاربری شما معادل شمش‌های واقعی با کد رهگیری است که در خزانه‌های امن بانکی سپرده‌گذاری شده‌اند.
+            </p>
+            <p className="text-xs sm:text-sm text-[#4A453E] leading-relaxed font-light">
+              امکان تبدیل لحظه‌ای دارایی به شمش فیزیکی و تحویل درب منزل در هر زمان برای تمامی کاربران فراهم است.
             </p>
           </div>
         </div>
-      </section>
 
-      {/* Image & Manifesto (Warm Champagne Canvas #FAF8F5) */}
-      <section className="section-editorial px-6 md:px-10 bg-[#FAF8F5]">
-        <div className="max-w-[1400px] mx-auto">
-          <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-            <div className="lg:col-span-6">
-              <div className="relative aspect-[4/3] rounded-3xl overflow-hidden border border-[#E8E1D5] bg-white p-3 shadow-xl">
-                <Image
-                  src="/images/brand_story.jpg"
-                  alt="Zaravi Philosophy Still Life"
-                  fill
-                  className="object-cover rounded-2xl"
-                />
-              </div>
-            </div>
+        {/* 4 Pillars Matrix */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-6 mb-16">
+          <div className="p-6 sm:p-8 rounded-2xl sm:rounded-3xl bg-white border border-[#E8E2D7] shadow-subtle">
+            <Shield className="w-8 h-8 text-[#B35817] mb-4" />
+            <h3 className="text-base sm:text-lg font-bold text-[#161412] mb-2">شفافیت ۱۰۰٪ و تفکیک ذخایر</h3>
+            <p className="text-xs sm:text-sm text-[#4A453E] leading-relaxed font-light">
+              حسابرسی‌های ادواری توسط مراجع رسمی مستقل تضمین‌کننده تطابق کامل دارایی‌های کاربران با موجودی واقعی خزانه است.
+            </p>
+          </div>
 
-            <div className="lg:col-span-6 space-y-6 text-[#4A463F] leading-relaxed">
-              <span className="text-xs tracking-brand font-bold text-[#B8621B] block uppercase">منشور ارزش‌ها</span>
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#262A56] tracking-tight">
-                طلا؛ ذخیره ماندگار تلاش و زمان انسان
-              </h2>
-              <p className="text-sm sm:text-base font-light">
-                در طول هزاره‌ها، طلا تنها استانداردی بوده که هیچ دولتی نتوانسته ارزش آن را با تصمیمات مقطعی مخدوش کند. ما در زروی این خلوص تاریخی را با سیستم‌های مدرن فناوری، حسابداری دوطرفه و دفاتر کل رمزنگاری‌شده پیوند زده‌ایم.
-              </p>
-              <p className="text-sm sm:text-base font-light">
-                هر میلی‌گرم طلایی که در حساب شما ثبت می‌شود، قطعه‌ای واقعی و فیزیکی از فلز زرین است که در خزانه‌های امن بانکی و تحت نظارت دقیق بازرسان مستقل نگهداری می‌شود.
-              </p>
-            </div>
+          <div className="p-6 sm:p-8 rounded-2xl sm:rounded-3xl bg-white border border-[#E8E2D7] shadow-subtle">
+            <Award className="w-8 h-8 text-[#B35817] mb-4" />
+            <h3 className="text-base sm:text-lg font-bold text-[#161412] mb-2">عیارسنجی آزمایشگاهی ری‌گیری</h3>
+            <p className="text-xs sm:text-sm text-[#4A453E] leading-relaxed font-light">
+              تمامی شمش‌های فیزیکی دارای گواهی آزمایشگاه‌های رسمی ری‌گیری تحت نظارت سازمان ملی استاندارد ایران هستند.
+            </p>
+          </div>
+
+          <div className="p-6 sm:p-8 rounded-2xl sm:rounded-3xl bg-white border border-[#E8E2D7] shadow-subtle">
+            <Landmark className="w-8 h-8 text-[#B35817] mb-4" />
+            <h3 className="text-base sm:text-lg font-bold text-[#161412] mb-2">خزانه امن بانکی کشور</h3>
+            <p className="text-xs sm:text-sm text-[#4A453E] leading-relaxed font-light">
+              ذخایر طلای مشتریان در صندوق‌های امانات درجه‌یک بانکی با بالاترین پروتکل‌های امنیتی نگهداری می‌شوند.
+            </p>
+          </div>
+
+          <div className="p-6 sm:p-8 rounded-2xl sm:rounded-3xl bg-white border border-[#E8E2D7] shadow-subtle">
+            <Scale className="w-8 h-8 text-[#B35817] mb-4" />
+            <h3 className="text-base sm:text-lg font-bold text-[#161412] mb-2">انطباق با موازین فقهی و قانونی</h3>
+            <p className="text-xs sm:text-sm text-[#4A453E] leading-relaxed font-light">
+              معاملات بر اساس بیع قطعی و تحویل آنی ساختاربندی شده و کلیه ضوابط بانک مرکزی و اتحادیه رعایت می‌گردد.
+            </p>
           </div>
         </div>
-      </section>
 
-      {/* Craftsmanship Section (Deep Obsidian Black #000000) */}
-      <section className="section-editorial px-6 md:px-10 bg-atmospheric-black text-white border-t border-white/10">
-        <div className="max-w-[1400px] mx-auto">
-          <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-            <div className="lg:col-span-6 lg:order-2">
-              <div className="relative aspect-[4/3] rounded-3xl overflow-hidden border border-white/15 bg-[#14162B] p-3 shadow-2xl">
-                <Image
-                  src="/images/craftsmanship.jpg"
-                  alt="Zaravi Master Craftsmanship"
-                  fill
-                  className="object-cover rounded-2xl"
-                />
-              </div>
-            </div>
-
-            <div className="lg:col-span-6 lg:order-1 space-y-6 text-[#C5BFB4] leading-relaxed font-light">
-              <div className="flex items-center gap-3 mb-4">
-                <span className="diamond-motif" />
-                <span className="text-xs tracking-brand text-[#E3CCAE]">هنر و استانداردهای کارگاه</span>
-              </div>
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white tracking-tight leading-tight">
-                تعهد به خلوص ۷۵۰ و ۹۹۹.۹
-              </h2>
-              <p className="text-sm sm:text-base">
-                از عیارسنجی در آزمایشگاه‌های معتمد ری‌گیری تا ضرب شمش‌های استاندارد با هولوگرام‌های سه‌بعدی و بسته‌بندی پلمپ امنیتی، تک‌تک مراحل تولید تحت سخت‌گیرانه‌ترین رویه‌های کیفی انجام می‌پذیرد.
-              </p>
-              <p className="text-sm sm:text-base">
-                شما می‌توانید در هر ساعت از شبانه‌روز، معادل طلای حساب خود را با فشردن یک دکمه به فرم فیزیکی سفارش داده و با بسته‌بندی اختصاصی در محل مورد نظر تحویل بگیرید.
-              </p>
-
-              <div className="pt-6">
-                <Link href="/register">
-                  <Button variant="primary" className="px-8 py-3.5 rounded-full text-xs font-semibold shadow-copper-glow flex items-center gap-2">
-                    <span>شروع همراهی با زروی</span>
-                    <ArrowLeft className="w-4 h-4" />
-                  </Button>
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
+      </div>
     </div>
   );
 }

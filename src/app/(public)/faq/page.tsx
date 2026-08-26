@@ -2,55 +2,65 @@ import type { Metadata } from 'next';
 import { HelpCircle } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'سوالات متداول',
-  description: 'پاسخ به پرسش‌های پرتکرار درباره خرید طلای دیجیتال، پشتوانه فیزیکی خزانه، تحویل شمش و نقدشوندگی در زروی.',
+  title: 'سوالات متداول — خانه طلای دیجیتال زروی',
+  description: 'پاسخ به سوالات پرتکرار درباره خرید، فروش، احراز هویت، نگهداری در خزانه و تحویل فیزیکی طلا.',
 };
 
-export default function FAQPage() {
+const faqs = [
+  {
+    q: 'حداقل مبلغ خرید طلا در زروی چقدر است؟',
+    a: 'شما می‌توانید با هر مبلغی (از حداقل ۱۰۰ هزار تومان) اقدام به خرید طلای ۱۸ عیار نمایید. هیچ محدودیتی برای خرید‌های خرد وجود ندارد.',
+  },
+  {
+    q: 'طلاهای خریداری‌شده چگونه نگهداری می‌شوند؟',
+    a: 'تمامی طلاهای دیجیتال ثبت‌شده در پنل شما، به صورت ۱۰۰٪ معادل شمش‌های استاندارد در خزانه‌های بانکی معتبر نگهداری و بیمه شده‌اند.',
+  },
+  {
+    q: 'آیا امکان دریافت فیزیکی طلا وجود دارد؟',
+    a: 'بله. در هر زمان می‌توانید با مراجعه به بخش تحویل فیزیکی در پنل کاربری، طلای خود را در قالب شمش‌های ۱ تا ۱۰۰ گرمی وکیوم‌شده با پست بیمه‌شده دریافت کنید.',
+  },
+  {
+    q: 'تسویه فروش طلا به چه صورت انجام می‌شود؟',
+    a: 'پس از فروش طلا در پنل، مبلغ ریالی بلافاصله در کیف پول شما منظور شده و می‌توانید در هر ساعت از شبانه‌روز درخواست تسویه به شماره شبای بانکی خود را ثبت نمایید.',
+  },
+  {
+    q: 'آیا خرید طلا در زروی شامل مالیات بر ارزش افزوده می‌شود؟',
+    a: 'خیر. طبق قوانین جدید مالیاتی کشور، اصل طلای خام و شمش‌های استاندارد از پرداخت مالیات بر ارزش افزوده معاف هستند و تنها کارمزد پلتفرم محاسبه می‌گردد.',
+  },
+];
+
+export default function FaqPage() {
   return (
-    <div className="min-h-screen bg-[#FAF8F5] text-[#141210] selection:bg-[#B8621B] selection:text-white pt-28 pb-20">
-      <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-[#E8E1D5] text-xs text-[#262A56] mb-4 shadow-xs">
-            <HelpCircle className="w-3.5 h-3.5 text-[#B8621B]" />
-            <span>مرکز راهنمایی و پاسخ به پرسش‌ها</span>
+    <div className="min-h-screen bg-[#FAF8F4] text-[#161412] selection:bg-[#B35817] selection:text-white pt-24 pb-20">
+      <div className="mx-auto max-w-4xl px-4 sm:px-6 md:px-10">
+
+        <div className="border-b border-[#E8E2D7] pb-8 mb-10 text-center">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-[#E8E2D7] text-xs text-[#7E776C] mb-3 shadow-xs">
+            <HelpCircle className="w-3.5 h-3.5 text-[#B35817]" />
+            <span className="font-medium">راهنمای جامع پلتفرم</span>
           </div>
-          <h1 className="text-3xl sm:text-4xl font-bold text-[#141210] tracking-tight">سوالات متداول</h1>
-          <p className="text-xs sm:text-sm text-[#4A463F] mt-2 font-light max-w-lg mx-auto">
-            پاسخ به سوالات پرتکرار پیرامون نحوه ثبت سفارش، امنیت خزانه طلا و تحویل فیزیکی
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#161412] tracking-tight mb-3">
+            پرسش‌های متداول
+          </h1>
+          <p className="text-xs sm:text-sm md:text-base text-[#4A453E] font-light max-w-lg mx-auto">
+            پاسخ سریع به متداول‌ترین پرسش‌های کاربران درباره معاملات و تحویل فیزیکی
           </p>
         </div>
 
         <div className="space-y-4">
-          {[
-            {
-              q: 'چگونه می‌توانم در زروی طلای دیجیتال خریداری کنم؟',
-              a: 'در کمتر از ۲ دقیقه ثبت‌نام و احراز هویت اولیه را انجام دهید. پس از شارژ ریالی کیف پول از طریق شبکه شتاب، با هر مبلغ دلخواهی می‌توانید بر اساس نرخ لحظه‌ای بازار، طلای ۱۸ یا ۲۴ عیار خریداری فرمایید.'
-            },
-            {
-              q: 'آیا طلای خریداری‌شده دارای پشتوانه فیزیکی واقعی است؟',
-              a: 'بله، تک‌تک میلی‌گرم‌های ثبت‌شده در حساب شما متعلق به شمش‌های فیزیکی دارای کد استاندارد اتحادیه است که در گاوصندوق‌های اختصاصی بانکی با پوشش ۱۰۰٪ بیمه حوادث نگهداری می‌شود.'
-            },
-            {
-              q: 'روال دریافت فیزیکی شمش و سکه به چه صورت است؟',
-              a: 'شما در هر ساعت از شبانه‌روز می‌توانید از طریق بخش تحویل فیزیکی یا فروشگاه زروی، معادل وزن طلای حساب خود را در قالب شمش‌های وکیوم‌شده ۱ تا ۱۰۰ گرم یا مسکوکات بانکی سفارش دهید تا با پست بیمه‌شده به آدرس شما ارسال گردد.'
-            },
-            {
-              q: 'نقدشوندگی و واریز وجه فروش به چه میزان زمان می‌برد؟',
-              a: 'فروش طلا در زروی کاملاً آنی است. مبلغ فروش بلافاصله به کیف پول ریالی شما منظور شده و درخواست برداشت بانکی در اولین چرخه پایا/ساتنا به شماره شبای شما تسویه خواهد شد.'
-            },
-          ].map((faq, i) => (
-            <div key={i} className="bg-white rounded-3xl p-6 sm:p-8 border border-[#E8E1D5] shadow-xs">
-              <div className="flex items-center gap-3 mb-2">
+          {faqs.map((faq, idx) => (
+            <div key={idx} className="bg-white p-6 sm:p-8 rounded-2xl sm:rounded-3xl border border-[#E8E2D7] shadow-subtle">
+              <h3 className="text-base sm:text-lg font-bold text-[#14182E] mb-2.5 flex items-center gap-2.5">
                 <span className="diamond-motif !w-1.5 !h-1.5" />
-                <h3 className="text-base sm:text-lg font-bold text-[#262A56]">{faq.q}</h3>
-              </div>
-              <p className="text-xs sm:text-sm text-[#4A463F] leading-relaxed font-light mt-2 pr-4 border-r border-[#E8E1D5]">
+                <span>{faq.q}</span>
+              </h3>
+              <p className="text-xs sm:text-sm text-[#4A453E] leading-relaxed font-light pr-4">
                 {faq.a}
               </p>
             </div>
           ))}
         </div>
+
       </div>
     </div>
   );
