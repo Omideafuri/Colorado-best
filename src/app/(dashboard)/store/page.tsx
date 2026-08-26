@@ -9,7 +9,6 @@ import { formatNumber, toPersianDigits } from '@/lib/utils/format';
 import { Button } from '@/components/ui/button';
 import { buyProductAction } from '@/app/actions/products';
 
-// Mapping categories to generated editorial photography
 const productImages: Record<string, string> = {
   BAR: '/images/product_bar.jpg',
   COIN: '/images/product_coin.jpg',
@@ -59,12 +58,12 @@ async function ensureMockProducts() {
       });
     }
   } catch {
-    // Database unreachable during build time
+    // DB unreachable during build time
   }
 }
 
 export const metadata: Metadata = {
-  title: 'گالری و تحویل فیزیکی',
+  title: 'گالری و تحویل فیزیکی طلا — زروی',
 };
 
 export default async function StorePage() {
@@ -78,35 +77,34 @@ export default async function StorePage() {
   });
 
   const snapshot = await getLatestPriceSnapshot('18K');
-
   const cashWallet = await db.cashWallet.findUnique({ where: { userId: user.id } });
   const cashBalanceToman = Number((cashWallet?.balanceRial || BigInt(0)) / BigInt(10));
 
   return (
-    <div className="max-w-6xl mx-auto space-y-12 pb-24">
+    <div className="max-w-6xl mx-auto space-y-10 pb-20 pt-4">
       {/* Editorial Header */}
-      <div className="pt-4">
-        <div className="flex items-center gap-3 mb-4">
-          <span className="diamond-motif" />
-          <span className="text-xs tracking-brand text-[#7D776C]">گالری فیزیکی زروی</span>
+      <div>
+        <div className="flex items-center gap-2.5 mb-3">
+          <span className="diamond-motif !w-2 !h-2" />
+          <span className="text-xs tracking-brand font-semibold text-[#7E776C] uppercase">گالری فیزیکی زروی</span>
         </div>
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 border-b border-[#E8E1D5] pb-10">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-[#E8E2D7] pb-8">
           <div className="max-w-xl">
-            <h1 className="text-4xl md:text-5xl font-bold text-[#141210] tracking-tight mb-4">گالری و تحویل فیزیکی</h1>
-            <p className="text-base sm:text-lg text-[#4A463F] leading-relaxed font-light">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#161412] tracking-tight mb-3">گالری شمش و مسکوکات فاخر</h1>
+            <p className="text-xs sm:text-sm md:text-base text-[#4A453E] leading-relaxed font-light">
               محصولات فیزیکی استاندارد با بسته‌بندی امنیتی ضدجعل، هولوگرام اصالت و شناسنامه رسمی عیار.
             </p>
           </div>
-          <div className="text-left border border-[#E8E1D5] rounded-2xl p-6 bg-white shadow-xs min-w-[240px]">
-            <p className="text-xs tracking-brand text-[#7D776C] mb-2">موجودی کیف پول ریالی</p>
-            <p className="text-2xl font-bold font-num text-[#262A56]">
-              {formatNumber(cashBalanceToman)} <span className="text-sm font-normal text-[#7D776C]">تومان</span>
+          <div className="border border-[#E8E2D7] rounded-2xl p-5 bg-white shadow-subtle min-w-[240px]">
+            <p className="text-xs tracking-brand text-[#7E776C] mb-1 font-semibold uppercase">موجودی کیف پول ریالی</p>
+            <p className="text-2xl font-bold font-num text-[#14182E]">
+              {formatNumber(cashBalanceToman)} <span className="text-xs font-normal text-[#7E776C]">تومان</span>
             </p>
           </div>
         </div>
       </div>
 
-      {/* Products — Editorial Gallery */}
+      {/* Product List */}
       <div className="space-y-6">
         {products.map((product, idx) => {
           const weightGrams = Number(product.weightNg) / 1_000_000_000;
@@ -119,67 +117,66 @@ export default async function StorePage() {
           const imageSrc = product.imageUrl || productImages[product.category] || '/images/product_bar.jpg';
 
           return (
-            <div key={product.id} className="grid md:grid-cols-12 rounded-3xl border border-[#E8E1D5] bg-white overflow-hidden shadow-xs hover:border-[#B8621B]/40 hover:shadow-md transition-all duration-500 group">
+            <div key={product.id} className="grid md:grid-cols-12 rounded-2xl sm:rounded-3xl border border-[#E8E2D7] bg-white overflow-hidden shadow-subtle hover:border-[#B35817]/50 hover:shadow-card transition-all duration-500 group">
               {/* Product Visual */}
-              <div className={`md:col-span-6 bg-[#FAF8F5] flex items-center justify-center min-h-[340px] md:min-h-[420px] relative overflow-hidden p-8 image-hover-zoom ${idx % 2 === 1 ? 'md:order-2' : ''}`}>
-                <div className="relative w-full h-full max-w-[320px] aspect-square rounded-2xl overflow-hidden border border-[#E8E1D5] bg-white p-4">
+              <div className={`md:col-span-6 bg-[#FAF8F4] flex items-center justify-center min-h-[300px] md:min-h-[380px] relative overflow-hidden p-6 sm:p-8 image-hover-zoom ${idx % 2 === 1 ? 'md:order-2' : ''}`}>
+                <div className="relative w-full h-full max-w-[280px] aspect-square rounded-2xl overflow-hidden border border-[#E8E2D7] bg-white p-4">
                   <Image
                     src={imageSrc}
                     alt={product.nameFa}
                     fill
-                    sizes="(max-width: 768px) 100vw, 320px"
+                    sizes="(max-width: 768px) 100vw, 280px"
                     className="object-cover rounded-xl"
                   />
                 </div>
 
-                {/* Availability badge */}
-                <div className="absolute top-6 right-6">
-                  <span className={`text-xs tracking-brand px-3 py-1.5 rounded-full backdrop-blur-md ${isAvailable ? 'bg-white/90 text-emerald-800 border border-emerald-300' : 'bg-white/90 text-[#7D776C] border border-[#E8E1D5]'}`}>
+                {/* Stock Badge */}
+                <div className="absolute top-5 right-5">
+                  <span className={`text-[11px] font-bold tracking-wide px-3 py-1 rounded-full backdrop-blur-md ${isAvailable ? 'bg-white/95 text-emerald-800 border border-emerald-300' : 'bg-white/95 text-[#7E776C] border border-[#E8E2D7]'}`}>
                     {isAvailable ? `موجودی: ${toPersianDigits(quantityAvailable.toString())}` : 'اتمام موجودی'}
                   </span>
                 </div>
               </div>
 
-              {/* Product Details */}
-              <div className={`md:col-span-6 p-8 md:p-12 flex flex-col justify-between ${idx % 2 === 1 ? 'md:order-1' : ''}`}>
+              {/* Product Info */}
+              <div className={`md:col-span-6 p-6 sm:p-10 flex flex-col justify-between ${idx % 2 === 1 ? 'md:order-1' : ''}`}>
                 <div>
-                  <div className="flex justify-between items-start mb-4">
-                    <span className="text-xs tracking-brand font-bold text-[#B8621B]">
+                  <div className="flex justify-between items-start mb-3">
+                    <span className="text-xs tracking-brand font-bold text-[#B35817] uppercase">
                       قطعه ۰{toPersianDigits((idx + 1).toString())}
                     </span>
-                    <span className="text-xs font-mono font-bold text-[#262A56] uppercase">
+                    <span className="text-xs font-mono font-bold text-[#14182E] uppercase">
                       {toPersianDigits(weightGrams.toString())} G
                     </span>
                   </div>
 
-                  <h3 className="text-2xl md:text-3xl font-bold text-[#141210] tracking-tight mb-1">{product.nameFa}</h3>
-                  <p className="text-xs text-[#7D776C] mb-8 tracking-wider uppercase font-mono">{product.nameEn}</p>
+                  <h3 className="text-xl sm:text-2xl font-bold text-[#161412] tracking-tight mb-1">{product.nameFa}</h3>
+                  <p className="text-[11px] text-[#7E776C] mb-6 tracking-wider uppercase font-mono">{product.nameEn}</p>
 
-                  {/* Price breakdown */}
-                  <div className="space-y-3.5 border-t border-[#E8E1D5] pt-6 text-sm">
+                  <div className="space-y-3 border-t border-[#E8E2D7] pt-5 text-xs sm:text-sm">
                     <div className="flex justify-between items-center">
-                      <span className="text-[#4A463F]">ارزش خام طلا</span>
-                      <span className="font-num text-[#141210]">{formatNumber(Number(baseValueRial / BigInt(10)))} تومان</span>
+                      <span className="text-[#4A453E] font-light">ارزش خام طلا</span>
+                      <span className="font-num text-[#161412]">{formatNumber(Number(baseValueRial / BigInt(10)))} تومان</span>
                     </div>
                     <div className="flex justify-between items-center">
-                      <span className="text-[#4A463F]">اجرت ضرب / پریمیوم</span>
-                      <span className="font-num text-[#141210]">{formatNumber(Number((premiumRial + makingChargeRial) / BigInt(10)))} تومان</span>
+                      <span className="text-[#4A453E] font-light">اجرت ضرب و بسته‌بندی امنیتی</span>
+                      <span className="font-num text-[#161412]">{formatNumber(Number((premiumRial + makingChargeRial) / BigInt(10)))} تومان</span>
                     </div>
-                    <div className="flex justify-between items-center border-t border-[#E8E1D5] pt-4">
-                      <span className="font-bold text-[#141210]">مبلغ کل قابل پرداخت</span>
-                      <span className="text-2xl font-bold font-num text-[#262A56] tracking-tight">{formatNumber(totalPriceToman)} تومان</span>
+                    <div className="flex justify-between items-center border-t border-[#E8E2D7] pt-3.5">
+                      <span className="font-bold text-[#161412]">مبلغ کل قابل پرداخت</span>
+                      <span className="text-xl sm:text-2xl font-bold font-num text-[#14182E] tracking-tight">{formatNumber(totalPriceToman)} تومان</span>
                     </div>
                   </div>
                 </div>
 
-                <div className="mt-8 pt-4">
+                <div className="mt-6 pt-3">
                   <form action={buyProductAction as unknown as string}>
                     <input type="hidden" name="productId" value={product.id} />
                     <input type="hidden" name="idempotencyKey" value={crypto.randomUUID()} />
                     <Button
                       type="submit"
                       disabled={cashBalanceToman < totalPriceToman || !isAvailable}
-                      className="w-full"
+                      className="w-full rounded-full text-xs font-bold shadow-copper-glow"
                       size="lg"
                       variant={!isAvailable || cashBalanceToman < totalPriceToman ? 'secondary' : 'primary'}
                     >
