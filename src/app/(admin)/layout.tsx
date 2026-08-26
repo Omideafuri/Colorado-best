@@ -17,9 +17,9 @@ export default function AdminLayout({
   return (
     <div className="min-h-screen bg-[#FAF8EE] text-[#2A1A08] selection:bg-[#A4530C] selection:text-white">
       {/* Admin Sidebar */}
-      <aside className="hidden md:flex md:w-64 md:flex-col md:fixed md:inset-y-0 border-l border-white/10 bg-[#231506] text-[#FAF8EE] shadow-2xl z-30">
-        {/* Logo */}
-        <div className="flex h-20 items-center justify-between px-6 border-b border-white/10 bg-[#160D04]/60">
+      <aside className="hidden md:flex md:w-64 md:flex-col md:fixed md:inset-y-0 md:right-0 border-l border-white/10 bg-[#231506] text-[#FAF8EE] shadow-2xl z-30">
+        {/* Logo Header */}
+        <div className="flex h-16 items-center justify-between px-6 border-b border-white/10 bg-[#160D04]/60">
           <Link href="/" className="flex items-center gap-2.5 group">
             <span className="diamond-motif !w-2 !h-2 group-hover:rotate-90 transition-transform duration-500 shadow-floating-amber" />
             <div>
@@ -77,7 +77,7 @@ export default function AdminLayout({
         </div>
       </aside>
 
-      <main className="md:mr-64 pb-24 md:pb-0">
+      <main className="md:mr-64 pb-24 md:pb-12">
         {/* Admin Top Bar */}
         <header className="sticky top-0 z-20 h-16 border-b border-[#DFD7B5] bg-[#FAF8EE]/90 backdrop-blur-md flex items-center justify-between px-6 md:px-10 shadow-xs">
           <div className="flex items-center gap-2">
@@ -91,7 +91,7 @@ export default function AdminLayout({
           </span>
         </header>
 
-        <div className="p-6 md:p-10">
+        <div className="mx-auto max-w-7xl p-6 md:p-10">
           {children}
         </div>
       </main>
