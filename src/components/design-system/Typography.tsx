@@ -25,7 +25,7 @@ export function Heading({
   }[size];
 
   return (
-    <Component className={cn('text-[#161412]', sizeClasses, className)} {...props}>
+    <Component className={cn('text-[#2A1A08]', sizeClasses, className)} {...props}>
       {children}
     </Component>
   );
@@ -48,14 +48,14 @@ export function Text({
   const sizeClasses = {
     lead: 'text-base sm:text-lg md:text-xl leading-relaxed font-light',
     body: 'text-xs sm:text-sm md:text-base leading-relaxed font-normal',
-    sm: 'text-xs md:text-sm leading-normal',
-    xs: 'text-[11px] md:text-xs leading-normal',
+    sm: 'text-xs sm:text-sm leading-normal',
+    xs: 'text-[11px] sm:text-xs leading-normal',
   }[size];
 
   return (
     <p
       className={cn(
-        muted ? 'text-[#4A453E] font-light' : 'text-[#161412]',
+        muted ? 'text-[#57442D] font-light' : 'text-[#2A1A08]',
         sizeClasses,
         className
       )}
@@ -95,14 +95,14 @@ export function PriceDisplay({
   return (
     <div className={cn('flex flex-col items-start', className)}>
       <div className="flex items-baseline gap-1 font-num">
-        <span className={cn('text-[#161412] font-num', sizeClasses)}>
+        <span className={cn('text-[#2A1A08] font-num', sizeClasses)}>
           {toPersianDigits(formatNumber(toman))}
         </span>
-        <span className="text-xs font-normal text-[#7E776C]">{unit}</span>
+        <span className="text-xs font-normal text-[#8C775D]">{unit}</span>
       </div>
 
       {showRial && unit !== 'دلار' && (
-        <span className="text-[11px] font-num text-[#7E776C] font-light mt-0.5">
+        <span className="text-[11px] font-num text-[#8C775D] font-light mt-0.5">
           معادل {toPersianDigits(formatNumber(rialValue))} ریال
         </span>
       )}
@@ -125,13 +125,13 @@ export function MicroLabel({
   return (
     <div
       className={cn(
-        'inline-flex items-center gap-2 text-[11px] tracking-brand font-semibold text-[#7E776C] uppercase',
+        'inline-flex items-center gap-2 text-[11px] tracking-brand font-semibold text-[#8C775D] uppercase',
         className
       )}
       {...props}
     >
       {motif === 'diamond' && <span className="diamond-motif !w-1.5 !h-1.5" />}
-      {motif === 'dot' && <span className="w-1.5 h-1.5 rounded-full bg-[#B35817]" />}
+      {motif === 'dot' && <span className="w-1.5 h-1.5 rounded-full bg-[#A4530C]" />}
       <span>{children}</span>
     </div>
   );

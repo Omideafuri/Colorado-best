@@ -28,7 +28,7 @@ export function ProductCard({
   return (
     <div
       className={cn(
-        'group bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-7 border border-[#E8E2D7] flex flex-col justify-between hover:border-[#B35817]/60 hover:shadow-card transition-all duration-500',
+        'floating-card p-5 sm:p-7 flex flex-col justify-between group',
         className
       )}
     >
@@ -38,28 +38,28 @@ export function ProductCard({
           alt={title}
           ratio="square"
           rounded="sm"
-          className="mb-5 bg-[#FAF8F4] p-3 sm:p-4 border border-[#E8E2D7]/80"
+          className="mb-5 bg-[#FAF8EE] p-3 sm:p-4 border border-[#DFD7B5]/80"
         />
 
-        <span className="text-[10px] tracking-brand font-bold text-[#B35817] block mb-1 uppercase">
+        <span className="text-[10px] tracking-brand font-bold text-[#A4530C] block mb-1 uppercase">
           {category}
         </span>
 
-        <h3 className="text-base sm:text-lg md:text-xl font-bold text-[#161412] mb-2 group-hover:text-[#14182E] transition-colors">
+        <h3 className="text-base sm:text-lg md:text-xl font-bold text-[#2A1A08] mb-2 group-hover:text-[#A4530C] transition-colors">
           {title}
         </h3>
 
-        <p className="text-xs text-[#4A453E] leading-relaxed mb-6 font-light">
+        <p className="text-xs text-[#57442D] leading-relaxed mb-6 font-light">
           {description}
         </p>
       </div>
 
-      <div className="pt-4 border-t border-[#E8E2D7] flex items-end justify-between">
+      <div className="pt-4 border-t border-[#DFD7B5] flex items-end justify-between">
         <PriceDisplay toman={priceToman} size="sm" />
 
         <Link
           href={href}
-          className="inline-flex items-center gap-1.5 text-xs font-bold text-[#14182E] hover:text-[#B35817] transition-colors"
+          className="inline-flex items-center gap-1.5 text-xs font-bold text-[#3A230A] hover:text-[#A4530C] transition-colors"
         >
           <span>سفارش و تحویل</span>
           <ArrowLeft className="w-3.5 h-3.5" />

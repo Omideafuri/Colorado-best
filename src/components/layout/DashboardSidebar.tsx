@@ -10,12 +10,12 @@ export function DashboardSidebar() {
   const pathname = usePathname();
 
   return (
-    <aside className="w-64 bg-[#14182E] text-white border-l border-white/10 flex flex-col justify-between p-6 shrink-0 min-h-screen">
+    <aside className="w-64 bg-[#231506] text-[#FAF8EE] border-l border-white/10 flex flex-col justify-between p-6 shrink-0 min-h-screen">
       <div>
         {/* Brand Link */}
         <Link href="/dashboard" className="flex items-center gap-2.5 mb-8 group">
-          <span className="diamond-motif !w-2.5 !h-2.5 group-hover:rotate-90 transition-transform duration-500 shadow-copper-glow" />
-          <span className="text-lg tracking-brand font-bold text-white group-hover:text-[#EBD8C1] transition-colors">
+          <span className="diamond-motif !w-2.5 !h-2.5 group-hover:rotate-90 transition-transform duration-500 shadow-floating-amber" />
+          <span className="text-lg tracking-brand font-bold text-white group-hover:text-[#EEE9C1] transition-colors">
             ZARAVI
           </span>
         </Link>
@@ -33,8 +33,8 @@ export function DashboardSidebar() {
                 className={cn(
                   'flex items-center justify-between px-4 py-2.5 rounded-xl text-xs font-semibold transition-all duration-200',
                   isActive
-                    ? 'bg-[#B35817] text-white shadow-copper-glow'
-                    : 'text-[#C7C0B3] hover:text-white hover:bg-white/10'
+                    ? 'bg-[#A4530C] text-white shadow-floating-amber'
+                    : 'text-[#DDD7B5] hover:text-white hover:bg-white/10'
                 )}
               >
                 <div className="flex items-center gap-3">
@@ -49,12 +49,12 @@ export function DashboardSidebar() {
       </div>
 
       {/* Vault Status Pod */}
-      <div className="bg-[#0C0E1A] p-4 rounded-2xl border border-white/10 text-xs">
-        <div className="flex items-center gap-2 text-[#EBD8C1] font-semibold mb-1">
-          <Sparkles className="w-3.5 h-3.5 text-[#B35817]" />
+      <div className="bg-[#3A230A] p-4 rounded-2xl border border-white/10 text-xs shadow-floating-sm">
+        <div className="flex items-center gap-2 text-[#EEE9C1] font-semibold mb-1">
+          <Sparkles className="w-3.5 h-3.5 text-[#A4530C]" />
           <span>پشتوانه ۱۰۰٪ بیمه‌شده</span>
         </div>
-        <p className="text-[11px] text-[#C7C0B3] leading-relaxed font-light">
+        <p className="text-[11px] text-[#DDD7B5] leading-relaxed font-light">
           تمام موجودی طلای شما در صندوق‌های امن بانکی نگهداری می‌شود.
         </p>
       </div>

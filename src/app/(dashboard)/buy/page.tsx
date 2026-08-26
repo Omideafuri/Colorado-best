@@ -61,10 +61,8 @@ export default function BuyPage() {
       formData.append('idempotencyKey', window.crypto.randomUUID());
       formData.append('mode', inputMode);
       if (inputMode === 'BY_AMOUNT') {
-        // value in Rial
         formData.append('value', (BigInt(amountToman) * BigInt(10)).toString());
       } else {
-        // value in nanograms
         const ng = BigInt(Math.floor(Number(weightGrams) * 1_000_000_000));
         formData.append('value', ng.toString());
       }
@@ -84,38 +82,38 @@ export default function BuyPage() {
       <div>
         <div className="flex items-center gap-2.5 mb-2">
           <span className="diamond-motif !w-2 !h-2" />
-          <span className="text-xs tracking-brand font-semibold text-[#7E776C] uppercase">میز معاملات طلای ۱۸ عیار</span>
+          <span className="text-xs tracking-brand font-semibold text-[#8C775D] uppercase">میز معاملات طلای ۱۸ عیار</span>
         </div>
-        <h1 className="text-2xl sm:text-3xl font-bold text-[#161412] tracking-tight">خرید آنلاین طلای دیجیتال</h1>
-        <p className="text-xs sm:text-sm text-[#4A453E] mt-1 font-light">
+        <h1 className="text-2xl sm:text-3xl font-bold text-[#2A1A08] tracking-tight">خرید آنلاین طلای دیجیتال</h1>
+        <p className="text-xs sm:text-sm text-[#57442D] mt-1 font-light">
           خرید لحظه‌ای با پشتوانه فیزیکی و ثبت آنی در خزانه با گواهی رسمی
         </p>
       </div>
 
-      <div className="bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-8 border border-[#E8E2D7] shadow-subtle space-y-6">
+      <div className="floating-card p-6 sm:p-8 space-y-6">
         {/* Live Price Header */}
-        <div className="flex items-center justify-between p-4 bg-[#FAF8F4] rounded-2xl border border-[#E8E2D7]">
+        <div className="flex items-center justify-between p-4 bg-[#FAF8EE] rounded-2xl border border-[#DFD7B5]">
           <div>
-            <span className="text-[10px] text-[#7E776C] block mb-0.5 font-semibold uppercase">نرخ هر گرم طلای ۱۸ عیار</span>
-            <span className="text-base sm:text-lg font-bold font-num text-[#14182E]">
+            <span className="text-[10px] text-[#8C775D] block mb-0.5 font-semibold uppercase">نرخ هر گرم طلای ۱۸ عیار</span>
+            <span className="text-base sm:text-lg font-bold font-num text-[#3A230A]">
               {toPersianDigits(formatNumber(buyPriceToman))} تومان
             </span>
           </div>
-          <div className="flex items-center gap-1.5 text-xs text-[#7E776C]">
-            <RefreshCw className={`w-3.5 h-3.5 ${isLoadingPrice ? 'animate-spin text-[#B35817]' : ''}`} />
+          <div className="flex items-center gap-1.5 text-xs text-[#8C775D]">
+            <RefreshCw className={`w-3.5 h-3.5 ${isLoadingPrice ? 'animate-spin text-[#A4530C]' : ''}`} />
             <span className="font-num text-[11px]">زنده</span>
           </div>
         </div>
 
         {/* Input Mode Tabs */}
-        <div className="grid grid-cols-2 gap-2 bg-[#F3EFE6] p-1 rounded-2xl border border-[#E8E2D7]">
+        <div className="grid grid-cols-2 gap-2 bg-[#EEE9C1]/60 p-1 rounded-2xl border border-[#DFD7B5]">
           <button
             type="button"
             onClick={() => setInputMode('BY_AMOUNT')}
             className={`py-2.5 text-xs font-semibold rounded-xl transition-all cursor-pointer ${
               inputMode === 'BY_AMOUNT'
-                ? 'bg-white text-[#14182E] shadow-subtle border border-[#E8E2D7]'
-                : 'text-[#7E776C] hover:text-[#161412]'
+                ? 'bg-white text-[#2A1A08] shadow-floating-sm border border-[#DFD7B5]'
+                : 'text-[#8C775D] hover:text-[#2A1A08]'
             }`}
           >
             خرید بر اساس مبلغ (تومان)
@@ -125,8 +123,8 @@ export default function BuyPage() {
             onClick={() => setInputMode('BY_WEIGHT')}
             className={`py-2.5 text-xs font-semibold rounded-xl transition-all cursor-pointer ${
               inputMode === 'BY_WEIGHT'
-                ? 'bg-white text-[#14182E] shadow-subtle border border-[#E8E2D7]'
-                : 'text-[#7E776C] hover:text-[#161412]'
+                ? 'bg-white text-[#2A1A08] shadow-floating-sm border border-[#DFD7B5]'
+                : 'text-[#8C775D] hover:text-[#2A1A08]'
             }`}
           >
             خرید بر اساس وزن (گرم)
@@ -142,7 +140,7 @@ export default function BuyPage() {
 
           {inputMode === 'BY_AMOUNT' ? (
             <div>
-              <label className="block text-xs font-bold text-[#161412] mb-1.5">مبلغ خرید (تومان)</label>
+              <label className="block text-xs font-bold text-[#2A1A08] mb-1.5">مبلغ خرید (تومان)</label>
               <div className="relative">
                 <input
                   type="text"
@@ -150,17 +148,17 @@ export default function BuyPage() {
                   value={amountToman}
                   onChange={(e) => setAmountToman(e.target.value.replace(/[^0-9]/g, ''))}
                   placeholder="1,000,000"
-                  className="w-full rounded-2xl border border-[#E8E2D7] bg-[#FAF8F4] px-4 py-3.5 text-base sm:text-lg font-num text-left placeholder:text-[#7E776C] focus:border-[#B35817] focus:bg-white outline-none transition-all"
+                  className="w-full rounded-2xl border border-[#DFD7B5] bg-[#FAF8EE] px-4 py-3.5 text-base sm:text-lg font-num text-left placeholder:text-[#8C775D] focus:border-[#A4530C] focus:bg-white outline-none transition-all"
                   required
                 />
-                <span className="absolute right-4 top-1/2 -translate-y-1/2 text-xs font-bold text-[#7E776C]">
+                <span className="absolute right-4 top-1/2 -translate-y-1/2 text-xs font-bold text-[#8C775D]">
                   تومان
                 </span>
               </div>
             </div>
           ) : (
             <div>
-              <label className="block text-xs font-bold text-[#161412] mb-1.5">وزن طلا (گرم)</label>
+              <label className="block text-xs font-bold text-[#2A1A08] mb-1.5">وزن طلا (گرم)</label>
               <div className="relative">
                 <input
                   type="text"
@@ -168,10 +166,10 @@ export default function BuyPage() {
                   value={weightGrams}
                   onChange={(e) => setWeightGrams(e.target.value)}
                   placeholder="1.000"
-                  className="w-full rounded-2xl border border-[#E8E2D7] bg-[#FAF8F4] px-4 py-3.5 text-base sm:text-lg font-num text-left placeholder:text-[#7E776C] focus:border-[#B35817] focus:bg-white outline-none transition-all"
+                  className="w-full rounded-2xl border border-[#DFD7B5] bg-[#FAF8EE] px-4 py-3.5 text-base sm:text-lg font-num text-left placeholder:text-[#8C775D] focus:border-[#A4530C] focus:bg-white outline-none transition-all"
                   required
                 />
-                <span className="absolute right-4 top-1/2 -translate-y-1/2 text-xs font-bold text-[#7E776C]">
+                <span className="absolute right-4 top-1/2 -translate-y-1/2 text-xs font-bold text-[#8C775D]">
                   گرم
                 </span>
               </div>
@@ -179,14 +177,14 @@ export default function BuyPage() {
           )}
 
           {/* Computed Summary Pod */}
-          <div className="p-4 bg-[#FAF8F4] rounded-2xl border border-[#E8E2D7] space-y-2 text-xs">
-            <div className="flex justify-between items-center text-[#4A453E]">
+          <div className="p-4 bg-[#FAF8EE] rounded-2xl border border-[#DFD7B5] space-y-2 text-xs">
+            <div className="flex justify-between items-center text-[#57442D]">
               <span>معادل وزن طلا:</span>
-              <span className="font-num font-bold text-sm text-[#14182E]">{toPersianDigits(computedWeight)} گرم</span>
+              <span className="font-num font-bold text-sm text-[#3A230A]">{toPersianDigits(computedWeight)} گرم</span>
             </div>
-            <div className="flex justify-between items-center text-[#4A453E]">
+            <div className="flex justify-between items-center text-[#57442D]">
               <span>مبلغ کل پرداختی:</span>
-              <span className="font-num font-bold text-sm text-[#B35817]">{toPersianDigits(formatNumber(computedAmount))} تومان</span>
+              <span className="font-num font-bold text-sm text-[#A4530C]">{toPersianDigits(formatNumber(computedAmount))} تومان</span>
             </div>
           </div>
 
@@ -194,15 +192,15 @@ export default function BuyPage() {
             type="submit"
             isLoading={isPending}
             variant="primary"
-            className="w-full py-4 rounded-full text-xs font-bold shadow-copper-glow flex items-center justify-center gap-2"
+            className="w-full py-4 rounded-full text-xs font-bold flex items-center justify-center gap-2"
           >
             <span>تأیید و خرید قطعی طلا</span>
             <ArrowLeft className="w-4 h-4" />
           </Button>
         </form>
 
-        <div className="flex items-center gap-2 text-xs text-[#7E776C] justify-center pt-2">
-          <ShieldCheck className="w-4 h-4 text-[#B35817]" />
+        <div className="flex items-center gap-2 text-xs text-[#8C775D] justify-center pt-2">
+          <ShieldCheck className="w-4 h-4 text-[#A4530C]" />
           <span>پشتوانه ۱۰۰٪ شمش در خزانه امن بانکی زروی</span>
         </div>
       </div>

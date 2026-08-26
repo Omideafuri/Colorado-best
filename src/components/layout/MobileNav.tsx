@@ -16,7 +16,7 @@ export function MobileNav({ items = mobileNavItems, ariaLabel = 'ناوبری ا
   return (
     <nav
       aria-label={ariaLabel}
-      className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-[#14182E]/95 backdrop-blur-xl border-t border-white/10 px-4 py-2 shadow-2xl"
+      className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-[#231506]/95 backdrop-blur-xl border-t border-white/10 px-4 py-2 shadow-floating-umber"
     >
       <div className="flex items-center justify-around">
         {items.map((item) => {
@@ -30,8 +30,8 @@ export function MobileNav({ items = mobileNavItems, ariaLabel = 'ناوبری ا
               className={cn(
                 'flex flex-col items-center gap-1 py-1 px-3 rounded-xl transition-all duration-200',
                 isActive
-                  ? 'text-[#B35817] font-bold'
-                  : 'text-[#C7C0B3] hover:text-white'
+                  ? 'text-[#A4530C] font-bold'
+                  : 'text-[#DDD7B5] hover:text-white'
               )}
             >
               <Icon className="w-5 h-5" />

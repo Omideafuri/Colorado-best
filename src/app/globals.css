@@ -3,63 +3,68 @@
 @theme {
   --breakpoint-xs: 26rem;
 
-  /* === V2 Brand Signature Palette === */
-  --color-brand-midnight: #0C0E1A;
-  --color-brand-lapis: #14182E;
-  --color-brand-lapis-card: #1B203D;
-  --color-brand-lapis-light: #242A4E;
-  --color-brand-copper: #B35817;
-  --color-brand-copper-hover: #94460E;
-  --color-brand-copper-active: #7A380A;
-  --color-brand-champagne: #EBD8C1;
-  --color-brand-champagne-light: #F7EFE4;
-  --color-brand-travertine: #FAF8F4;
-  --color-brand-sand: #F3EFE6;
+  /* === Reference-Driven Palette: "Muted Monarch" === */
+  --color-monarch-sage: #8DA28C;
+  --color-monarch-sage-light: #DCE5DB;
+  --color-monarch-sage-muted: rgba(141, 162, 140, 0.18);
+  --color-monarch-sage-dark: #556B54;
+  
+  --color-monarch-amber: #A4530C;
+  --color-monarch-amber-hover: #874106;
+  --color-monarch-amber-active: #6B3204;
+  --color-monarch-amber-glow: rgba(164, 83, 12, 0.32);
+
+  --color-monarch-parchment: #EEE9C1;
+  --color-monarch-parchment-light: #FAF8EE;
+  --color-monarch-parchment-deep: #E2DBAB;
+
+  --color-monarch-umber: #3A230A;
+  --color-monarch-umber-deep: #231506;
+  --color-monarch-umber-card: #4A2E0F;
+  --color-monarch-umber-light: #5E3914;
 
   /* === Semantic Background Tokens === */
-  --color-bg-primary: #FAF8F4;
-  --color-bg-secondary: #F3EFE6;
-  --color-bg-champagne: #EBD8C1;
+  --color-bg-primary: #FAF8EE;
+  --color-bg-secondary: #EEE9C1;
   --color-bg-elevated: #FFFFFF;
-  --color-bg-surface-dark: #14182E;
-  --color-bg-surface-darker: #0C0E1A;
-  --color-bg-floor: #06070D;
-  --color-bg-accent-soft: rgba(179, 88, 23, 0.1);
+  --color-bg-surface-dark: #3A230A;
+  --color-bg-surface-darker: #231506;
+  --color-bg-floor: #160D04;
 
   /* === Semantic Typography Tokens === */
-  --color-text-primary: #161412;
-  --color-text-secondary: #4A453E;
-  --color-text-muted: #7E776C;
-  --color-text-brand: #14182E;
-  --color-text-accent: #B35817;
-  --color-text-champagne: #EBD8C1;
-  --color-text-on-dark: #FAF8F4;
-  --color-text-on-dark-muted: #C7C0B3;
+  --color-text-primary: #2A1A08;
+  --color-text-secondary: #57442D;
+  --color-text-muted: #8C775D;
+  --color-text-brand: #3A230A;
+  --color-text-accent: #A4530C;
+  --color-text-sage: #556B54;
+  --color-text-parchment: #EEE9C1;
+  --color-text-on-dark: #FAF8EE;
+  --color-text-on-dark-muted: #DDD7B5;
   --color-text-on-brand: #FFFFFF;
 
   /* === Semantic Border Tokens === */
-  --color-border-hairline: #E8E2D7;
-  --color-border-subtle: #DFD8CB;
-  --color-border-medium: #CDC3B2;
-  --color-border-dark: rgba(235, 216, 193, 0.15);
-  --color-border-accent: #B35817;
+  --color-border-hairline: #DFD7B5;
+  --color-border-subtle: #D1C79D;
+  --color-border-medium: #B8AC7F;
+  --color-border-dark: rgba(238, 233, 193, 0.14);
+  --color-border-sage: rgba(141, 162, 140, 0.45);
+  --color-border-accent: #A4530C;
 
   /* === Semantic Action Tokens === */
-  --color-accent-primary: #B35817;
-  --color-accent-hover: #94460E;
-  --color-accent-active: #7A380A;
-  --color-brand-primary: #14182E;
-  --color-brand-hover: #0C0E1A;
+  --color-accent-primary: #A4530C;
+  --color-accent-hover: #874106;
+  --color-accent-active: #6B3204;
+  --color-brand-primary: #3A230A;
+  --color-brand-hover: #231506;
 
   /* === Semantic Financial Indicators === */
-  --color-success: #2C663D;
-  --color-success-light: #EBF5EE;
+  --color-success: #556B54;
+  --color-success-light: #DCE5DB;
   --color-danger: #96383E;
   --color-danger-light: #F7EBEC;
-  --color-warning: #946B24;
-  --color-warning-light: #F7F2E6;
-  --color-info: #3E536B;
-  --color-info-light: #EBF1F7;
+  --color-warning: #A4530C;
+  --color-warning-light: #FBF0E3;
 
   /* === Typography === */
   --font-kalameh: var(--font-kalameh), "Kalameh", system-ui, sans-serif;
@@ -67,24 +72,25 @@
   --font-body: var(--font-kalameh), "Kalameh", system-ui, sans-serif;
   --font-mono: var(--font-kalameh), "Kalameh", ui-monospace, monospace;
 
-  /* === Radii Scale (Architectural, not excessively rounded) === */
-  --radius-xs: 4px;
-  --radius-sm: 8px;
-  --radius-md: 14px;
-  --radius-lg: 20px;
-  --radius-xl: 28px;
+  /* === Floating Radii Scale === */
+  --radius-xs: 6px;
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
   --radius-full: 9999px;
 
-  /* === Shadows & Precision Glows === */
-  --shadow-subtle: 0 2px 10px rgba(20, 24, 46, 0.04);
-  --shadow-card: 0 14px 40px rgba(20, 24, 46, 0.06);
-  --shadow-elevated: 0 24px 64px rgba(20, 24, 46, 0.12);
-  --shadow-copper-glow: 0 8px 30px rgba(179, 88, 23, 0.32);
-  --shadow-lapis-glow: 0 10px 36px rgba(20, 24, 46, 0.45);
+  /* === Diffuse Floating Shadows === */
+  --shadow-floating-sm: 0 3px 10px -2px rgba(58, 35, 10, 0.06), 0 1px 3px rgba(58, 35, 10, 0.03);
+  --shadow-floating-md: 0 12px 32px -6px rgba(58, 35, 10, 0.09), 0 3px 8px -2px rgba(58, 35, 10, 0.04);
+  --shadow-floating-lg: 0 24px 56px -10px rgba(58, 35, 10, 0.13), 0 6px 18px -3px rgba(58, 35, 10, 0.05);
+  --shadow-floating-amber: 0 10px 32px -4px rgba(164, 83, 12, 0.38);
+  --shadow-floating-umber: 0 20px 60px -12px rgba(35, 21, 6, 0.45);
+  --shadow-floating-sage: 0 8px 24px -4px rgba(141, 162, 140, 0.28);
 
-  /* === Easing Curves === */
-  --ease-editorial: cubic-bezier(0.22, 1, 0.36, 1);
-  --ease-smooth: cubic-bezier(0.65, 0, 0.35, 1);
+  /* === Physical Easing Curves === */
+  --ease-floating: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-press: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* === Base Layer === */
@@ -109,9 +115,12 @@
     font-family: var(--font-body);
     line-height: 1.75;
     letter-spacing: 0.01em;
+    background-image: radial-gradient(circle at 10% 10%, rgba(141, 162, 140, 0.05) 0%, transparent 40%),
+                      radial-gradient(circle at 90% 90%, rgba(164, 83, 12, 0.04) 0%, transparent 45%);
+    background-attachment: fixed;
   }
 
-  /* Persian Tabular Numerals for Live Ticker and Balance Ledger */
+  /* Persian Tabular Numerals */
   .font-num {
     font-family: var(--font-mono);
     font-variant-numeric: tabular-nums;
@@ -120,12 +129,12 @@
 
   /* Highlight Selection */
   ::selection {
-    background-color: var(--color-brand-copper);
+    background-color: var(--color-monarch-amber);
     color: #FFFFFF;
   }
 }
 
-/* === Component Utilities & Atmospheric Refractions === */
+/* === Floating Utilities & Atmosphere === */
 
 @layer utilities {
   .font-kalameh {
@@ -136,54 +145,106 @@
     text-wrap: balance;
   }
 
-  /* V2 Architectural Surfaces */
-  .bg-v2-midnight {
-    background-color: var(--color-brand-midnight);
+  /* Atmospheric Background Themes */
+  .bg-monarch-umber {
+    background: radial-gradient(circle at 80% 20%, rgba(164, 83, 12, 0.22) 0%, transparent 55%),
+                radial-gradient(circle at 20% 80%, rgba(141, 162, 140, 0.12) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(22, 13, 4, 0.8) 0%, transparent 70%),
+                var(--color-monarch-umber);
   }
 
-  .bg-v2-lapis {
-    background: radial-gradient(circle at 85% 15%, rgba(179, 88, 23, 0.18) 0%, transparent 55%),
-                radial-gradient(circle at 15% 85%, rgba(6, 7, 13, 0.7) 0%, transparent 65%),
-                var(--color-brand-lapis);
+  .bg-monarch-sage {
+    background-color: var(--color-monarch-sage);
   }
 
-  .bg-v2-lapis-card {
-    background-color: var(--color-brand-lapis-card);
+  .bg-monarch-parchment {
+    background-color: var(--color-monarch-parchment);
   }
 
-  .bg-v2-travertine {
-    background-color: var(--color-brand-travertine);
+  .bg-monarch-glass {
+    background: rgba(58, 35, 10, 0.82);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
   }
 
-  .bg-v2-sand {
-    background-color: var(--color-brand-sand);
+  .bg-monarch-glass-light {
+    background: rgba(250, 248, 238, 0.88);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
   }
 
-  .bg-v2-champagne {
-    background-color: var(--color-brand-champagne);
+  /* Floating Surface Containers */
+  .floating-card {
+    background-color: #FFFFFF;
+    border: 1px solid var(--color-border-hairline);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-floating-md);
+    transition: transform 0.4s var(--ease-floating), box-shadow 0.4s var(--ease-floating), border-color 0.4s var(--ease-floating);
+  }
+  .floating-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-floating-lg);
+    border-color: rgba(164, 83, 12, 0.4);
   }
 
-  .bg-v2-glass {
-    background: rgba(20, 24, 46, 0.75);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
+  .floating-card-dark {
+    background-color: var(--color-monarch-umber);
+    border: 1px solid var(--color-border-dark);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-floating-umber);
+    transition: transform 0.4s var(--ease-floating), box-shadow 0.4s var(--ease-floating), border-color 0.4s var(--ease-floating);
+  }
+  .floating-card-dark:hover {
+    transform: translateY(-2px);
+    border-color: rgba(238, 233, 193, 0.3);
   }
 
-  .bg-v2-glass-light {
-    background: rgba(255, 255, 255, 0.85);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
+  /* Floating Button Elevation Physics */
+  .floating-btn-amber {
+    background-color: var(--color-monarch-amber);
+    color: #FFFFFF;
+    box-shadow: 0 4px 14px -1px rgba(164, 83, 12, 0.35);
+    transition: transform 0.3s var(--ease-floating), box-shadow 0.3s var(--ease-floating), background-color 0.3s var(--ease-floating);
+  }
+  .floating-btn-amber:hover {
+    transform: translateY(-1.5px);
+    background-color: var(--color-monarch-amber-hover);
+    box-shadow: var(--shadow-floating-amber);
+  }
+  .floating-btn-amber:active {
+    transform: translateY(0px) scale(0.985);
+    background-color: var(--color-monarch-amber-active);
   }
 
-  /* Hairline Border Utilities */
-  .border-hairline {
-    border-width: 1px;
-    border-color: var(--color-border-hairline);
+  .floating-btn-umber {
+    background-color: var(--color-monarch-umber);
+    color: var(--color-monarch-parchment);
+    border: 1px solid rgba(238, 233, 193, 0.18);
+    box-shadow: var(--shadow-floating-sm);
+    transition: transform 0.3s var(--ease-floating), box-shadow 0.3s var(--ease-floating), background-color 0.3s var(--ease-floating);
+  }
+  .floating-btn-umber:hover {
+    transform: translateY(-1.5px);
+    background-color: var(--color-monarch-umber-card);
+    box-shadow: var(--shadow-floating-md);
+    color: #FFFFFF;
+  }
+  .floating-btn-umber:active {
+    transform: translateY(0px) scale(0.985);
   }
 
-  .border-hairline-dark {
-    border-width: 1px;
-    border-color: var(--color-border-dark);
+  .floating-btn-sage {
+    background-color: var(--color-monarch-sage);
+    color: #FFFFFF;
+    box-shadow: var(--shadow-floating-sage);
+    transition: transform 0.3s var(--ease-floating), box-shadow 0.3s var(--ease-floating), background-color 0.3s var(--ease-floating);
+  }
+  .floating-btn-sage:hover {
+    transform: translateY(-1.5px);
+    background-color: var(--color-monarch-sage-dark);
+  }
+  .floating-btn-sage:active {
+    transform: translateY(0px) scale(0.985);
   }
 
   /* 45° Hallmark Diamond Motif */
@@ -191,9 +252,9 @@
     display: inline-block;
     width: 6px;
     height: 6px;
-    background-color: var(--color-brand-copper);
+    background-color: var(--color-monarch-amber);
     transform: rotate(45deg);
-    transition: transform 0.4s var(--ease-editorial);
+    transition: transform 0.4s var(--ease-floating);
   }
 
   /* Spaced Uppercase Typography */
@@ -208,13 +269,13 @@
     padding-bottom: clamp(4.5rem, 8vw, 8.5rem);
   }
 
-  /* Image Smooth Hover Zoom */
+  /* Tactile Image Hover Lift */
   .image-hover-zoom {
     overflow: hidden;
   }
   .image-hover-zoom img,
   .image-hover-zoom > div {
-    transition: transform 0.7s var(--ease-editorial);
+    transition: transform 0.7s var(--ease-floating);
   }
   .image-hover-zoom:hover img,
   .image-hover-zoom:hover > div {
@@ -227,7 +288,7 @@
 @keyframes reveal-up {
   from {
     opacity: 0;
-    transform: translateY(24px);
+    transform: translateY(20px);
   }
   to {
     opacity: 1;
@@ -235,42 +296,20 @@
   }
 }
 
-@keyframes reveal-fade {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
 .animate-reveal-up {
-  animation: reveal-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
-}
-
-.animate-reveal-fade {
-  animation: reveal-fade 0.5s ease-out both;
-}
-
-/* Stagger Animation Utility */
-.stagger-children > * {
-  opacity: 0;
   animation: reveal-up 0.65s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
-.stagger-children > *:nth-child(1) { animation-delay: 0.04s; }
-.stagger-children > *:nth-child(2) { animation-delay: 0.10s; }
-.stagger-children > *:nth-child(3) { animation-delay: 0.16s; }
-.stagger-children > *:nth-child(4) { animation-delay: 0.22s; }
-.stagger-children > *:nth-child(5) { animation-delay: 0.28s; }
-.stagger-children > *:nth-child(6) { animation-delay: 0.34s; }
 
 /* Reduced Motion Support */
 @media (prefers-reduced-motion: reduce) {
   .animate-reveal-up,
-  .animate-reveal-fade,
-  .stagger-children > * {
+  .floating-card,
+  .floating-card-dark,
+  .floating-btn-amber,
+  .floating-btn-umber,
+  .floating-btn-sage {
     animation: none !important;
-    opacity: 1 !important;
     transform: none !important;
+    transition: none !important;
   }
 }

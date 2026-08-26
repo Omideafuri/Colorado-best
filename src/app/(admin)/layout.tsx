@@ -15,19 +15,19 @@ export default function AdminLayout({
   const pathname = usePathname();
 
   return (
-    <div className="min-h-screen bg-[#FAF8F4] text-[#161412] selection:bg-[#B35817] selection:text-white">
+    <div className="min-h-screen bg-[#FAF8EE] text-[#2A1A08] selection:bg-[#A4530C] selection:text-white">
       {/* Admin Sidebar */}
-      <aside className="hidden md:flex md:w-64 md:flex-col md:fixed md:inset-y-0 border-l border-white/10 bg-[#14182E] text-[#FAF8F4] shadow-2xl z-30">
+      <aside className="hidden md:flex md:w-64 md:flex-col md:fixed md:inset-y-0 border-l border-white/10 bg-[#231506] text-[#FAF8EE] shadow-2xl z-30">
         {/* Logo */}
-        <div className="flex h-20 items-center justify-between px-6 border-b border-white/10 bg-[#0C0E1A]/60">
+        <div className="flex h-20 items-center justify-between px-6 border-b border-white/10 bg-[#160D04]/60">
           <Link href="/" className="flex items-center gap-2.5 group">
-            <span className="diamond-motif !w-2 !h-2 group-hover:rotate-90 transition-transform duration-500 shadow-copper-glow" />
+            <span className="diamond-motif !w-2 !h-2 group-hover:rotate-90 transition-transform duration-500 shadow-floating-amber" />
             <div>
               <span className="text-sm tracking-brand font-bold text-white block">ZARAVI</span>
-              <span className="text-[10px] text-[#EBD8C1] font-medium">میز مدیریت ارشد</span>
+              <span className="text-[10px] text-[#EEE9C1] font-medium">میز مدیریت ارشد</span>
             </div>
           </Link>
-          <Shield className="h-4 w-4 text-[#B35817]" />
+          <Shield className="h-4 w-4 text-[#A4530C]" />
         </div>
 
         {/* Navigation */}
@@ -41,14 +41,14 @@ export default function AdminLayout({
                     href={item.href}
                     className={`flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-medium transition-all duration-300 group ${
                       isActive
-                        ? 'bg-[#B35817] text-white shadow-copper-glow'
-                        : 'text-[#C7C0B3] hover:text-white hover:bg-white/10'
+                        ? 'bg-[#A4530C] text-white shadow-floating-amber'
+                        : 'text-[#DDD7B5] hover:text-white hover:bg-white/10'
                     }`}
                   >
                     <div className="flex items-center gap-3">
                       <item.icon
                         className={`h-4 w-4 flex-shrink-0 transition-colors ${
-                          isActive ? 'text-white' : 'text-[#C7C0B3] group-hover:text-white'
+                          isActive ? 'text-white' : 'text-[#DDD7B5] group-hover:text-white'
                         }`}
                       />
                       <span>{item.titleFa}</span>
@@ -64,13 +64,13 @@ export default function AdminLayout({
         </nav>
 
         {/* Logout */}
-        <div className="border-t border-white/10 p-4 bg-[#0C0E1A]/60">
+        <div className="border-t border-white/10 p-4 bg-[#160D04]/60">
           <form action={logoutAction}>
             <button
               type="submit"
-              className="flex items-center gap-2.5 w-full px-3.5 py-2 rounded-xl text-xs text-[#C7C0B3] hover:text-white hover:bg-white/10 transition-colors duration-300 cursor-pointer"
+              className="flex items-center gap-2.5 w-full px-3.5 py-2 rounded-xl text-xs text-[#DDD7B5] hover:text-white hover:bg-white/10 transition-colors duration-300 cursor-pointer"
             >
-              <LogOut className="h-4 w-4 text-[#B35817]" />
+              <LogOut className="h-4 w-4 text-[#A4530C]" />
               <span>خروج از پنل مدیریت</span>
             </button>
           </form>
@@ -79,14 +79,14 @@ export default function AdminLayout({
 
       <main className="md:mr-64 pb-24 md:pb-0">
         {/* Admin Top Bar */}
-        <header className="sticky top-0 z-20 h-16 border-b border-[#E8E2D7] bg-white/90 backdrop-blur-md flex items-center justify-between px-6 md:px-10 shadow-xs">
+        <header className="sticky top-0 z-20 h-16 border-b border-[#DFD7B5] bg-[#FAF8EE]/90 backdrop-blur-md flex items-center justify-between px-6 md:px-10 shadow-xs">
           <div className="flex items-center gap-2">
             <span className="diamond-motif !w-1.5 !h-1.5" />
-            <h1 className="text-xs tracking-brand font-bold text-[#14182E]">
+            <h1 className="text-xs tracking-brand font-bold text-[#3A230A]">
               سامانه جامع نظارت و راهبری زروی
             </h1>
           </div>
-          <span className="text-[10px] font-mono bg-[#FAF8F4] border border-[#E8E2D7] px-2.5 py-1 rounded-full text-[#7E776C]">
+          <span className="text-[10px] font-mono bg-white border border-[#DFD7B5] px-2.5 py-1 rounded-full text-[#8C775D] shadow-floating-sm">
             ADMIN CONSOLE
           </span>
         </header>
