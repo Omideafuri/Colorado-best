@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useTransition } from 'react';
 import { useRouter } from 'next/navigation';
-import { executeBuyOrderAction } from '../actions';
+import { buyGoldAction } from '../actions';
 import { Button } from '@/components/ui/button';
 import { formatNumber, toPersianDigits } from '@/lib/utils/format';
 import { ArrowLeft, RefreshCw, ShieldCheck } from 'lucide-react';
@@ -59,15 +59,17 @@ export default function BuyPage() {
     startTransition(async () => {
       const formData = new FormData();
       formData.append('idempotencyKey', window.crypto.randomUUID());
-      formData.append('goldType', '18K');
-      formData.append('inputMode', inputMode);
+      formData.append('mode', inputMode);
       if (inputMode === 'BY_AMOUNT') {
-        formData.append('amountToman', amountToman);
+        // value in Rial
+        formData.append('value', (BigInt(amountToman) * BigInt(10)).toString());
       } else {
-        formData.append('weightGrams', weightGrams);
+        // value in nanograms
+        const ng = BigInt(Math.floor(Number(weightGrams) * 1_000_000_000));
+        formData.append('value', ng.toString());
       }
 
-      const result = await executeBuyOrderAction(formData);
+      const result = await buyGoldAction(formData);
       if (result.success) {
         router.push('/dashboard');
         router.refresh();

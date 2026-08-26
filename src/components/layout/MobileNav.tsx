@@ -2,17 +2,25 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { mobileNavItems } from '@/config/navigation';
+import { mobileNavItems, type NavItem } from '@/config/navigation';
 import { cn } from '@/lib/utils';
 
-export function MobileNav() {
+export interface MobileNavProps {
+  items?: NavItem[];
+  ariaLabel?: string;
+}
+
+export function MobileNav({ items = mobileNavItems, ariaLabel = 'ناوبری اصلی موبایل' }: MobileNavProps) {
   const pathname = usePathname();
 
   return (
-    <div className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-[#14182E]/95 backdrop-blur-xl border-t border-white/10 px-4 py-2 shadow-2xl">
+    <nav
+      aria-label={ariaLabel}
+      className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-[#14182E]/95 backdrop-blur-xl border-t border-white/10 px-4 py-2 shadow-2xl"
+    >
       <div className="flex items-center justify-around">
-        {mobileNavItems.map((item) => {
-          const isActive = pathname === item.href || (item.href !== '/dashboard' && pathname.startsWith(item.href));
+        {items.map((item) => {
+          const isActive = pathname === item.href || (item.href !== '/dashboard' && item.href !== '/admin' && pathname.startsWith(item.href));
           const Icon = item.icon;
 
           return (
@@ -32,6 +40,6 @@ export function MobileNav() {
           );
         })}
       </div>
-    </div>
+    </nav>
   );
 }
