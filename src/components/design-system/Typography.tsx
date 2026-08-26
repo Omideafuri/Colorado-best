@@ -17,15 +17,15 @@ export function Heading({
   ...props
 }: HeadingProps) {
   const sizeClasses = {
-    display: 'text-[clamp(2.75rem,6.5vw,6rem)] font-extrabold leading-[1.08] tracking-tight',
-    h1: 'text-[clamp(2.25rem,4.5vw,4.25rem)] font-bold leading-[1.15] tracking-tight',
-    h2: 'text-[clamp(1.75rem,3.2vw,3rem)] font-bold leading-[1.25] tracking-tight',
-    h3: 'text-[clamp(1.25rem,2.2vw,2rem)] font-semibold leading-[1.35]',
-    h4: 'text-lg md:text-xl font-semibold leading-snug',
+    display: 'text-[clamp(2.5rem,6.5vw,5.5rem)] font-extrabold leading-[1.08] tracking-tight',
+    h1: 'text-[clamp(2rem,4.2vw,3.75rem)] font-bold leading-[1.14] tracking-tight',
+    h2: 'text-[clamp(1.6rem,3vw,2.75rem)] font-bold leading-[1.22] tracking-tight',
+    h3: 'text-[clamp(1.2rem,2vw,1.85rem)] font-semibold leading-[1.32]',
+    h4: 'text-base sm:text-lg md:text-xl font-semibold leading-snug',
   }[size];
 
   return (
-    <Component className={cn('text-text-primary', sizeClasses, className)} {...props}>
+    <Component className={cn('text-[#161412]', sizeClasses, className)} {...props}>
       {children}
     </Component>
   );
@@ -46,8 +46,8 @@ export function Text({
   ...props
 }: TextProps) {
   const sizeClasses = {
-    lead: 'text-lg md:text-xl leading-relaxed font-light',
-    body: 'text-sm md:text-base leading-relaxed font-normal',
+    lead: 'text-base sm:text-lg md:text-xl leading-relaxed font-light',
+    body: 'text-xs sm:text-sm md:text-base leading-relaxed font-normal',
     sm: 'text-xs md:text-sm leading-normal',
     xs: 'text-[11px] md:text-xs leading-normal',
   }[size];
@@ -55,7 +55,7 @@ export function Text({
   return (
     <p
       className={cn(
-        muted ? 'text-text-secondary font-light' : 'text-text-primary',
+        muted ? 'text-[#4A453E] font-light' : 'text-[#161412]',
         sizeClasses,
         className
       )}
@@ -87,22 +87,22 @@ export function PriceDisplay({
 
   const sizeClasses = {
     sm: 'text-sm font-bold',
-    md: 'text-lg font-bold',
-    lg: 'text-2xl md:text-3xl font-extrabold',
-    display: 'text-3xl md:text-5xl font-extrabold tracking-tight',
+    md: 'text-base sm:text-lg font-bold',
+    lg: 'text-xl sm:text-2xl md:text-3xl font-extrabold',
+    display: 'text-2xl sm:text-3xl md:text-5xl font-extrabold tracking-tight',
   }[size];
 
   return (
     <div className={cn('flex flex-col items-start', className)}>
       <div className="flex items-baseline gap-1 font-num">
-        <span className={cn('text-text-primary font-num', sizeClasses)}>
+        <span className={cn('text-[#161412] font-num', sizeClasses)}>
           {toPersianDigits(formatNumber(toman))}
         </span>
-        <span className="text-xs font-normal text-text-muted">{unit}</span>
+        <span className="text-xs font-normal text-[#7E776C]">{unit}</span>
       </div>
 
       {showRial && unit !== 'دلار' && (
-        <span className="text-[11px] font-num text-text-muted font-light mt-0.5">
+        <span className="text-[11px] font-num text-[#7E776C] font-light mt-0.5">
           معادل {toPersianDigits(formatNumber(rialValue))} ریال
         </span>
       )}
@@ -125,39 +125,14 @@ export function MicroLabel({
   return (
     <div
       className={cn(
-        'inline-flex items-center gap-2 text-[11px] tracking-brand font-semibold text-text-muted uppercase',
+        'inline-flex items-center gap-2 text-[11px] tracking-brand font-semibold text-[#7E776C] uppercase',
         className
       )}
       {...props}
     >
       {motif === 'diamond' && <span className="diamond-motif !w-1.5 !h-1.5" />}
-      {motif === 'dot' && <span className="w-1.5 h-1.5 rounded-full bg-accent-primary" />}
+      {motif === 'dot' && <span className="w-1.5 h-1.5 rounded-full bg-[#B35817]" />}
       <span>{children}</span>
-    </div>
-  );
-}
-
-export interface BrandWatermarkProps extends React.HTMLAttributes<HTMLDivElement> {
-  text?: string;
-  className?: string;
-}
-
-export function BrandWatermark({
-  text = 'ZARAVI',
-  className,
-  ...props
-}: BrandWatermarkProps) {
-  return (
-    <div
-      className={cn(
-        'pointer-events-none select-none overflow-hidden text-center opacity-[0.04] leading-none',
-        className
-      )}
-      {...props}
-    >
-      <span className="text-[clamp(4rem,18vw,20rem)] font-extrabold tracking-[0.2em] text-text-primary uppercase">
-        {text}
-      </span>
     </div>
   );
 }

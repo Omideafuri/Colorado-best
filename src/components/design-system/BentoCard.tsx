@@ -19,24 +19,24 @@ export function BentoCard({
   return (
     <div
       className={cn(
-        'bg-white p-8 rounded-3xl border border-[#E8E1D5] shadow-xs hover:border-[#B8621B]/40 hover:shadow-md transition-all duration-500 flex flex-col justify-between',
+        'bg-white p-6 sm:p-8 rounded-2xl sm:rounded-3xl border border-[#E8E2D7] shadow-subtle hover:border-[#B35817]/50 hover:shadow-card transition-all duration-500 flex flex-col justify-between',
         className
       )}
     >
       <div>
-        <div className="w-12 h-12 rounded-2xl bg-[#F4EFE6] flex items-center justify-center text-[#262A56] mb-6 border border-[#E8E1D5]">
+        <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-[#F3EFE6] flex items-center justify-center text-[#14182E] mb-5 sm:mb-6 border border-[#E8E2D7]">
           {icon}
         </div>
 
         {tag && (
-          <span className="text-[10px] tracking-brand font-bold text-[#B8621B] block mb-1 uppercase">
+          <span className="text-[10px] tracking-brand font-bold text-[#B35817] block mb-1 uppercase">
             {tag}
           </span>
         )}
 
-        <h3 className="text-lg font-bold text-[#141210] mb-2">{title}</h3>
+        <h3 className="text-base sm:text-lg font-bold text-[#161412] mb-2">{title}</h3>
 
-        <p className="text-xs text-[#4A463F] leading-relaxed font-light">
+        <p className="text-xs text-[#4A453E] leading-relaxed font-light">
           {description}
         </p>
       </div>

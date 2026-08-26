@@ -1,89 +1,97 @@
 @import "tailwindcss";
 
 @theme {
-  /* Brand Signature Colors — #000000 · #262A56 · #B8621B · #E3CCAE */
   --breakpoint-xs: 26rem;
 
-  --color-brand-black: #000000;
-  --color-brand-navy: #262A56;
-  --color-brand-copper: #B8621B;
-  --color-brand-champagne: #E3CCAE;
+  /* === V2 Brand Signature Palette === */
+  --color-brand-midnight: #0C0E1A;
+  --color-brand-lapis: #14182E;
+  --color-brand-lapis-card: #1B203D;
+  --color-brand-lapis-light: #242A4E;
+  --color-brand-copper: #B35817;
+  --color-brand-copper-hover: #94460E;
+  --color-brand-copper-active: #7A380A;
+  --color-brand-champagne: #EBD8C1;
+  --color-brand-champagne-light: #F7EFE4;
+  --color-brand-travertine: #FAF8F4;
+  --color-brand-sand: #F3EFE6;
 
-  /* Semantic Canvas & Surfaces */
-  --color-bg-primary: #FAF8F5;
-  --color-bg-secondary: #F4EFE6;
-  --color-bg-champagne: #E3CCAE;
+  /* === Semantic Background Tokens === */
+  --color-bg-primary: #FAF8F4;
+  --color-bg-secondary: #F3EFE6;
+  --color-bg-champagne: #EBD8C1;
   --color-bg-elevated: #FFFFFF;
-  --color-bg-surface-dark: #262A56;
-  --color-bg-surface-darker: #1A1D3D;
-  --color-bg-floor: #000000;
-  --color-bg-accent-soft: rgba(184, 98, 27, 0.12);
+  --color-bg-surface-dark: #14182E;
+  --color-bg-surface-darker: #0C0E1A;
+  --color-bg-floor: #06070D;
+  --color-bg-accent-soft: rgba(179, 88, 23, 0.1);
 
-  /* Semantic Typography */
-  --color-text-primary: #141210;
-  --color-text-secondary: #4A463F;
-  --color-text-muted: #7D776C;
-  --color-text-brand: #262A56;
-  --color-text-accent: #B8621B;
-  --color-text-champagne: #E3CCAE;
-  --color-text-on-dark: #FAF8F5;
-  --color-text-on-dark-muted: #C5BFB4;
+  /* === Semantic Typography Tokens === */
+  --color-text-primary: #161412;
+  --color-text-secondary: #4A453E;
+  --color-text-muted: #7E776C;
+  --color-text-brand: #14182E;
+  --color-text-accent: #B35817;
+  --color-text-champagne: #EBD8C1;
+  --color-text-on-dark: #FAF8F4;
+  --color-text-on-dark-muted: #C7C0B3;
   --color-text-on-brand: #FFFFFF;
 
-  /* Semantic Borders & Dividers */
-  --color-border-subtle: #E8E1D5;
-  --color-border-medium: #D1C7B7;
-  --color-border-dark: rgba(227, 204, 174, 0.18);
-  --color-border-accent: #B8621B;
+  /* === Semantic Border Tokens === */
+  --color-border-hairline: #E8E2D7;
+  --color-border-subtle: #DFD8CB;
+  --color-border-medium: #CDC3B2;
+  --color-border-dark: rgba(235, 216, 193, 0.15);
+  --color-border-accent: #B35817;
 
-  /* Semantic Action & Accent States */
-  --color-accent-primary: #B8621B;
-  --color-accent-hover: #9E5214;
-  --color-accent-active: #82430F;
-  --color-brand-primary: #262A56;
-  --color-brand-hover: #1D2042;
+  /* === Semantic Action Tokens === */
+  --color-accent-primary: #B35817;
+  --color-accent-hover: #94460E;
+  --color-accent-active: #7A380A;
+  --color-brand-primary: #14182E;
+  --color-brand-hover: #0C0E1A;
 
-  /* Semantic Status Indicators */
-  --color-success: #3D6647;
-  --color-success-light: #EDF2EE;
-  --color-danger: #8B4049;
-  --color-danger-light: #F5EDEE;
-  --color-warning: #8B7340;
-  --color-warning-light: #F5F1EB;
-  --color-info: #4A5A6B;
-  --color-info-light: #EDF0F2;
+  /* === Semantic Financial Indicators === */
+  --color-success: #2C663D;
+  --color-success-light: #EBF5EE;
+  --color-danger: #96383E;
+  --color-danger-light: #F7EBEC;
+  --color-warning: #946B24;
+  --color-warning-light: #F7F2E6;
+  --color-info: #3E536B;
+  --color-info-light: #EBF1F7;
 
-  /* Typography — Kalameh Primary Persian Typeface */
+  /* === Typography === */
   --font-kalameh: var(--font-kalameh), "Kalameh", system-ui, sans-serif;
   --font-display: var(--font-kalameh), "Kalameh", system-ui, sans-serif;
   --font-body: var(--font-kalameh), "Kalameh", system-ui, sans-serif;
   --font-mono: var(--font-kalameh), "Kalameh", ui-monospace, monospace;
 
-  /* Editorial Radii Scale */
+  /* === Radii Scale (Architectural, not excessively rounded) === */
   --radius-xs: 4px;
   --radius-sm: 8px;
-  --radius-md: 16px;
-  --radius-lg: 24px;
-  --radius-xl: 32px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
   --radius-full: 9999px;
 
-  /* Shadows — Restrained & Purposeful */
-  --shadow-subtle: 0 2px 8px rgba(38, 42, 86, 0.04);
-  --shadow-card: 0 12px 36px rgba(38, 42, 86, 0.06);
-  --shadow-elevated: 0 24px 64px rgba(38, 42, 86, 0.12);
-  --shadow-copper-glow: 0 8px 28px rgba(184, 98, 27, 0.28);
-  --shadow-navy-glow: 0 8px 28px rgba(38, 42, 86, 0.35);
+  /* === Shadows & Precision Glows === */
+  --shadow-subtle: 0 2px 10px rgba(20, 24, 46, 0.04);
+  --shadow-card: 0 14px 40px rgba(20, 24, 46, 0.06);
+  --shadow-elevated: 0 24px 64px rgba(20, 24, 46, 0.12);
+  --shadow-copper-glow: 0 8px 30px rgba(179, 88, 23, 0.32);
+  --shadow-lapis-glow: 0 10px 36px rgba(20, 24, 46, 0.45);
 
-  /* Animation timing */
-  --ease-editorial: cubic-bezier(0.25, 0.1, 0.25, 1);
+  /* === Easing Curves === */
+  --ease-editorial: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-smooth: cubic-bezier(0.65, 0, 0.35, 1);
 }
 
-/* === Base Styles === */
+/* === Base Layer === */
 
 @layer base {
   * {
-    border-color: var(--color-border-subtle);
+    border-color: var(--color-border-hairline);
   }
 
   html {
@@ -92,6 +100,7 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     scroll-behavior: smooth;
+    background-color: var(--color-bg-primary);
   }
 
   body {
@@ -102,21 +111,21 @@
     letter-spacing: 0.01em;
   }
 
-  /* Persian number styling for financial displays */
+  /* Persian Tabular Numerals for Live Ticker and Balance Ledger */
   .font-num {
     font-family: var(--font-mono);
     font-variant-numeric: tabular-nums;
     letter-spacing: -0.02em;
   }
 
-  /* Selection */
+  /* Highlight Selection */
   ::selection {
     background-color: var(--color-brand-copper);
     color: #FFFFFF;
   }
 }
 
-/* === Component Utilities & Orosi Atmospheric Refractions === */
+/* === Component Utilities & Atmospheric Refractions === */
 
 @layer utilities {
   .font-kalameh {
@@ -127,82 +136,85 @@
     text-wrap: balance;
   }
 
-  /* Price states */
-  .price-up {
-    color: var(--color-success);
+  /* V2 Architectural Surfaces */
+  .bg-v2-midnight {
+    background-color: var(--color-brand-midnight);
   }
 
-  .price-down {
-    color: var(--color-danger);
+  .bg-v2-lapis {
+    background: radial-gradient(circle at 85% 15%, rgba(179, 88, 23, 0.18) 0%, transparent 55%),
+                radial-gradient(circle at 15% 85%, rgba(6, 7, 13, 0.7) 0%, transparent 65%),
+                var(--color-brand-lapis);
   }
 
-  /* Card surface */
-  .card-surface {
-    background-color: var(--color-bg-elevated);
-    border: 1px solid var(--color-border-subtle);
-    transition: border-color 0.4s var(--ease-editorial), box-shadow 0.4s var(--ease-editorial);
+  .bg-v2-lapis-card {
+    background-color: var(--color-brand-lapis-card);
   }
 
-  .card-surface:hover {
-    border-color: var(--color-border-accent);
+  .bg-v2-travertine {
+    background-color: var(--color-brand-travertine);
   }
 
-  /* Orosi Glass Light Blooms & Radial Refractions */
-  .bg-atmospheric-navy {
-    background: radial-gradient(circle at 80% 20%, rgba(184, 98, 27, 0.22) 0%, transparent 60%),
-                radial-gradient(circle at 15% 85%, rgba(0, 0, 0, 0.65) 0%, transparent 65%),
-                var(--color-brand-navy);
+  .bg-v2-sand {
+    background-color: var(--color-brand-sand);
   }
 
-  .bg-atmospheric-black {
-    background: radial-gradient(circle at 75% 25%, rgba(184, 98, 27, 0.2) 0%, transparent 55%),
-                radial-gradient(circle at 20% 80%, rgba(38, 42, 86, 0.4) 0%, transparent 60%),
-                var(--color-brand-black);
+  .bg-v2-champagne {
+    background-color: var(--color-brand-champagne);
   }
 
-  .bg-atmospheric-champagne {
-    background: radial-gradient(circle at 80% 20%, rgba(227, 204, 174, 0.8) 0%, transparent 65%),
-                radial-gradient(circle at 15% 85%, rgba(244, 239, 230, 0.9) 0%, transparent 50%),
-                var(--color-bg-primary);
+  .bg-v2-glass {
+    background: rgba(20, 24, 46, 0.75);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
   }
 
-  .bg-orosi-blend {
-    background: linear-gradient(135deg, #262A56 0%, #1A1D3D 50%, #000000 100%);
+  .bg-v2-glass-light {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
   }
 
-  .bg-champagne-warm {
-    background: linear-gradient(180deg, #E3CCAE 0%, #FAF8F5 100%);
+  /* Hairline Border Utilities */
+  .border-hairline {
+    border-width: 1px;
+    border-color: var(--color-border-hairline);
   }
 
-  /* Diamond motif ◇ */
+  .border-hairline-dark {
+    border-width: 1px;
+    border-color: var(--color-border-dark);
+  }
+
+  /* 45° Hallmark Diamond Motif */
   .diamond-motif {
     display: inline-block;
-    width: 7px;
-    height: 7px;
+    width: 6px;
+    height: 6px;
     background-color: var(--color-brand-copper);
     transform: rotate(45deg);
     transition: transform 0.4s var(--ease-editorial);
   }
 
-  /* Editorial section spacing */
-  .section-editorial {
-    padding-top: clamp(4.5rem, 9vw, 9rem);
-    padding-bottom: clamp(4.5rem, 9vw, 9rem);
-  }
-
-  /* Spaced uppercase tracking — for brand elements */
+  /* Spaced Uppercase Typography */
   .tracking-brand {
     letter-spacing: 0.22em;
     text-transform: uppercase;
   }
 
-  /* Image hover scale */
+  /* Editorial Section Spacing */
+  .editorial-section {
+    padding-top: clamp(4.5rem, 8vw, 8.5rem);
+    padding-bottom: clamp(4.5rem, 8vw, 8.5rem);
+  }
+
+  /* Image Smooth Hover Zoom */
   .image-hover-zoom {
     overflow: hidden;
   }
   .image-hover-zoom img,
   .image-hover-zoom > div {
-    transition: transform 0.8s var(--ease-editorial);
+    transition: transform 0.7s var(--ease-editorial);
   }
   .image-hover-zoom:hover img,
   .image-hover-zoom:hover > div {
@@ -210,12 +222,12 @@
   }
 }
 
-/* === Cinematic Animations === */
+/* === Micro-Interactions & Transitions === */
 
 @keyframes reveal-up {
   from {
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateY(24px);
   }
   to {
     opacity: 1;
@@ -232,51 +244,33 @@
   }
 }
 
-@keyframes price-flash-up {
-  0%, 100% { background-color: transparent; }
-  50% { background-color: var(--color-success-light); }
-}
-
-@keyframes price-flash-down {
-  0%, 100% { background-color: transparent; }
-  50% { background-color: var(--color-danger-light); }
-}
-
 .animate-reveal-up {
-  animation: reveal-up 0.8s cubic-bezier(0.25, 0.1, 0.25, 1) both;
+  animation: reveal-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 .animate-reveal-fade {
-  animation: reveal-fade 0.6s ease-out both;
+  animation: reveal-fade 0.5s ease-out both;
 }
 
-.animate-price-up {
-  animation: price-flash-up 0.6s ease-out;
-}
-
-.animate-price-down {
-  animation: price-flash-down 0.6s ease-out;
-}
-
-/* Stagger animation */
+/* Stagger Animation Utility */
 .stagger-children > * {
   opacity: 0;
-  animation: reveal-up 0.7s cubic-bezier(0.25, 0.1, 0.25, 1) both;
+  animation: reveal-up 0.65s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
-.stagger-children > *:nth-child(1) { animation-delay: 0.05s; }
-.stagger-children > *:nth-child(2) { animation-delay: 0.12s; }
-.stagger-children > *:nth-child(3) { animation-delay: 0.19s; }
-.stagger-children > *:nth-child(4) { animation-delay: 0.26s; }
-.stagger-children > *:nth-child(5) { animation-delay: 0.33s; }
-.stagger-children > *:nth-child(6) { animation-delay: 0.40s; }
+.stagger-children > *:nth-child(1) { animation-delay: 0.04s; }
+.stagger-children > *:nth-child(2) { animation-delay: 0.10s; }
+.stagger-children > *:nth-child(3) { animation-delay: 0.16s; }
+.stagger-children > *:nth-child(4) { animation-delay: 0.22s; }
+.stagger-children > *:nth-child(5) { animation-delay: 0.28s; }
+.stagger-children > *:nth-child(6) { animation-delay: 0.34s; }
 
-/* Respect users who prefer reduced motion */
+/* Reduced Motion Support */
 @media (prefers-reduced-motion: reduce) {
   .animate-reveal-up,
   .animate-reveal-fade,
   .stagger-children > * {
-    animation: none;
-    opacity: 1;
-    transform: none;
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
   }
 }
